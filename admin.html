@@ -1,0 +1,66 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SHAMA INTERIOR — Admin Dashboard</title>
+<style>
+body{margin:0;background:#09090b;color:#fff;font-family:Arial,sans-serif}.wrap{max-width:1150px;margin:auto;padding:25px 18px}
+header{border-bottom:1px solid #29292d;padding:12px 18px;display:flex;align-items:center;justify-content:space-between}.logo{height:50px}
+h1,h2{margin:8px 0 18px}.gold{color:#d9a62a}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.box{background:#141418;border:1px solid #303036;border-radius:14px;padding:16px}.num{font-size:28px;color:#d9a62a;font-weight:700}.muted{color:#999;font-size:12px}button{border:0;border-radius:8px;padding:10px 14px;background:#d9a62a;font-weight:700;cursor:pointer;margin:4px}button.dark{background:#25252a;color:#fff}input,select{width:100%;padding:10px;border-radius:7px;border:1px solid #3a3a40;background:#0c0c0f;color:#fff;box-sizing:border-box;margin:5px 0}.two{display:grid;grid-template-columns:1fr 1fr;gap:15px}.table{overflow:auto}table{width:100%;border-collapse:collapse}td,th{padding:9px;border-bottom:1px solid #2a2a2f;text-align:left;font-size:12px}
+@media(max-width:800px){.grid,.two{grid-template-columns:1fr 1fr}}@media(max-width:520px){.grid,.two{grid-template-columns:1fr}}
+</style></head><body>
+<header><img class="logo" src="logo.png"><div class="gold">ADMIN DASHBOARD</div></header>
+<div class="wrap">
+<h1>SHAMA INTERIOR <span class="gold">Control Center</span></h1>
+<div class="grid">
+<div class="box"><div class="muted">TOTAL VISITS (THIS BROWSER)</div><div id="vis" class="num">0</div></div>
+<div class="box"><div class="muted">WHATSAPP CLICKS</div><div id="wa" class="num">0</div></div>
+<div class="box"><div class="muted">LEADS</div><div id="leadsN" class="num">0</div></div>
+<div class="box"><div class="muted">PRODUCTS</div><div id="prodN" class="num">0</div></div>
+</div>
+
+<div class="two" style="margin-top:15px">
+<div class="box"><h2>Add Material / Panel</h2>
+<input id="cat" placeholder="Material category e.g. Fluted Panel">
+<input id="name" placeholder="Product / panel name">
+<input id="code" placeholder="Product code">
+<input id="size" placeholder="Size">
+<input id="img" placeholder="Image URL">
+<input id="rate" placeholder="Rate">
+<button onclick="addProduct()">Add Product</button>
+<button class="dark" onclick="exportProducts()">Export Products</button>
+<button class="dark" onclick="exportLeads()">Export Leads</button>
+</div>
+<div class="box"><h2>Data Tools</h2>
+<p class="muted">Visitor analytics in this free static version are stored in the browser. For multi-device/cloud analytics, a hosted database/analytics service must be connected.</p>
+<button onclick="clearEvents()">Clear Local Analytics</button>
+<button onclick="clearLeads()">Clear Local Leads</button>
+<button class="dark" onclick="location.href='index.html'">Open Customer Site</button>
+</div></div>
+
+<h2 style="margin-top:25px">Recent Customer Leads</h2><div class="box table"><table><thead><tr><th>Date</th><th>Name</th><th>Phone</th><th>City</th><th>Requirement</th><th>Panels</th></tr></thead><tbody id="leadTable"></tbody></table></div>
+
+<h2 style="margin-top:25px">Recent Visitor Events</h2><div class="box table"><table><thead><tr><th>Date</th><th>Event</th><th>Source</th><th>Device</th><th>Details</th></tr></thead><tbody id="eventTable"></tbody></table></div>
+
+<script>
+function get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}}
+function save(k,v){localStorage.setItem(k,JSON.stringify(v))}
+function refresh(){
+ let e=get("shama_site_events",[]),l=get("shama_leads",[]),p=get("shama_products",[]);
+ document.getElementById("vis").textContent=e.filter(x=>x.type==="page_view").length;
+ document.getElementById("wa").textContent=e.filter(x=>x.type==="whatsapp_click").length;
+ document.getElementById("leadsN").textContent=l.length;
+ document.getElementById("prodN").textContent=p.length;
+ leadTable.innerHTML=l.slice().reverse().slice(0,30).map(x=>`<tr><td>${new Date(x.at).toLocaleString()}</td><td>${esc(x.name)}</td><td>${esc(x.phone)}</td><td>${esc(x.city)}</td><td>${esc(x.requirement)}</td><td>${esc((x.panels||[]).join(", "))}</td></tr>`).join("")||"<tr><td colspan=6>No leads yet.</td></tr>";
+ eventTable.innerHTML=e.slice().reverse().slice(0,50).map(x=>`<tr><td>${new Date(x.at).toLocaleString()}</td><td>${esc(x.type)}</td><td>${esc(x.source)}</td><td>${esc(x.device)}</td><td>${esc(JSON.stringify(x.data||{}))}</td></tr>`).join("")||"<tr><td colspan=5>No events yet.</td></tr>";
+}
+function esc(x){return String(x??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
+function addProduct(){
+ let p=get("shama_products",[]);
+ p.push([cat.value.trim()||"Other",name.value.trim()||"New Panel",code.value.trim()||("P-"+Date.now()),size.value.trim()||"As per design",img.value.trim()||"",rate.value.trim()||"0",""]);
+ save("shama_products",p);alert("Product added.");location.reload();
+}
+function download(name,text,type="application/json"){let a=document.createElement("a");a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;a.click()}
+function exportProducts(){download("shama-products.json",JSON.stringify(get("shama_products",[]),null,2))}
+function exportLeads(){download("shama-leads.json",JSON.stringify(get("shama_leads",[]),null,2))}
+function clearEvents(){if(confirm("Clear analytics on this browser?")){localStorage.removeItem("shama_site_events");refresh()}}
+function clearLeads(){if(confirm("Clear leads on this browser?")){localStorage.removeItem("shama_leads");refresh()}}
+refresh();
+</script></body></html>
