@@ -16,13 +16,16 @@ header b{font-size:16px;letter-spacing:1px}
 .login h1{font-size:24px;margin-bottom:8px}
 .login p{color:#666;margin-bottom:22px;font-size:14px}
 input,select,textarea{width:100%;padding:11px;border:1px solid #d6d0c5;border-radius:8px;margin:6px 0 12px;font-size:14px;background:#fff;font-family:inherit}
+.pass-wrap{position:relative}
+.pass-wrap input{padding-right:45px;margin:6px 0 12px}
+.pass-wrap .eye{position:absolute;right:12px;top:50%;transform:translateY(-50%);cursor:pointer;font-size:18px;color:#888;background:none;border:0;padding:0;width:auto;margin:0}
 button{background:#c89a32;border:0;padding:11px 18px;border-radius:8px;font-weight:700;cursor:pointer;color:#fff;font-size:14px;transition:.2s}
 button:hover{background:#b08828}
 button:disabled{opacity:.5;cursor:not-allowed}
-.dark{background:#171717}
-.dark:hover{background:#333}
-.red{background:#c0392b}
-.red:hover{background:#a93226}
+.dark{background:#171717}.dark:hover{background:#333}
+.red{background:#c0392b}.red:hover{background:#a93226}
+.green{background:#27ae60}.green:hover{background:#229954}
+.blue{background:#1877f2}.blue:hover{background:#0d65d9}
 .tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:22px;border-bottom:2px solid #e7e1d6}
 .tabs button{background:transparent;color:#666;border-radius:8px 8px 0 0;padding:11px 16px;font-size:13px}
 .tabs button.active{background:#171717;color:#fff}
@@ -31,40 +34,48 @@ button:disabled{opacity:.5;cursor:not-allowed}
 .num{font-size:30px;font-weight:800;color:#c89a32;margin-top:6px}
 .card{background:#fff;border:1px solid #e7e1d6;border-radius:14px;padding:20px;margin-bottom:18px}
 .card h2{font-size:18px;margin-bottom:14px;color:#171717}
-.card h3{font-size:15px;margin:14px 0 8px;color:#555}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
 .table{overflow:auto;background:#fff;border:1px solid #e7e1d6;border-radius:14px}
 table{width:100%;border-collapse:collapse;font-size:13px}
 th,td{padding:11px 12px;border-bottom:1px solid #f0ede6;text-align:left}
 th{background:#faf8f4;font-weight:700;color:#555;font-size:12px;text-transform:uppercase;letter-spacing:.5px}
 tr:hover{background:#fdfbf6}
-.badge{display:inline-block;padding:3px 9px;border-radius:99px;font-size:11px;font-weight:700}
-.badge.g{background:#d5f5e3;color:#186a3b}
-.badge.r{background:#fadbd8;color:#922b21}
-.folder{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid #e7e1d6;border-radius:10px;padding:10px 14px;margin:4px;cursor:pointer;font-size:13px;transition:.2s}
-.folder:hover{border-color:#c89a32;background:#fdfbf6}
+.badge{display:inline-block;padding:3px 9px;border-radius:99px;font-size:11px;font-weight:700;background:#eee;color:#555;margin:2px}
+.badge.gold{background:#fff3d2;color:#8a6a13}
+.folder{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid #e7e1d6;border-radius:10px;padding:10px 14px;margin:4px;font-size:13px}
 .loader{text-align:center;padding:30px;color:#999;font-size:14px}
 .msg{padding:11px;border-radius:8px;margin-bottom:12px;font-size:13px}
 .msg.ok{background:#d5f5e3;color:#186a3b}
 .msg.err{background:#fadbd8;color:#922b21}
-.stat-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0ede6;font-size:13px}
+.upload-box{border:2px dashed #c89a32;border-radius:10px;padding:20px;text-align:center;cursor:pointer;background:#fffdf8;margin:6px 0 12px}
+.upload-box:hover{background:#fff9ec}
+.upload-box input{display:none}
+.preview-img{max-width:150px;border-radius:8px;margin-top:8px;border:1px solid #ddd}
+.check-group{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 12px}
+.check-item{display:flex;align-items:center;gap:6px;background:#faf8f4;border:1px solid #e7e1d6;padding:8px 12px;border-radius:8px;font-size:13px;cursor:pointer}
+.check-item input{margin:0;width:auto}
+.check-item input:checked+span{color:#c89a32;font-weight:700}
 .footer-note{text-align:center;color:#999;font-size:12px;padding:20px 0}
-@media(max-width:700px){.row{grid-template-columns:1fr}header b{font-size:13px}}
+@media(max-width:700px){.row,.row3{grid-template-columns:1fr}header b{font-size:13px}}
 </style>
 </head>
 <body>
 
-<!-- LOGIN SCREEN -->
+<!-- LOGIN -->
 <div id="loginScreen" class="login">
   <h1>🔐 <span class="gold">SHAMA</span> ADMIN</h1>
   <p>Sirf authorized user ke liye</p>
   <div id="loginMsg"></div>
   <input type="email" id="loginEmail" placeholder="Admin Email" autocomplete="username">
-  <input type="password" id="loginPass" placeholder="Password" autocomplete="current-password">
+  <div class="pass-wrap">
+    <input type="password" id="loginPass" placeholder="Password" autocomplete="current-password">
+    <button class="eye" type="button" onclick="togglePass()">👁️</button>
+  </div>
   <button id="loginBtn" style="width:100%" onclick="doLogin()">Login</button>
 </div>
 
-<!-- ADMIN PANEL -->
+<!-- ADMIN -->
 <div id="adminPanel" class="hide">
   <header>
     <b>SHAMA <span class="gold">INTERIOR</span> ADMIN</b>
@@ -88,33 +99,42 @@ tr:hover{background:#fdfbf6}
     <!-- DASHBOARD -->
     <div id="tab-dashboard">
       <div class="grid">
-        <div class="box">Total Materials<div id="dMat" class="num">0</div></div>
+        <div class="box">Materials<div id="dMat" class="num">0</div></div>
         <div class="box">Designs<div id="dDes" class="num">0</div></div>
         <div class="box">Enquiries<div id="dEnq" class="num">0</div></div>
         <div class="box">AI Requests<div id="dAi" class="num">0</div></div>
         <div class="box">Visitors<div id="dVis" class="num">0</div></div>
         <div class="box">Folders<div id="dFold" class="num">0</div></div>
       </div>
-      <div class="card">
-        <h2>🔥 Recent Activity</h2>
-        <div id="dRecent" class="loader">Loading...</div>
-      </div>
+      <div class="card"><h2>🔥 Recent Activity</h2><div id="dRecent" class="loader">Loading...</div></div>
     </div>
 
     <!-- MATERIALS -->
     <div id="tab-materials" class="hide">
       <div class="card">
-        <h2>📁 Folders (Categories)</h2>
-        <p style="color:#666;font-size:13px;margin-bottom:12px">Pehle folder banao (jaise "Fluted Panel", "PVC Panel"), fir usme products add karo.</p>
-        <div id="folderList"></div>
-        <div class="row" style="margin-top:14px">
-          <input id="newFolderName" placeholder="Naya folder name (e.g. Fluted Panel)">
-          <button onclick="addFolder()">+ Add Folder</button>
+        <h2>📁 Create Folder (Category)</h2>
+        <p style="color:#666;font-size:13px;margin-bottom:12px">Folder banao + ye batao ki ye material kahan-kahan use ho sakta hai.</p>
+        <input id="newFolderName" placeholder="Folder name (e.g. Fluted Panel)">
+        <label style="font-size:13px;color:#555;font-weight:700;display:block;margin-top:8px">Usage (kahan use hoga):</label>
+        <div class="check-group" id="usageGroup">
+          <label class="check-item"><input type="checkbox" value="Wall" onchange="toggleWall(this)"><span>Wall</span></label>
+          <label class="check-item"><input type="checkbox" value="Ceiling"><span>Ceiling</span></label>
+          <label class="check-item"><input type="checkbox" value="Floor"><span>Floor</span></label>
+          <label class="check-item"><input type="checkbox" value="TV Unit"><span>TV Unit</span></label>
+          <label class="check-item"><input type="checkbox" value="Kitchen"><span>Kitchen</span></label>
+          <label class="check-item"><input type="checkbox" value="Counter Table"><span>Counter Table</span></label>
         </div>
+        <p style="color:#c89a32;font-size:12px;margin-bottom:8px">💡 Wall tick karoge toh sab jagah automatic use hoga.</p>
+        <button onclick="addFolder()">+ Create Folder</button>
       </div>
 
       <div class="card">
-        <h2>➕ Add Product</h2>
+        <h2>📁 Existing Folders</h2>
+        <div id="folderList"></div>
+      </div>
+
+      <div class="card">
+        <h2>➕ Add Product / Material</h2>
         <div class="row">
           <div><label style="font-size:12px;color:#666">Folder *</label><select id="pFolder"></select></div>
           <div><label style="font-size:12px;color:#666">Product Code *</label><input id="pCode" placeholder="e.g. J002"></div>
@@ -125,29 +145,29 @@ tr:hover{background:#fdfbf6}
         </div>
         <div class="row">
           <div><label style="font-size:12px;color:#666">Colour / Shade</label><input id="pColor" placeholder="e.g. Walnut Brown"></div>
-          <div><label style="font-size:12px;color:#666">Rate (₹)</label><input id="pRate" placeholder="e.g. 550"></div>
+          <div><label style="font-size:12px;color:#666">Rate (₹) — customer ko nahi dikhega</label><input id="pRate" placeholder="e.g. 550"></div>
         </div>
-        <label style="font-size:12px;color:#666">Image URL (optional)</label>
-        <input id="pImg" placeholder="https://... ya khali chhodo">
+        <label style="font-size:12px;color:#666">Product Image</label>
+        <div class="upload-box" onclick="document.getElementById('pFile').click()">
+          📤 Click to Upload Image
+          <input type="file" id="pFile" accept="image/*" onchange="uploadImage(this,'p')">
+        </div>
+        <div id="pPreview"></div>
+        <p style="color:#999;font-size:12px">Ya direct URL paste karo:</p>
+        <input id="pImg" placeholder="https://...">
         <button onclick="addProduct()" style="margin-top:6px">+ Add Product</button>
       </div>
 
-      <div class="card">
-        <h2>📦 All Products</h2>
-        <div id="productList" class="loader">Loading...</div>
-      </div>
+      <div class="card"><h2>📦 All Products</h2><div id="productList" class="loader">Loading...</div></div>
     </div>
 
     <!-- DESIGNS -->
     <div id="tab-designs" class="hide">
       <div class="card">
         <h2>🎨 Design Folders</h2>
-        <p style="color:#666;font-size:13px;margin-bottom:12px">Wall, Ceiling, TV Unit, Kitchen — jaise chahe folders banao.</p>
-        <div id="designFolderList"></div>
-        <div class="row" style="margin-top:14px">
-          <input id="newDesignFolder" placeholder="e.g. Wall Design, Ceiling Design">
-          <button onclick="addDesignFolder()">+ Add Design Folder</button>
-        </div>
+        <input id="newDesignFolder" placeholder="e.g. Wall Design, Ceiling Design">
+        <button onclick="addDesignFolder()">+ Create Design Folder</button>
+        <div id="designFolderList" style="margin-top:12px"></div>
       </div>
 
       <div class="card">
@@ -156,62 +176,48 @@ tr:hover{background:#fdfbf6}
           <div><label style="font-size:12px;color:#666">Folder *</label><select id="dFolder"></select></div>
           <div><label style="font-size:12px;color:#666">Design Name *</label><input id="dName" placeholder="e.g. Modern Wood Ceiling"></div>
         </div>
-        <label style="font-size:12px;color:#666">Design Image URL *</label>
+        <label style="font-size:12px;color:#666">Design Image</label>
+        <div class="upload-box" onclick="document.getElementById('dFile').click()">
+          📤 Click to Upload Design Image
+          <input type="file" id="dFile" accept="image/*" onchange="uploadImage(this,'d')">
+        </div>
+        <div id="dPreview"></div>
+        <p style="color:#999;font-size:12px">Ya direct URL paste karo:</p>
         <input id="dImg" placeholder="https://...">
         <label style="font-size:12px;color:#666">Description</label>
         <textarea id="dDesc" rows="2" placeholder="Short description..."></textarea>
         <button onclick="addDesign()" style="margin-top:6px">+ Add Design</button>
       </div>
 
-      <div class="card">
-        <h2>🖼️ All Designs</h2>
-        <div id="designList" class="loader">Loading...</div>
-      </div>
+      <div class="card"><h2>🖼️ All Designs</h2><div id="designList" class="loader">Loading...</div></div>
     </div>
 
     <!-- ENQUIRIES -->
-    <div id="tab-enquiries" class="hide">
-      <div class="card">
-        <h2>📞 Customer Enquiries</h2>
-        <div id="enqList" class="loader">Loading...</div>
-      </div>
-    </div>
+    <div id="tab-enquiries" class="hide"><div class="card"><h2>📞 Customer Enquiries</h2><div id="enqList" class="loader">Loading...</div></div></div>
 
-    <!-- AI REQUESTS -->
-    <div id="tab-ai" class="hide">
-      <div class="card">
-        <h2>🤖 AI Generation Requests</h2>
-        <div id="aiList" class="loader">Loading...</div>
-      </div>
-    </div>
+    <!-- AI -->
+    <div id="tab-ai" class="hide"><div class="card"><h2>🤖 AI Requests</h2><div id="aiList" class="loader">Loading...</div></div></div>
 
     <!-- VISITORS -->
-    <div id="tab-visitors" class="hide">
-      <div class="card">
-        <h2>👥 Visitor Activity</h2>
-        <div id="visList" class="loader">Loading...</div>
-      </div>
-    </div>
+    <div id="tab-visitors" class="hide"><div class="card"><h2>👥 Visitors</h2><div id="visList" class="loader">Loading...</div></div></div>
 
     <!-- SETTINGS -->
     <div id="tab-settings" class="hide">
       <div class="card">
         <h2>⚙️ Site Settings</h2>
-        <p style="color:#666;font-size:13px;margin-bottom:14px">Ye settings customer website pe dikhengi.</p>
         <label style="font-size:12px;color:#666">WhatsApp Number (without +)</label>
-        <input id="sWhatsapp" placeholder="918658712172">
+        <input id="sWhatsapp">
         <label style="font-size:12px;color:#666">Facebook URL</label>
-        <input id="sFacebook" placeholder="https://facebook.com/...">
+        <input id="sFacebook">
         <label style="font-size:12px;color:#666">Instagram URL</label>
-        <input id="sInstagram" placeholder="https://instagram.com/...">
+        <input id="sInstagram">
         <label style="font-size:12px;color:#666">YouTube URL</label>
-        <input id="sYoutube" placeholder="https://youtube.com/@...">
-        <button onclick="saveSettings()" style="margin-top:8px">💾 Save Settings</button>
+        <input id="sYoutube">
+        <button onclick="saveSettings()" style="margin-top:8px">💾 Save</button>
       </div>
       <div class="card">
-        <h2>📤 Export / Backup</h2>
-        <p style="color:#666;font-size:13px;margin-bottom:12px">Apna pura data JSON file mein download karo.</p>
-        <button class="dark" onclick="exportData()">📥 Export All Data</button>
+        <h2>📤 Export</h2>
+        <button class="dark" onclick="exportData()">📥 Export All Data (JSON)</button>
       </div>
     </div>
 
@@ -220,10 +226,12 @@ tr:hover{background:#fdfbf6}
 </div>
 
 <script type="module">
-import { db, auth, SITE, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, query, orderBy, onSnapshot, serverTimestamp, signInWithEmailAndPassword, signOut, onAuthStateChanged } from './firebase-config.js';
+import { db, auth, SITE, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, serverTimestamp, signInWithEmailAndPassword, signOut, onAuthStateChanged } from './firebase-config.js';
 
+const IMGBB_KEY = "8368322b9757bc066ff3a9c0efdc9d54";
 let cache = { products:[], designs:[], folders:[], designFolders:[], enquiries:[], aiRequests:[], visitors:[] };
 
+// ============ AUTH ============
 onAuthStateChanged(auth, (user) => {
   if (user) {
     document.getElementById('loginScreen').classList.add('hide');
@@ -234,6 +242,11 @@ onAuthStateChanged(auth, (user) => {
     document.getElementById('adminPanel').classList.add('hide');
   }
 });
+
+window.togglePass = function() {
+  const p = document.getElementById('loginPass');
+  p.type = p.type === 'password' ? 'text' : 'password';
+};
 
 window.doLogin = async function() {
   const email = document.getElementById('loginEmail').value.trim();
@@ -251,86 +264,120 @@ window.doLogin = async function() {
   btn.disabled = false; btn.textContent = 'Login';
 };
 
-window.doLogout = async function() {
-  if (confirm('Logout karna hai?')) await signOut(auth);
-};
+window.doLogout = async function() { if (confirm('Logout?')) await signOut(auth); };
 
 window.tab = function(name, btn) {
   document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  ['dashboard','materials','designs','enquiries','ai','visitors','settings'].forEach(t => {
-    document.getElementById('tab-' + t).classList.add('hide');
-  });
-  document.getElementById('tab-' + name).classList.remove('hide');
+  ['dashboard','materials','designs','enquiries','ai','visitors','settings'].forEach(t => document.getElementById('tab-'+t).classList.add('hide'));
+  document.getElementById('tab-'+name).classList.remove('hide');
 };
 
+// ============ IMAGE UPLOAD (ImgBB) ============
+window.uploadImage = async function(input, type) {
+  const file = input.files[0];
+  if (!file) return;
+  const previewId = type === 'p' ? 'pPreview' : 'dPreview';
+  const imgId = type === 'p' ? 'pImg' : 'dImg';
+  document.getElementById(previewId).innerHTML = '<div class="loader">⏳ Uploading...</div>';
+  try {
+    const formData = new FormData();
+    formData.append('image', file);
+    const res = await fetch('https://api.imgbb.com/1/upload?key=' + IMGBB_KEY, { method:'POST', body: formData });
+    const data = await res.json();
+    if (data.success) {
+      document.getElementById(imgId).value = data.data.url;
+      document.getElementById(previewId).innerHTML = '<img src="'+data.data.url+'" class="preview-img">';
+    } else {
+      document.getElementById(previewId).innerHTML = '<div class="msg err">❌ Upload fail. URL manually paste karo.</div>';
+    }
+  } catch(e) {
+    document.getElementById(previewId).innerHTML = '<div class="msg err">❌ Error: '+e.message+'</div>';
+  }
+};
+
+// ============ LOAD ============
 async function loadAll() {
-  await Promise.all([loadFolders(), loadProducts(), loadDesignFolders(), loadDesigns(), loadEnquiries(), loadAiRequests(), loadVisitors()]);
-  updateDashboard();
+  await Promise.all([loadFolders(), loadProducts(), loadDesignFolders(), loadDesigns(), loadEnquiries(), loadAi(), loadVisitors()]);
+  updateDash();
   loadSettings();
 }
 
-function updateDashboard() {
+function updateDash() {
   document.getElementById('dMat').textContent = cache.products.length;
   document.getElementById('dDes').textContent = cache.designs.length;
   document.getElementById('dEnq').textContent = cache.enquiries.length;
   document.getElementById('dAi').textContent = cache.aiRequests.length;
   document.getElementById('dVis').textContent = cache.visitors.length;
   document.getElementById('dFold').textContent = cache.folders.length + cache.designFolders.length;
-  const recent = [...cache.enquiries.map(e => ({...e, _t:'enq'})), ...cache.aiRequests.map(a => ({...a, _t:'ai'}))]
-    .sort((a,b) => (b.at?.seconds||0) - (a.at?.seconds||0)).slice(0,10);
+  const recent = [...cache.enquiries.map(e=>({...e,_t:'enq'})), ...cache.aiRequests.map(a=>({...a,_t:'ai'}))]
+    .sort((a,b)=>(b.at?.seconds||0)-(a.at?.seconds||0)).slice(0,10);
   document.getElementById('dRecent').innerHTML = recent.length ? recent.map(r =>
-    `<div class="stat-row"><span>${r._t==='enq'?'📞':'🤖'} ${r.name || r.product || 'Activity'}</span><span style="color:#999">${r.at ? new Date(r.at.seconds*1000).toLocaleString() : ''}</span></div>`
-  ).join('') : '<div style="color:#999">Abhi koi activity nahi</div>';
+    '<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0ede6;font-size:13px"><span>'+(r._t==='enq'?'📞':'🤖')+' '+(r.name||r.product||'Activity')+'</span><span style="color:#999">'+(r.at?new Date(r.at.seconds*1000).toLocaleString():'')+'</span></div>'
+  ).join('') : '<div style="color:#999">No activity</div>';
 }
+
+// ============ FOLDERS ============
+window.toggleWall = function(el) {
+  if (el.checked) {
+    // Wall ticked => sab check karo
+    document.querySelectorAll('#usageGroup input').forEach(i => { if(i.value!=='Wall') i.checked = true; });
+  }
+};
 
 async function loadFolders() {
   const snap = await getDocs(collection(db, 'folders'));
   cache.folders = snap.docs.map(d => ({id:d.id, ...d.data()}));
-  cache.folders.sort((a,b) => (a.order||0) - (b.order||0));
+  cache.folders.sort((a,b)=>(a.at?.seconds||0)-(b.at?.seconds||0));
   const el = document.getElementById('folderList');
   el.innerHTML = cache.folders.length ? cache.folders.map(f =>
-    `<span class="folder">📁 ${f.name} <button class="red" style="padding:2px 8px;font-size:11px" onclick="delFolder('${f.id}')">×</button></span>`
-  ).join('') : '<div style="color:#999;font-size:13px">Abhi koi folder nahi. Neeche se banao.</div>';
-  document.getElementById('pFolder').innerHTML = cache.folders.map(f => `<option value="${f.id}">${f.name}</option>`).join('') || '<option value="">Pehle folder banao</option>';
+    '<div class="folder"><div><b>📁 '+f.name+'</b><br><span style="font-size:11px;color:#888">Usage: '+((f.usage||[]).join(', ')||'—')+'</span></div> <button class="red" style="padding:4px 10px;font-size:11px;margin-left:8px" onclick="delFolder(\''+f.id+'\')">Delete</button></div>'
+  ).join('') : '<div style="color:#999;font-size:13px">No folders</div>';
+  document.getElementById('pFolder').innerHTML = cache.folders.map(f => '<option value="'+f.id+'">'+f.name+'</option>').join('') || '<option value="">Pehle folder banao</option>';
 }
 
 window.addFolder = async function() {
   const name = document.getElementById('newFolderName').value.trim();
   if (!name) return alert('Folder name daalo');
-  await addDoc(collection(db, 'folders'), { name, order: cache.folders.length, at: serverTimestamp() });
+  const usage = Array.from(document.querySelectorAll('#usageGroup input:checked')).map(i => i.value);
+  if (!usage.length) return alert('Kam se kam ek usage select karo');
+  await addDoc(collection(db, 'folders'), { name, usage, at: serverTimestamp() });
   document.getElementById('newFolderName').value = '';
+  document.querySelectorAll('#usageGroup input').forEach(i => i.checked = false);
   await loadFolders();
+  alert('✅ Folder ban gaya!');
 };
 
 window.delFolder = async function(id) {
-  if (!confirm('Ye folder delete karna hai?')) return;
+  if (!confirm('Folder delete?')) return;
   await deleteDoc(doc(db, 'folders', id));
   await loadFolders();
 };
 
+// ============ PRODUCTS ============
 async function loadProducts() {
   const snap = await getDocs(collection(db, 'products'));
   cache.products = snap.docs.map(d => ({id:d.id, ...d.data()}));
-  cache.products.sort((a,b) => (b.at?.seconds||0) - (a.at?.seconds||0));
+  cache.products.sort((a,b)=>(b.at?.seconds||0)-(a.at?.seconds||0));
   const el = document.getElementById('productList');
-  if (!cache.products.length) { el.innerHTML = '<div style="color:#999;font-size:13px">Abhi koi product nahi</div>'; return; }
-  el.innerHTML = `<div class="table"><table><thead><tr><th>Code</th><th>Name</th><th>Folder</th><th>Size</th><th>Rate</th><th></th></tr></thead><tbody>` +
-    cache.products.map(p => `<tr>
-      <td><b>${p.code||''}</b></td>
-      <td>${p.name||''}</td>
-      <td>${cache.folders.find(f=>f.id===p.folderId)?.name || '-'}</td>
-      <td>${p.size||''}</td>
-      <td>${p.rate ? '₹'+p.rate : 'Ask'}</td>
-      <td><button class="red" style="padding:5px 10px;font-size:11px" onclick="delProduct('${p.id}')">Delete</button></td>
-    </tr>`).join('') + '</tbody></table></div>';
+  if (!cache.products.length) { el.innerHTML = '<div style="color:#999;font-size:13px">No products</div>'; return; }
+  el.innerHTML = '<div class="table"><table><thead><tr><th>Image</th><th>Code</th><th>Name</th><th>Folder</th><th>Size</th><th>Rate</th><th>Actions</th></tr></thead><tbody>' +
+    cache.products.map(p => '<tr>' +
+      '<td>'+(p.img?'<img src="'+p.img+'" style="width:50px;height:40px;object-fit:cover;border-radius:6px">':'-')+'</td>' +
+      '<td><b>'+(p.code||'')+'</b></td>' +
+      '<td>'+(p.name||'')+'</td>' +
+      '<td>'+(cache.folders.find(f=>f.id===p.folderId)?.name||'-')+'</td>' +
+      '<td>'+(p.size||'')+'</td>' +
+      '<td>₹'+(p.rate||'')+'</td>' +
+      '<td><button class="blue" style="padding:5px 10px;font-size:11px" onclick="editProduct(\''+p.id+'\')">✏️ Edit</button> <button class="red" style="padding:5px 10px;font-size:11px" onclick="delProduct(\''+p.id+'\')">Delete</button></td>' +
+    '</tr>').join('') + '</tbody></table></div>';
 }
 
 window.addProduct = async function() {
   const folderId = document.getElementById('pFolder').value;
   const code = document.getElementById('pCode').value.trim();
   const name = document.getElementById('pName').value.trim();
-  if (!folderId || !code || !name) return alert('Folder, Code, Name zaroori hai');
+  if (!folderId || !code || !name) return alert('Folder, Code, Name zaroori');
   await addDoc(collection(db, 'products'), {
     folderId, code, name,
     size: document.getElementById('pSize').value.trim(),
@@ -339,164 +386,107 @@ window.addProduct = async function() {
     img: document.getElementById('pImg').value.trim(),
     at: serverTimestamp()
   });
-  ['pCode','pName','pSize','pColor','pRate','pImg'].forEach(id => document.getElementById(id).value = '');
-  await loadProducts(); updateDashboard();
-  alert('✅ Product add ho gaya!');
+  ['pCode','pName','pSize','pColor','pRate','pImg'].forEach(id => document.getElementById(id).value='');
+  document.getElementById('pPreview').innerHTML = '';
+  await loadProducts(); updateDash();
+  alert('✅ Product added!');
 };
 
 window.delProduct = async function(id) {
-  if (!confirm('Product delete karna hai?')) return;
+  if (!confirm('Delete?')) return;
   await deleteDoc(doc(db, 'products', id));
-  await loadProducts(); updateDashboard();
+  await loadProducts(); updateDash();
 };
 
+window.editProduct = function(id) {
+  const p = cache.products.find(x => x.id === id);
+  if (!p) return;
+  const newName = prompt('Product Name:', p.name); if (newName === null) return;
+  const newCode = prompt('Product Code:', p.code); if (newCode === null) return;
+  const newSize = prompt('Size:', p.size || ''); if (newSize === null) return;
+  const newColor = prompt('Colour:', p.color || ''); if (newColor === null) return;
+  const newRate = prompt('Rate:', p.rate || ''); if (newRate === null) return;
+  updateDoc(doc(db, 'products', id), { name:newName, code:newCode, size:newSize, color:newColor, rate:newRate }).then(() => { loadProducts(); alert('✅ Updated!'); });
+};
+
+// ============ DESIGN FOLDERS ============
 async function loadDesignFolders() {
   const snap = await getDocs(collection(db, 'designFolders'));
   cache.designFolders = snap.docs.map(d => ({id:d.id, ...d.data()}));
-  cache.designFolders.sort((a,b) => (a.order||0) - (b.order||0));
   const el = document.getElementById('designFolderList');
   el.innerHTML = cache.designFolders.length ? cache.designFolders.map(f =>
-    `<span class="folder">🎨 ${f.name} <button class="red" style="padding:2px 8px;font-size:11px" onclick="delDesignFolder('${f.id}')">×</button></span>`
-  ).join('') : '<div style="color:#999;font-size:13px">Abhi koi design folder nahi.</div>';
-  document.getElementById('dFolder').innerHTML = cache.designFolders.map(f => `<option value="${f.id}">${f.name}</option>`).join('') || '<option value="">Pehle folder banao</option>';
+    '<div class="folder"><b>🎨 '+f.name+'</b> <button class="red" style="padding:4px 10px;font-size:11px;margin-left:8px" onclick="delDesignFolder(\''+f.id+'\')">Delete</button></div>'
+  ).join('') : '<div style="color:#999;font-size:13px">No design folders</div>';
+  document.getElementById('dFolder').innerHTML = cache.designFolders.map(f => '<option value="'+f.id+'">'+f.name+'</option>').join('') || '<option value="">Pehle banao</option>';
 }
 
 window.addDesignFolder = async function() {
   const name = document.getElementById('newDesignFolder').value.trim();
-  if (!name) return alert('Folder name daalo');
-  await addDoc(collection(db, 'designFolders'), { name, order: cache.designFolders.length, at: serverTimestamp() });
+  if (!name) return alert('Name daalo');
+  await addDoc(collection(db, 'designFolders'), { name, at: serverTimestamp() });
   document.getElementById('newDesignFolder').value = '';
   await loadDesignFolders();
 };
 
 window.delDesignFolder = async function(id) {
-  if (!confirm('Delete karna hai?')) return;
+  if (!confirm('Delete?')) return;
   await deleteDoc(doc(db, 'designFolders', id));
   await loadDesignFolders();
 };
 
+// ============ DESIGNS ============
 async function loadDesigns() {
   const snap = await getDocs(collection(db, 'designs'));
   cache.designs = snap.docs.map(d => ({id:d.id, ...d.data()}));
-  cache.designs.sort((a,b) => (b.at?.seconds||0) - (a.at?.seconds||0));
   const el = document.getElementById('designList');
-  if (!cache.designs.length) { el.innerHTML = '<div style="color:#999;font-size:13px">Abhi koi design nahi</div>'; return; }
-  el.innerHTML = `<div class="table"><table><thead><tr><th>Preview</th><th>Name</th><th>Folder</th><th></th></tr></thead><tbody>` +
-    cache.designs.map(d => `<tr>
-      <td>${d.img ? `<img src="${d.img}" style="width:60px;height:45px;object-fit:cover;border-radius:6px">` : '-'}</td>
-      <td>${d.name||''}</td>
-      <td>${cache.designFolders.find(f=>f.id===d.folderId)?.name || '-'}</td>
-      <td><button class="red" style="padding:5px 10px;font-size:11px" onclick="delDesign('${d.id}')">Delete</button></td>
-    </tr>`).join('') + '</tbody></table></div>';
+  if (!cache.designs.length) { el.innerHTML = '<div style="color:#999;font-size:13px">No designs</div>'; return; }
+  el.innerHTML = '<div class="table"><table><thead><tr><th>Image</th><th>Name</th><th>Folder</th><th>Actions</th></tr></thead><tbody>' +
+    cache.designs.map(d => '<tr>' +
+      '<td>'+(d.img?'<img src="'+d.img+'" style="width:60px;height:45px;object-fit:cover;border-radius:6px">':'-')+'</td>' +
+      '<td>'+(d.name||'')+'</td>' +
+      '<td>'+(cache.designFolders.find(f=>f.id===d.folderId)?.name||'-')+'</td>' +
+      '<td><button class="red" style="padding:5px 10px;font-size:11px" onclick="delDesign(\''+d.id+'\')">Delete</button></td>' +
+    '</tr>').join('') + '</tbody></table></div>';
 }
 
 window.addDesign = async function() {
   const folderId = document.getElementById('dFolder').value;
   const name = document.getElementById('dName').value.trim();
   const img = document.getElementById('dImg').value.trim();
-  if (!folderId || !name || !img) return alert('Folder, Name, Image URL zaroori hai');
-  await addDoc(collection(db, 'designs'), {
-    folderId, name, img,
-    desc: document.getElementById('dDesc').value.trim(),
-    at: serverTimestamp()
-  });
-  ['dName','dImg','dDesc'].forEach(id => document.getElementById(id).value = '');
-  await loadDesigns(); updateDashboard();
-  alert('✅ Design add ho gaya!');
+  if (!folderId || !name || !img) return alert('Folder, Name, Image zaroori');
+  await addDoc(collection(db, 'designs'), { folderId, name, img, desc: document.getElementById('dDesc').value.trim(), at: serverTimestamp() });
+  ['dName','dImg','dDesc'].forEach(id => document.getElementById(id).value='');
+  document.getElementById('dPreview').innerHTML = '';
+  await loadDesigns(); updateDash();
+  alert('✅ Design added!');
 };
 
 window.delDesign = async function(id) {
-  if (!confirm('Design delete karna hai?')) return;
+  if (!confirm('Delete?')) return;
   await deleteDoc(doc(db, 'designs', id));
-  await loadDesigns(); updateDashboard();
+  await loadDesigns(); updateDash();
 };
 
+// ============ ENQ / AI / VISITORS ============
 async function loadEnquiries() {
   const snap = await getDocs(collection(db, 'enquiries'));
   cache.enquiries = snap.docs.map(d => ({id:d.id, ...d.data()}));
-  cache.enquiries.sort((a,b) => (b.at?.seconds||0) - (a.at?.seconds||0));
+  cache.enquiries.sort((a,b)=>(b.at?.seconds||0)-(a.at?.seconds||0));
   const el = document.getElementById('enqList');
-  if (!cache.enquiries.length) { el.innerHTML = '<div style="color:#999;font-size:13px">Abhi koi enquiry nahi</div>'; return; }
-  el.innerHTML = `<div class="table"><table><thead><tr><th>Name</th><th>Phone</th><th>City</th><th>Requirement</th><th>Time</th></tr></thead><tbody>` +
-    cache.enquiries.map(e => `<tr>
-      <td><b>${e.name||''}</b></td>
-      <td>${e.phone||''}</td>
-      <td>${e.city||''}</td>
-      <td>${e.requirement||''}</td>
-      <td>${e.at ? new Date(e.at.seconds*1000).toLocaleString() : ''}</td>
-    </tr>`).join('') + '</tbody></table></div>';
+  el.innerHTML = cache.enquiries.length ? '<div class="table"><table><thead><tr><th>Name</th><th>Phone</th><th>City</th><th>Req</th><th>Time</th></tr></thead><tbody>'+cache.enquiries.map(e=>'<tr><td><b>'+(e.name||'')+'</b></td><td>'+(e.phone||'')+'</td><td>'+(e.city||'')+'</td><td>'+(e.requirement||'')+'</td><td>'+(e.at?new Date(e.at.seconds*1000).toLocaleString():'')+'</td></tr>').join('')+'</tbody></table></div>' : '<div style="color:#999">No enquiries</div>';
 }
 
-async function loadAiRequests() {
+async function loadAi() {
   const snap = await getDocs(collection(db, 'aiRequests'));
   cache.aiRequests = snap.docs.map(d => ({id:d.id, ...d.data()}));
-  cache.aiRequests.sort((a,b) => (b.at?.seconds||0) - (a.at?.seconds||0));
+  cache.aiRequests.sort((a,b)=>(b.at?.seconds||0)-(a.at?.seconds||0));
   const el = document.getElementById('aiList');
-  if (!cache.aiRequests.length) { el.innerHTML = '<div style="color:#999;font-size:13px">Abhi koi AI request nahi</div>'; return; }
-  el.innerHTML = `<div class="table"><table><thead><tr><th>Product</th><th>Style</th><th>Phone</th><th>Status</th><th>Time</th></tr></thead><tbody>` +
-    cache.aiRequests.map(a => `<tr>
-      <td>${a.product||''}</td>
-      <td>${a.style||''}</td>
-      <td>${a.phone||'-'}</td>
-      <td><span class="badge ${a.status==='done'?'g':'r'}">${a.status||'pending'}</span></td>
-      <td>${a.at ? new Date(a.at.seconds*1000).toLocaleString() : ''}</td>
-    </tr>`).join('') + '</tbody></table></div>';
+  el.innerHTML = cache.aiRequests.length ? '<div class="table"><table><thead><tr><th>Product</th><th>Style</th><th>Phone</th><th>Time</th></tr></thead><tbody>'+cache.aiRequests.map(a=>'<tr><td>'+(a.product||'')+'</td><td>'+(a.style||'')+'</td><td>'+(a.phone||'-')+'</td><td>'+(a.at?new Date(a.at.seconds*1000).toLocaleString():'')+'</td></tr>').join('')+'</tbody></table></div>' : '<div style="color:#999">No AI requests</div>';
 }
 
 async function loadVisitors() {
   const snap = await getDocs(collection(db, 'visitors'));
   cache.visitors = snap.docs.map(d => ({id:d.id, ...d.data()}));
-  cache.visitors.sort((a,b) => (b.at?.seconds||0) - (a.at?.seconds||0));
+  cache.visitors.sort((a,b)=>(b.at?.seconds||0)-(a.at?.seconds||0));
   const el = document.getElementById('visList');
-  if (!cache.visitors.length) { el.innerHTML = '<div style="color:#999;font-size:13px">Abhi koi visitor nahi</div>'; return; }
-  el.innerHTML = `<div class="table"><table><thead><tr><th>Page</th><th>Device</th><th>Time</th></tr></thead><tbody>` +
-    cache.visitors.slice(0,100).map(v => `<tr>
-      <td>${v.page||'home'}</td>
-      <td>${v.device||'-'}</td>
-      <td>${v.at ? new Date(v.at.seconds*1000).toLocaleString() : ''}</td>
-    </tr>`).join('') + '</tbody></table></div>';
-}
-
-async function loadSettings() {
-  try {
-    const snap = await getDocs(collection(db, 'settings'));
-    if (snap.docs.length) {
-      const s = snap.docs[0].data();
-      document.getElementById('sWhatsapp').value = s.whatsapp || SITE.whatsapp;
-      document.getElementById('sFacebook').value = s.facebook || SITE.facebook;
-      document.getElementById('sInstagram').value = s.instagram || SITE.instagram;
-      document.getElementById('sYoutube').value = s.youtube || SITE.youtube;
-    } else {
-      document.getElementById('sWhatsapp').value = SITE.whatsapp;
-      document.getElementById('sFacebook').value = SITE.facebook;
-      document.getElementById('sInstagram').value = SITE.instagram;
-      document.getElementById('sYoutube').value = SITE.youtube;
-    }
-  } catch(e) { console.log(e); }
-}
-
-window.saveSettings = async function() {
-  const data = {
-    whatsapp: document.getElementById('sWhatsapp').value.trim(),
-    facebook: document.getElementById('sFacebook').value.trim(),
-    instagram: document.getElementById('sInstagram').value.trim(),
-    youtube: document.getElementById('sYoutube').value.trim(),
-    at: serverTimestamp()
-  };
-  const snap = await getDocs(collection(db, 'settings'));
-  if (snap.docs.length) await updateDoc(doc(db, 'settings', snap.docs[0].id), data);
-  else await addDoc(collection(db, 'settings'), data);
-  alert('✅ Settings save ho gayi!');
-};
-
-window.exportData = function() {
-  const data = { products: cache.products, designs: cache.designs, folders: cache.folders, designFolders: cache.designFolders, enquiries: cache.enquiries, aiRequests: cache.aiRequests, visitors: cache.visitors };
-  const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'shama-interior-backup-' + new Date().toISOString().slice(0,10) + '.json';
-  a.click();
-};
-</script>
-</body>
-</html>
+  el.innerHTML = cache.visitors.length ? '<div class="table"><table><thead><tr><th>Page</th><th>Time</th></tr></thead><
