@@ -6,7 +6,7 @@ import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, q
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB69St6NDQDgmFntvcG4G5ew2abUGb5k1g",
+  apiKey: "AIzaSyB695t6NDQDgmFntvcG4G5ew2abUGb5k1g",
   authDomain: "shama-interior.firebaseapp.com",
   projectId: "shama-interior",
   storageBucket: "shama-interior.firebasestorage.app",
