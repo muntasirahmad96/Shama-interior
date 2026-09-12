@@ -1,66 +1,562 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SHAMA INTERIOR — Admin Dashboard</title>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SHAMA INTERIOR — Admin Panel</title>
 <style>
-body{margin:0;background:#09090b;color:#fff;font-family:Arial,sans-serif}.wrap{max-width:1150px;margin:auto;padding:25px 18px}
-header{border-bottom:1px solid #29292d;padding:12px 18px;display:flex;align-items:center;justify-content:space-between}.logo{height:50px}
-h1,h2{margin:8px 0 18px}.gold{color:#d9a62a}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.box{background:#141418;border:1px solid #303036;border-radius:14px;padding:16px}.num{font-size:28px;color:#d9a62a;font-weight:700}.muted{color:#999;font-size:12px}button{border:0;border-radius:8px;padding:10px 14px;background:#d9a62a;font-weight:700;cursor:pointer;margin:4px}button.dark{background:#25252a;color:#fff}input,select{width:100%;padding:10px;border-radius:7px;border:1px solid #3a3a40;background:#0c0c0f;color:#fff;box-sizing:border-box;margin:5px 0}.two{display:grid;grid-template-columns:1fr 1fr;gap:15px}.table{overflow:auto}table{width:100%;border-collapse:collapse}td,th{padding:9px;border-bottom:1px solid #2a2a2f;text-align:left;font-size:12px}
-@media(max-width:800px){.grid,.two{grid-template-columns:1fr 1fr}}@media(max-width:520px){.grid,.two{grid-template-columns:1fr}}
-</style></head><body>
-<header><img class="logo" src="logo.png"><div class="gold">ADMIN DASHBOARD</div></header>
-<div class="wrap">
-<h1>SHAMA INTERIOR <span class="gold">Control Center</span></h1>
-<div class="grid">
-<div class="box"><div class="muted">TOTAL VISITS (THIS BROWSER)</div><div id="vis" class="num">0</div></div>
-<div class="box"><div class="muted">WHATSAPP CLICKS</div><div id="wa" class="num">0</div></div>
-<div class="box"><div class="muted">LEADS</div><div id="leadsN" class="num">0</div></div>
-<div class="box"><div class="muted">PRODUCTS</div><div id="prodN" class="num">0</div></div>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Arial,sans-serif}
+body{background:#f6f4ef;color:#171717}
+.hide{display:none!important}
+.gold{color:#c89a32}
+header{background:#171717;color:#fff;padding:14px 5%;display:flex;justify-content:space-between;align-items:center}
+header b{font-size:16px;letter-spacing:1px}
+.wrap{max-width:1200px;margin:auto;padding:20px 5%}
+.login{max-width:400px;margin:80px auto;background:#fff;padding:35px;border-radius:16px;border:1px solid #e7e1d6;text-align:center}
+.login h1{font-size:24px;margin-bottom:8px}
+.login p{color:#666;margin-bottom:22px;font-size:14px}
+input,select,textarea{width:100%;padding:11px;border:1px solid #d6d0c5;border-radius:8px;margin:6px 0 12px;font-size:14px;background:#fff;font-family:inherit}
+button{background:#c89a32;border:0;padding:11px 18px;border-radius:8px;font-weight:700;cursor:pointer;color:#fff;font-size:14px;transition:.2s}
+button:hover{background:#b08828}
+button:disabled{opacity:.5;cursor:not-allowed}
+.dark{background:#171717}
+.dark:hover{background:#333}
+.red{background:#c0392b}
+.red:hover{background:#a93226}
+.green{background:#27ae60}
+.green:hover{background:#229954}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:22px;border-bottom:2px solid #e7e1d6;padding-bottom:0}
+.tabs button{background:transparent;color:#666;border-radius:8px 8px 0 0;padding:11px 16px;font-size:13px}
+.tabs button.active{background:#171717;color:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:22px}
+.box{background:#fff;border:1px solid #e7e1d6;border-radius:14px;padding:18px}
+.num{font-size:30px;font-weight:800;color:#c89a32;margin-top:6px}
+.card{background:#fff;border:1px solid #e7e1d6;border-radius:14px;padding:20px;margin-bottom:18px}
+.card h2{font-size:18px;margin-bottom:14px;color:#171717}
+.card h3{font-size:15px;margin:14px 0 8px;color:#555}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.table{overflow:auto;background:#fff;border:1px solid #e7e1d6;border-radius:14px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:11px 12px;border-bottom:1px solid #f0ede6;text-align:left}
+th{background:#faf8f4;font-weight:700;color:#555;font-size:12px;text-transform:uppercase;letter-spacing:.5px}
+tr:hover{background:#fdfbf6}
+.badge{display:inline-block;padding:3px 9px;border-radius:99px;font-size:11px;font-weight:700}
+.badge.g{background:#d5f5e3;color:#186a3b}
+.badge.r{background:#fadbd8;color:#922b21}
+.folder{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid #e7e1d6;border-radius:10px;padding:10px 14px;margin:4px;cursor:pointer;font-size:13px;transition:.2s}
+.folder:hover{border-color:#c89a32;background:#fdfbf6}
+.folder.active{background:#c89a32;color:#fff;border-color:#c89a32}
+.loader{text-align:center;padding:30px;color:#999;font-size:14px}
+.msg{padding:11px;border-radius:8px;margin-bottom:12px;font-size:13px}
+.msg.ok{background:#d5f5e3;color:#186a3b}
+.msg.err{background:#fadbd8;color:#922b21}
+.stat-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0ede6;font-size:13px}
+.footer-note{text-align:center;color:#999;font-size:12px;padding:20px 0}
+@media(max-width:700px){.row{grid-template-columns:1fr}header b{font-size:13px}}
+</style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="loginScreen" class="login">
+  <h1>🔐 <span class="gold">SHAMA</span> ADMIN</h1>
+  <p>Sirf authorized user ke liye</p>
+  <div id="loginMsg"></div>
+  <input type="email" id="loginEmail" placeholder="Admin Email" autocomplete="username">
+  <input type="password" id="loginPass" placeholder="Password" autocomplete="current-password">
+  <button id="loginBtn" style="width:100%" onclick="doLogin()">Login</button>
 </div>
 
-<div class="two" style="margin-top:15px">
-<div class="box"><h2>Add Material / Panel</h2>
-<input id="cat" placeholder="Material category e.g. Fluted Panel">
-<input id="name" placeholder="Product / panel name">
-<input id="code" placeholder="Product code">
-<input id="size" placeholder="Size">
-<input id="img" placeholder="Image URL">
-<input id="rate" placeholder="Rate">
-<button onclick="addProduct()">Add Product</button>
-<button class="dark" onclick="exportProducts()">Export Products</button>
-<button class="dark" onclick="exportLeads()">Export Leads</button>
+<!-- ADMIN PANEL -->
+<div id="adminPanel" class="hide">
+  <header>
+    <b>SHAMA <span class="gold">INTERIOR</span> ADMIN</b>
+    <div>
+      <a href="index.html" style="color:#fff;text-decoration:none;font-size:13px;margin-right:14px">🌐 Customer Site</a>
+      <button class="red" onclick="doLogout()" style="padding:8px 14px;font-size:12px">Logout</button>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <!-- TABS -->
+    <div class="tabs">
+      <button class="active" onclick="tab('dashboard',this)">📊 Dashboard</button>
+      <button onclick="tab('materials',this)">📁 Materials</button>
+      <button onclick="tab('designs',this)">🎨 Designs</button>
+      <button onclick="tab('enquiries',this)">📞 Enquiries</button>
+      <button onclick="tab('ai',this)">🤖 AI Requests</button>
+      <button onclick="tab('visitors',this)">👥 Visitors</button>
+      <button onclick="tab('settings',this)">⚙️ Settings</button>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div id="tab-dashboard">
+      <div class="grid">
+        <div class="box">Total Materials<div id="dMat" class="num">0</div></div>
+        <div class="box">Designs<div id="dDes" class="num">0</div></div>
+        <div class="box">Enquiries<div id="dEnq" class="num">0</div></div>
+        <div class="box">AI Requests<div id="dAi" class="num">0</div></div>
+        <div class="box">Visitors<div id="dVis" class="num">0</div></div>
+        <div class="box">Folders<div id="dFold" class="num">0</div></div>
+      </div>
+      <div class="card">
+        <h2>🔥 Recent Activity</h2>
+        <div id="dRecent" class="loader">Loading...</div>
+      </div>
+    </div>
+
+    <!-- MATERIALS -->
+    <div id="tab-materials" class="hide">
+      <div class="card">
+        <h2>📁 Folders (Categories)</h2>
+        <p style="color:#666;font-size:13px;margin-bottom:12px">Pehle folder banao (jaise "Fluted Panel", "PVC Panel"), fir usme products add karo.</p>
+        <div id="folderList"></div>
+        <div class="row" style="margin-top:14px">
+          <input id="newFolderName" placeholder="Naya folder name (e.g. Fluted Panel)">
+          <button onclick="addFolder()">+ Add Folder</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>➕ Add Product</h2>
+        <div class="row">
+          <div>
+            <label style="font-size:12px;color:#666">Folder *</label>
+            <select id="pFolder"></select>
+          </div>
+          <div>
+            <label style="font-size:12px;color:#666">Product Code *</label>
+            <input id="pCode" placeholder="e.g. J002">
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label style="font-size:12px;color:#666">Product Name *</label>
+            <input id="pName" placeholder="e.g. Premium Fluted Walnut">
+          </div>
+          <div>
+            <label style="font-size:12px;color:#666">Size</label>
+            <input id="pSize" placeholder='e.g. 12" x 114"'>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label style="font-size:12px;color:#666">Colour / Shade</label>
+            <input id="pColor" placeholder="e.g. Walnut Brown">
+          </div>
+          <div>
+            <label style="font-size:12px;color:#666">Rate (₹)</label>
+            <input id="pRate" placeholder="e.g. 550">
+          </div>
+        </div>
+        <label style="font-size:12px;color:#666">Image URL (optional)</label>
+        <input id="pImg" placeholder="https://... ya khali chhodo">
+        <button onclick="addProduct()" style="margin-top:6px">+ Add Product</button>
+      </div>
+
+      <div class="card">
+        <h2>📦 All Products</h2>
+        <div id="productList" class="loader">Loading...</div>
+      </div>
+    </div>
+
+    <!-- DESIGNS -->
+    <div id="tab-designs" class="hide">
+      <div class="card">
+        <h2>🎨 Design Folders</h2>
+        <p style="color:#666;font-size:13px;margin-bottom:12px">Wall, Ceiling, TV Unit, Kitchen — jaise chahe folders banao.</p>
+        <div id="designFolderList"></div>
+        <div class="row" style="margin-top:14px">
+          <input id="newDesignFolder" placeholder="e.g. Wall Design, Ceiling Design">
+          <button onclick="addDesignFolder()">+ Add Design Folder</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>➕ Add Design</h2>
+        <div class="row">
+          <div>
+            <label style="font-size:12px;color:#666">Folder *</label>
+            <select id="dFolder"></select>
+          </div>
+          <div>
+            <label style="font-size:12px;color:#666">Design Name *</label>
+            <input id="dName" placeholder="e.g. Modern Wood Ceiling">
+          </div>
+        </div>
+        <label style="font-size:12px;color:#666">Design Image URL *</label>
+        <input id="dImg" placeholder="https://...">
+        <label style="font-size:12px;color:#666">Description</label>
+        <textarea id="dDesc" rows="2" placeholder="Short description..."></textarea>
+        <button onclick="addDesign()" style="margin-top:6px">+ Add Design</button>
+      </div>
+
+      <div class="card">
+        <h2>🖼️ All Designs</h2>
+        <div id="designList" class="loader">Loading...</div>
+      </div>
+    </div>
+
+    <!-- ENQUIRIES -->
+    <div id="tab-enquiries" class="hide">
+      <div class="card">
+        <h2>📞 Customer Enquiries</h2>
+        <div id="enqList" class="loader">Loading...</div>
+      </div>
+    </div>
+
+    <!-- AI REQUESTS -->
+    <div id="tab-ai" class="hide">
+      <div class="card">
+        <h2>🤖 AI Generation Requests</h2>
+        <div id="aiList" class="loader">Loading...</div>
+      </div>
+    </div>
+
+    <!-- VISITORS -->
+    <div id="tab-visitors" class="hide">
+      <div class="card">
+        <h2>👥 Visitor Activity</h2>
+        <div id="visList" class="loader">Loading...</div>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div id="tab-settings" class="hide">
+      <div class="card">
+        <h2>⚙️ Site Settings</h2>
+        <p style="color:#666;font-size:13px;margin-bottom:14px">Ye settings customer website pe dikhengi.</p>
+        <label style="font-size:12px;color:#666">WhatsApp Number (without +)</label>
+        <input id="sWhatsapp" placeholder="918658712172">
+        <label style="font-size:12px;color:#666">Facebook URL</label>
+        <input id="sFacebook" placeholder="https://facebook.com/...">
+        <label style="font-size:12px;color:#666">Instagram URL</label>
+        <input id="sInstagram" placeholder="https://instagram.com/...">
+        <label style="font-size:12px;color:#666">YouTube URL</label>
+        <input id="sYoutube" placeholder="https://youtube.com/@...">
+        <button onclick="saveSettings()" style="margin-top:8px">💾 Save Settings</button>
+      </div>
+      <div class="card">
+        <h2>📤 Export / Backup</h2>
+        <p style="color:#666;font-size:13px;margin-bottom:12px">Apna pura data JSON file mein download karo.</p>
+        <button class="dark" onclick="exportData()">📥 Export All Data</button>
+      </div>
+    </div>
+
+    <div class="footer-note">SHAMA INTERIOR Admin • Powered by Firebase</div>
+  </div>
 </div>
-<div class="box"><h2>Data Tools</h2>
-<p class="muted">Visitor analytics in this free static version are stored in the browser. For multi-device/cloud analytics, a hosted database/analytics service must be connected.</p>
-<button onclick="clearEvents()">Clear Local Analytics</button>
-<button onclick="clearLeads()">Clear Local Leads</button>
-<button class="dark" onclick="location.href='index.html'">Open Customer Site</button>
-</div></div>
 
-<h2 style="margin-top:25px">Recent Customer Leads</h2><div class="box table"><table><thead><tr><th>Date</th><th>Name</th><th>Phone</th><th>City</th><th>Requirement</th><th>Panels</th></tr></thead><tbody id="leadTable"></tbody></table></div>
+<script type="module">
+import { db, auth, SITE, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, query, orderBy, onSnapshot, serverTimestamp, signInWithEmailAndPassword, signOut, onAuthStateChanged } from './firebase-config.js';
 
-<h2 style="margin-top:25px">Recent Visitor Events</h2><div class="box table"><table><thead><tr><th>Date</th><th>Event</th><th>Source</th><th>Device</th><th>Details</th></tr></thead><tbody id="eventTable"></tbody></table></div>
+let currentTab = 'dashboard';
+let cache = { products:[], designs:[], folders:[], designFolders:[], enquiries:[], aiRequests:[], visitors:[] };
 
-<script>
-function get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}}
-function save(k,v){localStorage.setItem(k,JSON.stringify(v))}
-function refresh(){
- let e=get("shama_site_events",[]),l=get("shama_leads",[]),p=get("shama_products",[]);
- document.getElementById("vis").textContent=e.filter(x=>x.type==="page_view").length;
- document.getElementById("wa").textContent=e.filter(x=>x.type==="whatsapp_click").length;
- document.getElementById("leadsN").textContent=l.length;
- document.getElementById("prodN").textContent=p.length;
- leadTable.innerHTML=l.slice().reverse().slice(0,30).map(x=>`<tr><td>${new Date(x.at).toLocaleString()}</td><td>${esc(x.name)}</td><td>${esc(x.phone)}</td><td>${esc(x.city)}</td><td>${esc(x.requirement)}</td><td>${esc((x.panels||[]).join(", "))}</td></tr>`).join("")||"<tr><td colspan=6>No leads yet.</td></tr>";
- eventTable.innerHTML=e.slice().reverse().slice(0,50).map(x=>`<tr><td>${new Date(x.at).toLocaleString()}</td><td>${esc(x.type)}</td><td>${esc(x.source)}</td><td>${esc(x.device)}</td><td>${esc(JSON.stringify(x.data||{}))}</td></tr>`).join("")||"<tr><td colspan=5>No events yet.</td></tr>";
+// ============ AUTH ============
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    document.getElementById('loginScreen').classList.add('hide');
+    document.getElementById('adminPanel').classList.remove('hide');
+    loadAll();
+  } else {
+    document.getElementById('loginScreen').classList.remove('hide');
+    document.getElementById('adminPanel').classList.add('hide');
+  }
+});
+
+window.doLogin = async function() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const pass = document.getElementById('loginPass').value;
+  const btn = document.getElementById('loginBtn');
+  const msg = document.getElementById('loginMsg');
+  if (!email || !pass) { msg.innerHTML = '<div class="msg err">Email aur password daalo</div>'; return; }
+  btn.disabled = true; btn.textContent = 'Logging in...';
+  try {
+    await signInWithEmailAndPassword(auth, email, pass);
+    msg.innerHTML = '';
+  } catch(e) {
+    msg.innerHTML = '<div class="msg err">❌ ' + (e.code === 'auth/invalid-credential' ? 'Galat email ya password' : e.message) + '</div>';
+  }
+  btn.disabled = false; btn.textContent = 'Login';
+};
+
+window.doLogout = async function() {
+  if (confirm('Logout karna hai?')) await signOut(auth);
+};
+
+// ============ TABS ============
+window.tab = function(name, btn) {
+  document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  ['dashboard','materials','designs','enquiries','ai','visitors','settings'].forEach(t => {
+    document.getElementById('tab-' + t).classList.add('hide');
+  });
+  document.getElementById('tab-' + name).classList.remove('hide');
+  currentTab = name;
+};
+
+// ============ LOAD ALL DATA ============
+async function loadAll() {
+  await Promise.all([loadFolders(), loadProducts(), loadDesignFolders(), loadDesigns(), loadEnquiries(), loadAiRequests(), loadVisitors()]);
+  updateDashboard();
 }
-function esc(x){return String(x??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
-function addProduct(){
- let p=get("shama_products",[]);
- p.push([cat.value.trim()||"Other",name.value.trim()||"New Panel",code.value.trim()||("P-"+Date.now()),size.value.trim()||"As per design",img.value.trim()||"",rate.value.trim()||"0",""]);
- save("shama_products",p);alert("Product added.");location.reload();
+
+function updateDashboard() {
+  document.getElementById('dMat').textContent = cache.products.length;
+  document.getElementById('dDes').textContent = cache.designs.length;
+  document.getElementById('dEnq').textContent = cache.enquiries.length;
+  document.getElementById('dAi').textContent = cache.aiRequests.length;
+  document.getElementById('dVis').textContent = cache.visitors.length;
+  document.getElementById('dFold').textContent = cache.folders.length + cache.designFolders.length;
+  const recent = [...cache.enquiries.map(e => ({...e, _t:'enq'})), ...cache.aiRequests.map(a => ({...a, _t:'ai'}))]
+    .sort((a,b) => (b.at?.seconds||0) - (a.at?.seconds||0)).slice(0,10);
+  document.getElementById('dRecent').innerHTML = recent.length ? recent.map(r =>
+    `<div class="stat-row"><span>${r._t==='enq'?'📞':'🤖'} ${r.name || r.product || 'Activity'}</span><span style="color:#999">${r.at ? new Date(r.at.seconds*1000).toLocaleString() : ''}</span></div>`
+  ).join('') : '<div style="color:#999">Abhi koi activity nahi</div>';
 }
-function download(name,text,type="application/json"){let a=document.createElement("a");a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;a.click()}
-function exportProducts(){download("shama-products.json",JSON.stringify(get("shama_products",[]),null,2))}
-function exportLeads(){download("shama-leads.json",JSON.stringify(get("shama_leads",[]),null,2))}
-function clearEvents(){if(confirm("Clear analytics on this browser?")){localStorage.removeItem("shama_site_events");refresh()}}
-function clearLeads(){if(confirm("Clear leads on this browser?")){localStorage.removeItem("shama_leads");refresh()}}
-refresh();
-</script></body></html>
+
+// ============ FOLDERS ============
+async function loadFolders() {
+  const snap = await getDocs(collection(db, 'folders'));
+  cache.folders = snap.docs.map(d => ({id:d.id, ...d.data()}));
+  cache.folders.sort((a,b) => (a.order||0) - (b.order||0));
+  renderFolders();
+}
+
+function renderFolders() {
+  const el = document.getElementById('folderList');
+  el.innerHTML = cache.folders.length ? cache.folders.map(f =>
+    `<span class="folder">📁 ${f.name} <button class="red" style="padding:2px 8px;font-size:11px" onclick="delFolder('${f.id}')">×</button></span>`
+  ).join('') : '<div style="color:#999;font-size:13px">Abhi koi folder nahi. Neeche se banao.</div>';
+  document.getElementById('pFolder').innerHTML = cache.folders.map(f => `<option value="${f.id}">${f.name}</option>`).join('') || '<option value="">Pehle folder banao</option>';
+}
+
+window.addFolder = async function() {
+  const name = document.getElementById('newFolderName').value.trim();
+  if (!name) return alert('Folder name daalo');
+  await addDoc(collection(db, 'folders'), { name, order: cache.folders.length, at: serverTimestamp() });
+  document.getElementById('newFolderName').value = '';
+  await loadFolders();
+};
+
+window.delFolder = async function(id) {
+  if (!confirm('Ye folder delete karna hai? (Products alag rahenge)')) return;
+  await deleteDoc(doc(db, 'folders', id));
+  await loadFolders();
+};
+
+// ============ PRODUCTS ============
+async function loadProducts() {
+  const snap = await getDocs(collection(db, 'products'));
+  cache.products = snap.docs.map(d => ({id:d.id, ...d.data()}));
+  cache.products.sort((a,b) => (b.at?.seconds||0) - (a.at?.seconds||0));
+  renderProducts();
+}
+
+function renderProducts() {
+  const el = document.getElementById('productList');
+  if (!cache.products.length) { el.innerHTML = '<div style="color:#999;font-size:13px">Abhi koi product nahi</div>'; return; }
+  el.innerHTML = `<div class="table"><table><thead><tr><th>Code</th><th>Name</th><th>Folder</th><th>Size</th><th>Rate</th><th></th></tr></thead><tbody>` +
+    cache.products.map(p => `<tr>
+      <td><b>${p.code||''}</b></td>
+      <td>${p.name||''}</td>
+      <td>${cache.folders.find(f=>f.id===p.folderId)?.name || '-'}</td>
+      <td>${p.size||''}</td>
+      <td>${p.rate ? '₹'+p.rate : 'Ask'}</td>
+      <td><button class="red" style="padding:5px 10px;font-size:11px" onclick="delProduct('${p.id}')">Delete</button></td>
+    </tr>`).join('') + '</tbody></table></div>';
+}
+
+window.addProduct = async function() {
+  const folderId = document.getElementById('pFolder').value;
+  const code = document.getElementById('pCode').value.trim();
+  const name = document.getElementById('pName').value.trim();
+  if (!folderId || !code || !name) return alert('Folder, Code, Name zaroori hai');
+  await addDoc(collection(db, 'products'), {
+    folderId, code, name,
+    size: document.getElementById('pSize').value.trim(),
+    color: document.getElementById('pColor').value.trim(),
+    rate: document.getElementById('pRate').value.trim(),
+    img: document.getElementById('pImg').value.trim(),
+    at: serverTimestamp()
+  });
+  ['pCode','pName','pSize','pColor','pRate','pImg'].forEach(id => document.getElementById(id).value = '');
+  await loadProducts(); updateDashboard();
+  alert('✅ Product add ho gaya!');
+};
+
+window.delProduct = async function(id) {
+  if (!confirm('Product delete karna hai?')) return;
+  await deleteDoc(doc(db, 'products', id));
+  await loadProducts(); updateDashboard();
+};
+
+// ============ DESIGN FOLDERS ============
+async function loadDesignFolders() {
+  const snap = await getDocs(collection(db, 'designFolders'));
+  cache.designFolders = snap.docs.map(d => ({id:d.id, ...d.data()}));
+  cache.designFolders.sort((a,b) => (a.order||0) - (b.order||0));
+  renderDesignFolders();
+}
+
+function renderDesignFolders() {
+  const el = document.getElementById('designFolderList');
+  el.innerHTML = cache.designFolders.length ? cache.designFolders.map(f =>
+    `<span class="folder">🎨 ${f.name} <button class="red" style="padding:2px 8px;font-size:11px" onclick="delDesignFolder('${f.id}')">×</button></span>`
+  ).join('') : '<div style="color:#999;font-size:13px">Abhi koi design folder nahi.</div>';
+  document.getElementById('dFolder').innerHTML = cache.designFolders.map(f => `<option value="${f.id}">${f.name}</option>`).join('') || '<option value="">Pehle folder banao</option>';
+}
+
+window.addDesignFolder = async function() {
+  const name = document.getElementById('newDesignFolder').value.trim();
+  if (!name) return alert('Folder name daalo');
+  await addDoc(collection(db, 'designFolders'), { name, order: cache.designFolders.length, at: serverTimestamp() });
+  document.getElementById('newDesignFolder').value = '';
+  await loadDesignFolders();
+};
+
+window.delDesignFolder = async function(id) {
+  if (!confirm('Delete karna hai?')) return;
+  await deleteDoc(doc(db, 'designFolders', id));
+  await loadDesignFolders();
+};
+
+// ============ DESIGNS ============
+async function loadDesigns() {
+  const snap = await getDocs(collection(db, 'designs'));
+  cache.designs = snap.docs.map(d => ({id:d.id, ...d.data()}));
+  cache.designs.sort((a,b) => (b.at?.seconds||0) - (a.at?.seconds||0));
+  renderDesigns();
+}
+
+function renderDesigns() {
+  const el = document.getElementById('designList');
+  if (!cache.designs.length) { el.innerHTML = '<div style="color:#999;font-size:13px">Abhi koi design nahi</div>'; return; }
+  el.innerHTML = `<div class="table"><table><thead><tr><th>Preview</th><th>Name</th><th>Folder</th><th></th></tr></thead><tbody>` +
+    cache.designs.map(d => `<tr>
+      <td>${d.img ? `<img src="${d.img}" style="width:60px;height:45px;object-fit:cover;border-radius:6px">` : '-'}</td>
+      <td>${d.name||''}</td>
+      <td>${cache.designFolders.find(f=>f.id===d.folderId)?.name || '-'}</td>
+      <td><button class="red" style="padding:5px 10px;font-size:11px" onclick="delDesign('${d.id}')">Delete</button></td>
+    </tr>`).join('') + '</tbody></table></div>';
+}
+
+window.addDesign = async function() {
+  const folderId = document.getElementById('dFolder').value;
+  const name = document.getElementById('dName').value.trim();
+  const img = document.getElementById('dImg').value.trim();
+  if (!folderId || !name || !img) return alert('Folder, Name, Image URL zaroori hai');
+  await addDoc(collection(db, 'designs'), {
+    folderId, name, img,
+    desc: document.getElementById('dDesc').value.trim(),
+    at: serverTimestamp()
+  });
+  ['dName','dImg','dDesc'].forEach(id => document.getElementById(id).value = '');
+  await loadDesigns(); updateDashboard();
+  alert('✅ Design add ho gaya!');
+};
+
+window.delDesign = async function(id) {
+  if (!confirm('Design delete karna hai?')) return;
+  await deleteDoc(doc(db, 'designs', id));
+  await loadDesigns(); updateDashboard();
+};
+
+// ============ ENQUIRIES ============
+async function loadEnquiries() {
+  const snap = await getDocs(collection(db, 'enquiries'));
+  cache.enquiries = snap.docs.map(d => ({id:d.id, ...d.data()}));
+  cache.enquiries.sort((a,b) => (b.at?.seconds||0) - (a.at?.seconds||0));
+  const el = document.getElementById('enqList');
+  if (!cache.enquiries.length) { el.innerHTML = '<div style="color:#999;font-size:13px">Abhi koi enquiry nahi</div>'; return; }
+  el.innerHTML = `<div class="table"><table><thead><tr><th>Name</th><th>Phone</th><th>City</th><th>Requirement</th><th>Time</th></tr></thead><tbody>` +
+    cache.enquiries.map(e => `<tr>
+      <td><b>${e.name||''}</b></td>
+      <td>${e.phone||''}</td>
+      <td>${e.city||''}</td>
+      <td>${e.requirement||''}</td>
+      <td>${e.at ? new Date(e.at.seconds*1000).toLocaleString() : ''}</td>
+    </tr>`).join('') + '</tbody></table></div>';
+}
+
+// ============ AI REQUESTS ============
+async function loadAiRequests() {
+  const snap = await getDocs(collection(db, 'aiRequests'));
+  cache.aiRequests = snap.docs.map(d => ({id:d.id, ...d.data()}));
+  cache.aiRequests.sort((a,b) => (b.at?.seconds||0) - (a.at?.seconds||0));
+  const el = document.getElementById('aiList');
+  if (!cache.aiRequests.length) { el.innerHTML = '<div style="color:#999;font-size:13px">Abhi koi AI request nahi</div>'; return; }
+  el.innerHTML = `<div class="table"><table><thead><tr><th>Product</th><th>Style</th><th>Phone</th><th>Status</th><th>Time</th></tr></thead><tbody>` +
+    cache.aiRequests.map(a => `<tr>
+      <td>${a.product||''}</td>
+      <td>${a.style||''}</td>
+      <td>${a.phone||'-'}</td>
+      <td><span class="badge ${a.status==='done'?'g':'r'}">${a.status||'pending'}</span></td>
+      <td>${a.at ? new Date(a.at.seconds*1000).toLocaleString() : ''}</td>
+    </tr>`).join('') + '</tbody></table></div>';
+}
+
+// ============ VISITORS ============
+async function loadVisitors() {
+  const snap = await getDocs(collection(db, 'visitors'));
+  cache.visitors = snap.docs.map(d => ({id:d.id, ...d.data()}));
+  cache.visitors.sort((a,b) => (b.at?.seconds||0) - (a.at?.seconds||0));
+  const el = document.getElementById('visList');
+  if (!cache.visitors.length) { el.innerHTML = '<div style="color:#999;font-size:13px">Abhi koi visitor nahi</div>'; return; }
+  el.innerHTML = `<div class="table"><table><thead><tr><th>Page</th><th>Device</th><th>Time</th></tr></thead><tbody>` +
+    cache.visitors.slice(0,100).map(v => `<tr>
+      <td>${v.page||'home'}</td>
+      <td>${v.device||'-'}</td>
+      <td>${v.at ? new Date(v.at.seconds*1000).toLocaleString() : ''}</td>
+    </tr>`).join('') + '</tbody></table></div>';
+}
+
+// ============ SETTINGS ============
+async function loadSettings() {
+  try {
+    const snap = await getDocs(collection(db, 'settings'));
+    if (snap.docs.length) {
+      const s = snap.docs[0].data();
+      document.getElementById('sWhatsapp').value = s.whatsapp || SITE.whatsapp;
+      document.getElementById('sFacebook').value = s.facebook || SITE.facebook;
+      document.getElementById('sInstagram').value = s.instagram || SITE.instagram;
+      document.getElementById('sYoutube').value = s.youtube || SITE.youtube;
+    } else {
+      document.getElementById('sWhatsapp').value = SITE.whatsapp;
+      document.getElementById('sFacebook').value = SITE.facebook;
+      document.getElementById('sInstagram').value = SITE.instagram;
+      document.getElementById('sYoutube').value = SITE.youtube;
+    }
+  } catch(e) { console.log(e); }
+}
+
+window.saveSettings = async function() {
+  const data = {
+    whatsapp: document.getElementById('sWhatsapp').value.trim(),
+    facebook: document.getElementById('sFacebook').value.trim(),
+    instagram: document.getElementById('sInstagram').value.trim(),
+    youtube: document.getElementById('sYoutube').value.trim(),
+    at: serverTimestamp()
+  };
+  const snap = await getDocs(collection(db, 'settings'));
+  if (snap.docs.length) await updateDoc(doc(db, 'settings', snap.docs[0].id), data);
+  else await addDoc(collection(db, 'settings'), data);
+  alert('✅ Settings save ho gayi!');
+};
+
+// ============ EXPORT ============
+window.exportData = function() {
+  const data = { products: cache.products, designs: cache.designs, folders: cache.folders, designFolders: cache.designFolders, enquiries: cache.enquiries, aiRequests: cache.aiRequests, visitors: cache.visitors };
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'shama-interior-backup-' + new Date().toISOString().slice(0,10) + '.json';
+  a.click();
+};
+
+// Load settings when auth ready
+onAuthStateChanged(auth, (u) => { if (u) setTimeout(loadSettings, 500); });
+</script>
+</body>
+</html>
