@@ -1,12 +1,10 @@
 // SHAMA INTERIOR - Firebase Configuration
-// Ye file sabhi pages use karenge
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, query, where, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB69St6NDQDgmFntvcG4G5ew2abUGb5k1g",
+  apiKey: "AIzaSyB695t6NDQDgmFntvcG4G5ew2abUGb5k1g",
   authDomain: "shama-interior.firebaseapp.com",
   projectId: "shama-interior",
   storageBucket: "shama-interior.firebasestorage.app",
@@ -18,7 +16,6 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
-// Site Settings
 const SITE = {
   name: "SHAMA INTERIOR",
   whatsapp: "918658712172",
