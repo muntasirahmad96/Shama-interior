@@ -1,100 +1,347 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#ffffff"><meta property="og:title" content="SHAMA INTERIOR | Interior Design & Materials"><meta property="og:description" content="Interior materials, AI-ready design visualization and quotation enquiry."><meta name="description" content="SHAMA INTERIOR — Interior materials, designs, AI visualization and quotation enquiry."><title>SHAMA INTERIOR | Interior Design Studio</title><style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f7f7f5;color:#151515}a{color:inherit;text-decoration:none}.top{background:#ffffff;border-bottom:1px solid #e7e3da;padding:10px 5%;display:flex;justify-content:space-between;font-size:13px;color:#666}.nav{position:sticky;top:0;z-index:20;background:#ffffffee;backdrop-filter:blur(14px);border-bottom:1px solid #e7e3da;padding:14px 5%;display:flex;align-items:center;justify-content:space-between}.brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:1px}.brand img{width:46px;height:46px;border-radius:12px}.gold{color:#e4b94f}.navlinks{display:flex;gap:20px;font-size:14px;color:#333}.hero{padding:70px 5% 55px;background:radial-gradient(circle at 85% 10%,#f7ead0 0,#ffffff 40%,#f7f7f5 80%)}.heroGrid{max-width:1200px;margin:auto;display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}.eyebrow{color:#e4b94f;font-weight:700;letter-spacing:2px;font-size:12px}.hero h1{font-size:clamp(40px,6vw,74px);line-height:.98;margin:14px 0}.hero p{font-size:18px;color:#555;line-height:1.6;max-width:620px}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:25px}.btn{border:0;border-radius:12px;padding:14px 18px;font-weight:800;cursor:pointer;background:#e4b94f;color:#111}.btn.dark{background:#18191e;color:#fff;border:1px solid #34353c}.heroCard{background:#ffffff;border:1px solid #e4dfd4;border-radius:24px;padding:18px;box-shadow:0 25px 80px #6f5a2a1a}.heroCard img{width:100%;height:360px;object-fit:cover;border-radius:16px}.wrap{max-width:1200px;margin:auto;padding:55px 5%}.sectionTitle{display:flex;justify-content:space-between;gap:20px;align-items:end;margin-bottom:22px}.sectionTitle h2{font-size:34px;margin:0}.muted{color:#aaa}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.card{background:#ffffff;border:1px solid #e3dfd6;border-radius:16px;overflow:hidden}.card img{width:100%;height:190px;object-fit:cover;background:#eeeae2}.cardbody{padding:15px}.tag{display:inline-block;font-size:11px;padding:6px 8px;border-radius:20px;background:#24252b;color:#333}.price{font-weight:800;font-size:19px;margin:10px 0}.card .btn{width:100%;padding:10px}.studio{background:#ffffff;border:1px solid #e1dcd2;border-radius:22px;padding:22px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px}.field{margin:12px 0}.field label{display:block;color:#666;font-size:12px;margin-bottom:7px}.field input,.field select{width:100%;background:#fff;color:#222;border:1px solid #d9d3c8;border-radius:10px;padding:13px}.upload{min-height:180px;border:1px dashed #bdb5a7;border-radius:14px;display:flex;align-items:center;justify-content:center;text-align:center;cursor:pointer;overflow:hidden}.upload img{display:none;width:100%;height:220px;object-fit:cover}.preview{min-height:360px;border-radius:16px;background:#f0eee9;position:relative;overflow:hidden;border:1px solid #ddd7cc}.preview img{width:100%;height:100%;min-height:360px;object-fit:cover}.preview .badge{position:absolute;right:12px;top:12px;background:#ffffffdd;border:1px solid #e4b94f;color:#e4b94f;padding:7px 10px;border-radius:20px;font-size:10px;font-weight:800}.selected{margin-top:12px;padding:12px;border:1px dashed #555;border-radius:12px;color:#ccc}.calc{background:#ffffff;border:1px solid #e0dbd1;border-radius:18px;padding:22px}.quote{font-size:28px;font-weight:900;color:#e4b94f}.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.gallery img{width:100%;height:250px;object-fit:cover;border-radius:15px;border:1px solid #ddd7cc}.footer{padding:40px 5%;border-top:1px solid #e5e0d6;color:#aaa;text-align:center}.floating{position:fixed;right:18px;bottom:18px;z-index:30;background:#1db954;color:#fff;padding:13px 18px;border-radius:30px;font-weight:800;box-shadow:0 10px 30px #0008}.modal{display:none;position:fixed;inset:0;background:#000b;z-index:50;padding:20px;align-items:center;justify-content:center}.modalbox{max-width:650px;width:100%;background:#111216;border:1px solid #383940;border-radius:20px;padding:22px;max-height:90vh;overflow:auto}.close{float:right;cursor:pointer;font-size:25px}.notice{padding:12px;border-radius:10px;background:#191a20;color:#666;font-size:12px;margin-top:12px}@media(max-width:850px){.heroGrid,.grid2{grid-template-columns:1fr}.cards{grid-template-columns:repeat(2,1fr)}.navlinks{display:none}.gallery{grid-template-columns:1fr 1fr}}@media(max-width:520px){.cards{grid-template-columns:1fr}.gallery{grid-template-columns:1fr}.hero{padding-top:40px}.heroCard img{height:260px}}
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SHAMA INTERIOR | Interior Materials & Design Studio</title>
+<meta name="description" content="SHAMA INTERIOR — Fluted, PVC, WPC, UV Sheet and custom interior solutions.">
+<style>
+:root{--gold:#c89a32;--gold-dark:#a77c1d;--dark:#171717;--gray:#666;--light:#e7e1d6;--bg:#f8f7f4;--white:#fff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;color:var(--dark);background:var(--bg);line-height:1.5}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+.wrap{max-width:1200px;margin:auto;padding:0 5%}
+.hide{display:none!important}
+.gold{color:var(--gold)}
 
-.aiHero{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;align-items:stretch;margin-bottom:18px}
-.aiBadge{display:inline-flex;gap:8px;align-items:center;padding:7px 11px;border-radius:999px;background:#f7ecd2;color:#8a6516;font-weight:800;font-size:11px}
-.aiSteps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:15px}
-.aiStep{padding:13px;border:1px solid #e4dfd4;border-radius:13px;background:#fff}
-.aiStep b{display:block;margin-bottom:5px}.aiStep small{color:#777}
-.palette{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.swatch{padding:8px 11px;border:1px solid #ddd6c8;border-radius:999px;background:#faf9f6;cursor:pointer;font-size:12px}.swatch.active{border-color:#d5a62d;background:#fff7df}
-.aiPrompt{background:#fbfaf7;border:1px dashed #d7cfbf;border-radius:14px;padding:14px;margin-top:12px;font-size:12px;line-height:1.55;color:#555}
-.aiNote{font-size:11px;color:#777;margin-top:8px}
-@media(max-width:850px){.aiHero{grid-template-columns:1fr}.aiSteps{grid-template-columns:1fr}}
-</style></head><body>
-<div class="top"><span>Professional Interior Materials & Design</span><span>📞 8658712172</span></div><nav class="nav"><a class="brand" href="#home"><img src="logo.png"><span>SHAMA <span class="gold">INTERIOR</span></span></a><div class="navlinks"><a href="#materials">Materials</a><a href="#studio">AI Studio</a><a href="#gallery">Designs</a><a href="#quote">Quotation</a><a href="#contact">Contact</a></div></nav>
-<section class="hero" id="home"><div class="heroGrid"><div><div class="eyebrow">SHAMA INTERIOR</div><h1>Design your space.<br><span class="gold">See it before work.</span></h1><p>Explore Fluted, PVC, WPC, UV Sheet and other interior materials. Upload your wall or ceiling photo, choose your exact panel and prepare a design enquiry.</p><div class="actions"><a class="btn" href="#studio">✨ Try Design Studio</a><a class="btn dark" href="#materials">Browse Materials</a></div></div><div class="heroCard"><img src="logo.png" alt="SHAMA INTERIOR"></div></div></section>
-<section class="wrap" id="materials"><div class="sectionTitle"><div><div class="eyebrow">CATALOGUE</div><h2>Featured Materials</h2></div><span class="muted">Your exact uploaded products can appear here.</span></div><div class="cards" id="productGrid"></div></section>
-<section class="wrap" id="studio"><div class="sectionTitle"><div><div class="eyebrow">AI DESIGN STUDIO</div><h2>Visualize Your Wall & Ceiling</h2><p class="muted">Upload a real room photo, choose your exact SHAMA INTERIOR panel and prepare an AI-ready design.</p></div><span class="aiBadge">🤖 AI READY</span></div>
-<div class="aiHero">
-<div class="box">
-<h3 style="margin-top:0">3 simple steps</h3>
-<div class="aiSteps"><div class="aiStep"><b>1. Upload</b><small>Client ki wall/ceiling photo upload karein.</small></div>
-<div class="aiStep"><b>2. Select</b><small>Fluted, PVC, WPC, UV Sheet ya exact panel choose karein.</small></div>
-<div class="aiStep"><b>3. Generate</b><small>AI prompt + selected material details ready honge.</small></div></div>
-</div>
-<div class="box"><b>AI Design Style</b><div class="palette">
-<button class="swatch active" onclick="setStyle(this,'Modern Luxury')">Modern Luxury</button>
-<button class="swatch" onclick="setStyle(this,'Minimal')">Minimal</button>
-<button class="swatch" onclick="setStyle(this,'Classic')">Classic</button>
-<button class="swatch" onclick="setStyle(this,'Premium Wood')">Premium Wood</button>
-</div><div class="aiNote">Style sirf AI generation instruction ko guide karta hai.</div></div>
-</div><div class="studio"><div class="grid2"><div><div class="field"><label>Wall / Ceiling</label><select id="surface"><option>Wall</option><option>Ceiling</option></select></div><div class="field"><label>Upload Client Photo</label><label class="upload"><input id="photo" type="file" accept="image/*" hidden><span id="uploadText">📷<br><br><b>Tap to upload wall / ceiling photo</b></span><img id="photoPreview"></label></div><div class="field"><label>Reference Design (Optional)</label><label class="upload" style="min-height:120px"><input id="ref" type="file" accept="image/*" hidden><span id="refText">🖼️ Upload client's reference design</span><img id="refPreview"></label></div><div class="field"><label>Material</label><select id="material" onchange="renderProducts()"></select></div><div class="field"><label>Exact Panel / Product</label><div id="panelList" class="cards" style="grid-template-columns:repeat(2,1fr)"></div></div><div id="chosen" class="selected">No panel selected.</div><div class="actions"><button class="btn" onclick="generatePreview()">✨ Generate Preview</button><button class="btn dark" onclick="addCombination()">+ Add Panel</button></div><div class="notice">V8 is prepared for a real AI backend. This free browser build creates a material preview and collects the exact inputs for future photorealistic generation.</div></div><div><div class="preview" id="preview"><div style="padding:100px 20px;text-align:center;color:#777">Your design preview will appear here.</div></div><div id="aiStatus" class="selected">Upload a photo and select a panel to begin.</div><div id="aiPrompt" class="aiPrompt">AI design instructions will appear here after you select a panel.</div><button class="btn dark" onclick="copyAIPrompt()">📋 Copy AI Prompt</button></div></div></div></section>
-<section class="wrap" id="gallery"><div class="sectionTitle"><div><div class="eyebrow">PORTFOLIO</div><h2>Our Design Inspiration</h2></div></div><div class="gallery"><img src="logo.png"><img src="logo.png"><img src="logo.png"></div></section>
-<section class="wrap" id="quote"><div class="sectionTitle"><div><div class="eyebrow">QUOTATION</div><h2>Get a Quick Estimate</h2></div></div><div class="calc grid2"><div><div class="field"><label>Length (ft)</label><input id="ql" type="number" placeholder="12"></div><div class="field"><label>Width / Height (ft)</label><input id="qw" type="number" placeholder="10"></div><div class="field"><label>Customer Name</label><input id="qn" placeholder="Name"></div><button class="btn" onclick="quote()">Calculate & WhatsApp</button></div><div><div class="muted">Estimated area</div><div id="area" class="quote">0 sq.ft</div><p class="muted">Final price depends on selected material, wastage, installation and site measurement.</p><div id="quoteMsg" class="selected">Your selected panel will be included in the enquiry.</div></div></div></section>
+/* TOP BAR */
+.top{background:var(--dark);color:#fff;text-align:center;padding:8px;font-size:12px;letter-spacing:1px}
 
-<section class="wrap" id="enquiry">
-<h2>Get Your Interior Quote</h2>
-<div class="studio">
-<div class="box">
-<label>Your Name</label><input id="leadName" type="text" placeholder="Enter your name">
-<label>WhatsApp / Mobile</label><input id="leadPhone" type="tel" placeholder="10 digit mobile number">
-<label>City / Area</label><input id="leadCity" type="text" placeholder="Your city / area">
-<label>Requirement</label>
-<select id="leadReq"><option>Wall Design</option><option>Ceiling Design</option><option>Full Interior</option><option>Material Enquiry</option><option>Quotation</option><option>Site Visit</option></select>
-<label>Message</label><input id="leadMsg" type="text" placeholder="Tell us what you need">
-<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:15px">
-<button class="btn" onclick="saveLead()">Save Enquiry</button>
-<button class="btn dark" onclick="sendLeadWhatsApp()">WhatsApp Us</button>
-</div>
-<div id="leadStatus" class="result">Your details are used only to respond to your enquiry.</div>
-</div>
-<div class="box">
-<h3>Why choose SHAMA INTERIOR?</h3>
-<p>✔ Modern & luxury wall designs</p>
-<p>✔ Fluted • PVC • WPC • UV Sheet & more</p>
-<p>✔ Custom combinations</p>
-<p>✔ Design visualization before work</p>
-<p>✔ Direct quotation & WhatsApp support</p>
-</div>
-</div></section>
+/* NAV */
+.nav{position:sticky;top:0;z-index:99;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-bottom:1px solid var(--light);display:flex;align-items:center;justify-content:space-between;padding:12px 5%;gap:15px}
+.logo{height:50px;max-width:180px;object-fit:contain}
+.links{display:flex;gap:22px;font-size:14px;font-weight:600}
+.links a{transition:.2s;color:#333}
+.links a:hover{color:var(--gold)}
+.btn{border:0;border-radius:9px;padding:12px 20px;background:var(--gold);color:#fff;font-weight:700;cursor:pointer;display:inline-block;font-size:14px;transition:.2s;text-align:center}
+.btn:hover{background:var(--gold-dark);transform:translateY(-1px)}
+.btn.dark{background:var(--dark)}
+.btn.dark:hover{background:#333}
+.btn.outline{background:transparent;border:2px solid var(--dark);color:var(--dark)}
+.btn.outline:hover{background:var(--dark);color:#fff}
+.btn.small{padding:8px 14px;font-size:12px}
+.btn.green{background:#25D366}
+.btn.green:hover{background:#128C7E}
 
-<section class="wrap" id="contact"><div class="sectionTitle"><div><div class="eyebrow">CONTACT</div><h2>SHAMA INTERIOR</h2></div></div><div class="studio"><p>Interior work • PVC • Fluted Panel • WPC • UV Sheet • Wall & Ceiling Designs</p><div class="actions"><a class="btn" href="tel:+918658712172">📞 Call 8658712172</a><a class="btn dark" href="https://wa.me/918658712172" target="_blank">💬 WhatsApp</a></div></div></section>
-<a class="floating" href="https://wa.me/918658712172" target="_blank">WhatsApp Us</a><footer class="footer">© 2026 SHAMA INTERIOR • Interior Design & Materials</footer>
-<div class="modal" id="productModal"><div class="modalbox"><span class="close" onclick="closeModal()">×</span><h2 id="mTitle"></h2><div id="mBody"></div></div></div>
-<script>
-const demo=[{id:1,cat:'Fluted Panel',name:'Fluted Panel — Premium',code:'FP-001',size:'10 ft × 12 in',rate:'₹550 / pc',img:'logo.png',desc:'Decorative fluted wall panel.'},{id:2,cat:'PVC',name:'PVC Golden Line',code:'PVC-GL-001',size:'10 ft × 12 in',rate:'₹550 / pc',img:'logo.png',desc:'PVC panel for modern interiors.'},{id:3,cat:'WPC',name:'WPC Wall Panel',code:'WPC-001',size:'8 ft × 8 in',rate:'Ask for quote',img:'logo.png',desc:'Premium WPC decorative panel.'},{id:4,cat:'UV Sheet',name:'UV Marble Sheet',code:'UV-001',size:'8 ft × 4 ft',rate:'Ask for quote',img:'logo.png',desc:'Glossy decorative UV sheet.'}];
-let products=JSON.parse(localStorage.getItem('shamaProducts')||'null')||demo,selected=null,combo=[],photoURL='',aiStyle='Modern Luxury';
-function esc(x){return String(x??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
-function cats(){return [...new Set(products.map(x=>x.cat))]};
-function renderProducts(){const c=document.getElementById('material'); if(!c)return;c.innerHTML=cats().map(x=>`<option>${esc(x)}</option>`).join('');const cat=c.value||cats()[0];const arr=products.filter(x=>x.cat===cat);document.getElementById('panelList').innerHTML=arr.map((x,i)=>`<div class="card"><img src="${esc(x.img||'logo.png')}"><div class="cardbody"><span class="tag">${esc(x.code)}</span><b>${esc(x.name)}</b><div class="muted">${esc(x.size)}</div><div class="price">${esc(x.rate)}</div><button class="btn" onclick="selectPanel(${x.id})">Use in Design</button></div></div>`).join('')}
-function renderGrid(){document.getElementById('productGrid').innerHTML=products.map(x=>`<div class="card"><img src="${esc(x.img||'logo.png')}"><div class="cardbody"><span class="tag">${esc(x.cat)}</span><h3>${esc(x.name)}</h3><div class="muted">${esc(x.code)} • ${esc(x.size)}</div><div class="price">${esc(x.rate)}</div><button class="btn" onclick="selectPanel(${x.id});location.hash='studio'">Try this panel</button></div></div>`).join('');renderProducts()}
-function selectPanel(id){selected=products.find(x=>x.id===id);if(!combo.some(x=>x.id===id))combo.push(selected);document.getElementById('chosen').innerHTML='<b>Selected:</b> '+esc(combo.map(x=>x.name).join(' + '))+'<br><small>'+esc(combo.map(x=>x.code).join(', '))+'</small>';renderPreview(); updateAIPrompt()}
-function addCombination(){if(!selected){alert('Pehle panel select karein.');return}if(!combo.some(x=>x.id===selected.id))combo.push(selected);document.getElementById('chosen').innerHTML='<b>Combination:</b> '+esc(combo.map(x=>x.name).join(' + '))}
-function bindUpload(input,preview,text){input.addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const u=URL.createObjectURL(f);preview.src=u;preview.style.display='block';text.style.display='none';return u})}
-bindUpload(document.getElementById('photo'),document.getElementById('photoPreview'),document.getElementById('uploadText'));bindUpload(document.getElementById('ref'),document.getElementById('refPreview'),document.getElementById('refText'));
-document.getElementById('photo').addEventListener('change',e=>{if(e.target.files[0]){photoURL=URL.createObjectURL(e.target.files[0]);renderPreview()}});
-function renderPreview(){if(!photoURL||!selected)return;document.getElementById('preview').innerHTML=`<img src="${photoURL}"><div class="badge">SHAMA AI PREVIEW</div>`}
-function setStyle(el,style){aiStyle=style;document.querySelectorAll('.swatch').forEach(x=>x.classList.remove('active'));el.classList.add('active');updateAIPrompt()}
-function updateAIPrompt(){
- const surface=(document.getElementById('surface')||{}).value||'Wall';
- const panels=combo.length?combo.map(x=>x.name+' ('+x.code+')').join(', '):(selected?selected.name+' ('+selected.code+')':'selected panel');
- const prompt='Create a photorealistic '+aiStyle.toLowerCase()+' interior visualization of the uploaded '+surface.toLowerCase()+'. Apply the selected SHAMA INTERIOR material exactly as a realistic finished surface: '+panels+'. Preserve the room architecture, doors, windows, furniture and camera perspective. Use accurate panel scale, seams, lighting and natural shadows. Do not change unrelated objects.';
- const box=document.getElementById('aiPrompt'); if(box) box.textContent=prompt;
+/* HERO */
+.hero{padding:60px 5%;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;background:linear-gradient(135deg,#fff,#f5efe2);min-height:520px}
+.hero h1{font-size:clamp(38px,5.5vw,68px);line-height:1.05;font-weight:800;letter-spacing:-1px;margin:12px 0}
+.hero p{color:var(--gray);font-size:17px;margin-bottom:24px}
+.eyebrow{font-size:11px;letter-spacing:3px;color:var(--gold);font-weight:800}
+.hero-img{height:420px;border-radius:24px;background:linear-gradient(135deg,#eee7d8,#fff);display:flex;align-items:center;justify-content:center;color:var(--gold-dark);font-size:18px;font-weight:700;border:1px solid var(--light);box-shadow:0 20px 60px rgba(200,154,50,.15)}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0 26px}
+.badge{background:#fff;border:1px solid var(--light);padding:8px 14px;border-radius:99px;font-size:12px;font-weight:600;color:#555}
+
+/* SECTION */
+.section{padding:70px 5%}
+.section-title{text-align:center;margin-bottom:45px}
+.section-title h2{font-size:clamp(26px,3.5vw,38px);margin:8px 0;font-weight:800}
+.section-title p{color:var(--gray);max-width:600px;margin:auto}
+
+/* FOLDERS */
+.folders{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
+.folder-card{background:#fff;border:1px solid var(--light);border-radius:18px;padding:28px 20px;text-align:center;cursor:pointer;transition:.25s;position:relative;overflow:hidden}
+.folder-card:hover{border-color:var(--gold);transform:translateY(-4px);box-shadow:0 15px 40px rgba(200,154,50,.15)}
+.folder-card .icon{font-size:40px;margin-bottom:14px}
+.folder-card h3{font-size:17px;font-weight:800;color:var(--dark)}
+.folder-card .count{font-size:12px;color:var(--gray);margin-top:6px}
+.folder-card .gold-bar{position:absolute;bottom:0;left:0;height:4px;width:100%;background:var(--gold);transform:scaleX(0);transition:.3s}
+.folder-card:hover .gold-bar{transform:scaleX(1)}
+
+/* CATALOG VIEW */
+.catalog-header{display:flex;align-items:center;gap:16px;margin-bottom:30px;flex-wrap:wrap}
+.back-btn{background:#fff;border:1px solid var(--light);padding:9px 16px;border-radius:9px;cursor:pointer;font-weight:700;font-size:13px;color:#333;transition:.2s}
+.back-btn:hover{border-color:var(--gold);color:var(--gold)}
+.catalog-header h2{font-size:clamp(22px,3vw,32px);font-weight:800}
+.catalog-header .usage-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.usage-tag{background:#fdf6e3;color:var(--gold-dark);font-size:11px;padding:4px 10px;border-radius:99px;font-weight:700;border:1px solid #f0e0b0}
+
+/* CATALOG GRID */
+.catalog{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
+.product{background:#fff;border:1px solid var(--light);border-radius:16px;overflow:hidden;transition:.25s}
+.product:hover{box-shadow:0 15px 40px rgba(0,0,0,.08);transform:translateY(-3px)}
+.product-img{width:100%;height:240px;object-fit:cover;background:#eeeae2}
+.product-body{padding:18px}
+.product-code{font-size:11px;font-weight:800;color:var(--gold-dark);letter-spacing:1px;text-transform:uppercase}
+.product-name{font-size:16px;font-weight:800;margin:8px 0;color:var(--dark)}
+.product-meta{font-size:13px;color:var(--gray);line-height:1.6}
+.product-actions{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap}
+.product-actions .btn{flex:1;min-width:100px;padding:9px 12px;font-size:12px}
+
+.empty{text-align:center;padding:60px 20px;color:var(--gray)}
+.empty .icon{font-size:60px;margin-bottom:14px;opacity:.4}
+.loader{text-align:center;padding:50px;color:var(--gold);font-weight:700}
+
+/* AI STUDIO SECTION (home) */
+.ai-box{background:var(--dark);color:#fff;border-radius:24px;padding:50px 40px;text-align:center;position:relative;overflow:hidden}
+.ai-box h2{font-size:clamp(24px,3.5vw,36px);margin-bottom:14px;font-weight:800}
+.ai-box h2 .gold{color:var(--gold)}
+.ai-box p{color:#aaa;max-width:600px;margin:0 auto 26px;font-size:15px}
+.ai-box .badge{background:rgba(200,154,50,.15);border-color:rgba(200,154,50,.3);color:var(--gold)}
+
+/* FOOTER */
+.footer{background:var(--dark);color:#fff;padding:55px 5% 30px;margin-top:60px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;max-width:1200px;margin:auto}
+.footer h3{font-size:20px;margin-bottom:14px;font-weight:800}
+.footer h4{font-size:14px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;font-weight:800}
+.footer p{color:#aaa;font-size:14px;line-height:1.7}
+.footer a{color:#ddd;font-size:14px;display:block;padding:5px 0;transition:.2s}
+.footer a:hover{color:var(--gold);padding-left:5px}
+.social{display:flex;gap:12px;margin-top:16px}
+.social a{display:inline-flex;width:42px;height:42px;background:rgba(255,255,255,.08);border-radius:50%;align-items:center;justify-content:center;padding:0;font-size:16px}
+.social a:hover{background:var(--gold);padding:0;color:#fff}
+.footer-bottom{text-align:center;color:#666;font-size:12px;padding-top:30px;margin-top:30px;border-top:1px solid #2a2a2a}
+
+/* WHATSAPP FLOAT */
+.wa-float{position:fixed;bottom:24px;right:24px;width:60px;height:60px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 8px 25px rgba(37,211,102,.5);z-index:100;transition:.3s}
+.wa-float:hover{transform:scale(1.1)}
+
+/* MOBILE */
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;padding:40px 5%}
+  .hero-img{height:280px}
+  .links{display:none}
+  .footer-grid{grid-template-columns:1fr;gap:30px}
+  .section{padding:50px 5%}
 }
-function copyAIPrompt(){const t=document.getElementById('aiPrompt').textContent;navigator.clipboard?.writeText(t).then(()=>alert('AI prompt copied.')).catch(()=>alert(t))}
-function generatePreview(){
- if(!photoURL||!selected){alert('Pehle client photo aur panel select karein.');return}
- renderPreview(); updateAIPrompt();
- document.getElementById('aiStatus').innerHTML='<b class="gold">AI REQUEST READY ✓</b><br><small>Photo + exact material + style + surface details captured. A secure server-side AI image generator can now produce the photorealistic result without exposing an API key in the browser.</small>';
- trackEvent && trackEvent('ai_generate_request',{surface:document.getElementById('surface').value,style:aiStyle,panels:combo.map(x=>x.code)});
+@media(max-width:600px){
+  .catalog{grid-template-columns:1fr}
+  .folders{grid-template-columns:repeat(2,1fr);gap:12px}
+  .folder-card{padding:20px 14px}
+  .folder-card .icon{font-size:32px}
+  .folder-card h3{font-size:14px}
+  .ai-box{padding:35px 20px}
 }
-function quote(){const l=+document.getElementById('ql').value,w=+document.getElementById('qw').value,a=l&&w?l*w:0;document.getElementById('area').textContent=a?a.toFixed(2)+' sq.ft':'0 sq.ft';const p=combo.length?combo.map(x=>x.name+' ['+x.code+']').join(', '):'No panel selected';document.getElementById('quoteMsg').innerHTML='<b>Panels:</b> '+esc(p);let msg='Hello SHAMA INTERIOR, I need an interior quotation.%0AName: '+encodeURIComponent(document.getElementById('qn').value||'Customer')+'%0AArea: '+encodeURIComponent(a?a.toFixed(2)+' sq.ft':'Not provided')+'%0APanels: '+encodeURIComponent(p);window.open('https://wa.me/918658712172?text='+msg,'_blank')}
-function closeModal(){document.getElementById('productModal').style.display='none'}
-renderGrid();
+</style>
+</head>
+<body>
+
+<div class="top">SHAMA INTERIOR • FLUTED • PVC • WPC • UV SHEET • CUSTOM INTERIOR</div>
+
+<nav class="nav">
+  <a href="index.html"><img src="logo.png" class="logo" alt="SHAMA INTERIOR"></a>
+  <div class="links">
+    <a href="#home">Home</a>
+    <a href="#materials">Materials</a>
+    <a href="ai-studio.html">AI Studio</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a class="btn green" href="https://wa.me/918658712172?text=Hello%20SHAMA%20INTERIOR%2C%20I%20want%20an%20interior%20enquiry." target="_blank">💬 WhatsApp</a>
+</nav>
+
+<section id="home" class="hero">
+  <div>
+    <div class="eyebrow">INTERIOR MATERIALS • DESIGN • VISUALIZATION</div>
+    <h1>Design your wall<br><span class="gold">your way.</span></h1>
+    <p>Explore premium interior materials — Fluted, PVC, WPC, UV Sheet. Choose your exact design, see it in our digital catalogue, and get a personalized quote on WhatsApp.</p>
+    <div class="badges">
+      <span class="badge">✓ Premium Materials</span>
+      <span class="badge">✓ Digital Catalogue</span>
+      <span class="badge">✓ WhatsApp Enquiry</span>
+    </div>
+    <a class="btn" href="#materials">📁 Explore Materials</a>
+    <a class="btn outline" href="ai-studio.html" style="margin-left:8px">🎨 AI Studio</a>
+  </div>
+  <div class="hero-img">SHAMA INTERIOR<br><span style="font-size:13px;font-weight:400;color:#999">Design Studio</span></div>
+</section>
+
+<section id="materials" class="section">
+  <div class="section-title">
+    <div class="eyebrow">DIGITAL CATALOGUE</div>
+    <h2>Choose Material</h2>
+    <p>Browse our complete collection by category. Click any folder to see all available designs.</p>
+  </div>
+  <div id="foldersContainer" class="folders">
+    <div class="loader">Loading folders...</div>
+  </div>
+  <div id="catalogView" class="hide"></div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="ai-box">
+    <div class="eyebrow" style="color:var(--gold)">AI INTERIOR STUDIO</div>
+    <h2>See it on <span class="gold">your wall</span></h2>
+    <p>Upload your wall photo, select any material from our catalogue, and preview how it will look — powered by AI.</p>
+    <span class="badge" style="margin-bottom:20px;display:inline-block">🤖 COMING SOON</span>
+    <div><a class="btn" href="ai-studio.html">🎨 Go to AI Studio</a></div>
+  </div>
+</section>
+
+<footer class="footer" id="contact">
+  <div class="footer-grid">
+    <div>
+      <h3>SHAMA <span class="gold">INTERIOR</span></h3>
+      <p>Premium interior materials — Fluted Panel, PVC Panel, WPC Panel, UV Sheet, and custom interior solutions. Modern • Classic • Luxury.</p>
+      <div class="social">
+        <a href="https://www.facebook.com/share/18Gb26vMMT/" target="_blank" title="Facebook">📘</a>
+        <a href="https://www.instagram.com/shamainterior" target="_blank" title="Instagram">📷</a>
+        <a href="https://youtube.com/@muntasirahmad5668" target="_blank" title="YouTube">▶️</a>
+      </div>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <a href="#home">Home</a>
+      <a href="#materials">Materials</a>
+      <a href="ai-studio.html">AI Studio</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <a href="https://wa.me/918658712172" target="_blank">💬 WhatsApp</a>
+      <a href="#">📍 India</a>
+      <a href="#">✉️ shamainterior</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 SHAMA INTERIOR. All Rights Reserved.</div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/918658712172?text=Hello%20SHAMA%20INTERIOR" target="_blank" title="Chat on WhatsApp">💬</a>
+
+<script type="module">
+import { db, SITE, collection, getDocs, addDoc, serverTimestamp } from './firebase-config.js';
+
+// ============ SECURITY: HTML ESCAPE ============
+function esc(str) {
+  if (str === null || str === undefined) return '';
+  return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+
+// ============ PLACEHOLDER IMAGE ============
+function placeholder(text) {
+  return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" width="600" height="500"><rect width="100%" height="100%" fill="#eeeae2"/><text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-family="Arial" font-size="22" fill="#a77c1d">' + text + '</text></svg>'
+  );
+}
+
+// ============ FOLDER ICONS ============
+function folderIcon(name) {
+  const n = (name || '').toLowerCase();
+  if (n.includes('fluted')) return '▥';
+  if (n.includes('pvc')) return '▤';
+  if (n.includes('wpc')) return '▦';
+  if (n.includes('uv')) return '◇';
+  if (n.includes('design')) return '🎨';
+  return '📁';
+}
+
+// ============ TRACK VISITOR ============
+async function trackVisitor(page) {
+  try {
+    await addDoc(collection(db, 'visitors'), {
+      page: page || 'home',
+      device: /Mobi|Android/i.test(navigator.userAgent) ? 'mobile' : 'desktop',
+      at: serverTimestamp()
+    });
+  } catch(e) { /* silent fail */ }
+}
+
+// ============ STATE ============
+let allFolders = [];
+let allProducts = [];
+let currentFolder = null;
+
+// ============ LOAD DATA ============
+async function loadHome() {
+  const foldersEl = document.getElementById('foldersContainer');
+  try {
+    const [foldersSnap, productsSnap] = await Promise.all([
+      getDocs(collection(db, 'folders')),
+      getDocs(collection(db, 'products'))
+    ]);
+    allFolders = foldersSnap.docs.map(d => ({id: d.id, ...d.data()}));
+    allProducts = productsSnap.docs.map(d => ({id: d.id, ...d.data()}));
+    allFolders.sort((a, b) => (a.at?.seconds || 0) - (b.at?.seconds || 0));
+
+    if (!allFolders.length) {
+      foldersEl.innerHTML = '<div class="empty"><div class="icon">📁</div><p>Abhi koi material add nahi hua. Admin se add karo.</p></div>';
+      return;
+    }
+
+    foldersEl.innerHTML = allFolders.map(f => {
+      const count = allProducts.filter(p => p.folderId === f.id).length;
+      return '<div class="folder-card" onclick="openFolder(\'' + f.id + '\')">' +
+        '<div class="icon">' + folderIcon(f.name) + '</div>' +
+        '<h3>' + esc(f.name) + '</h3>' +
+        '<div class="count">' + count + ' item' + (count !== 1 ? 's' : '') + '</div>' +
+        '<div class="gold-bar"></div>' +
+      '</div>';
+    }).join('');
+  } catch(e) {
+    console.error('Load error:', e);
+    foldersEl.innerHTML = '<div class="empty"><div class="icon">⚠️</div><p>Data load nahi hua. Internet check karo.</p></div>';
+  }
+}
+
+// ============ OPEN FOLDER (PDF style catalog) ============
+window.openFolder = function(folderId) {
+  const folder = allFolders.find(f => f.id === folderId);
+  if (!folder) return;
+  currentFolder = folder;
+  const products = allProducts.filter(p => p.folderId === folderId);
+
+  const folderView = document.getElementById('foldersContainer');
+  const catalogView = document.getElementById('catalogView');
+
+  folderView.classList.add('hide');
+  catalogView.classList.remove('hide');
+
+  const usageTags = (folder.usage || []).map(u => '<span class="usage-tag">' + esc(u) + '</span>').join('');
+
+  let html = '<div class="catalog-header">' +
+    '<button class="back-btn" onclick="closeFolder()">← Back</button>' +
+    '<div>' +
+      '<h2>' + folderIcon(folder.name) + ' ' + esc(folder.name) + '</h2>' +
+      (usageTags ? '<div class="usage-tags">' + usageTags + '</div>' : '') +
+    '</div>' +
+  '</div>';
+
+  if (!products.length) {
+    html += '<div class="empty"><div class="icon">📦</div><p>Is folder mein abhi koi product nahi.</p></div>';
+  } else {
+    html += '<div class="catalog">' + products.map(p => {
+      const img = p.img || placeholder(p.code || 'Product');
+      const meta = [];
+      if (p.size) meta.push('📐 ' + esc(p.size));
+      if (p.color) meta.push('🎨 ' + esc(p.color));
+      return '<div class="product">' +
+        '<img class="product-img" src="' + esc(img) + '" alt="' + esc(p.name) + '" onerror="this.src=\'' + placeholder(p.code || 'Product') + '\'">' +
+        '<div class="product-body">' +
+          '<div class="product-code">' + esc(p.code || '') + '</div>' +
+          '<div class="product-name">' + esc(p.name || '') + '</div>' +
+          '<div class="product-meta">' + meta.join('<br>') + '</div>' +
+          '<div class="product-actions">' +
+            '<a class="btn small green" href="https://wa.me/918658712172?text=' + encodeURIComponent('Hello SHAMA INTERIOR,\nI am interested in ' + (p.name||'') + ' (' + (p.code||'') + ').\nSize: ' + (p.size||'') + '\nColour: ' + (p.color||'')) + '" target="_blank">💬 Enquire</a>' +
+            '<a class="btn small outline" href="ai-studio.html?product=' + p.id + '">🎨 Try on Wall</a>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    }).join('') + '</div>';
+  }
+
+  catalogView.innerHTML = html;
+  catalogView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+window.closeFolder = function() {
+  document.getElementById('catalogView').classList.add('hide');
+  document.getElementById('foldersContainer').classList.remove('hide');
+  document.getElementById('materials').scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+// ============ INIT ============
+trackVisitor('home');
+loadHome();
 </script>
-<div id="consent" style="position:fixed;bottom:0;left:0;right:0;background:#111116;border-top:1px solid #333;padding:12px 18px;z-index:99;display:none">
-<span style="color:#aaa;font-size:12px">We use basic anonymous site analytics to improve the website. Customer contact details are collected only when you submit an enquiry.</span>
-<button class="btn" style="float:right;padding:7px 12px" onclick="localStorage.setItem('shama_consent','1');this.parentElement.style.display='none'">OK</button>
-</div>
-<script>if(!localStorage.getItem('shama_consent'))document.getElementById('consent').style.display='block';</script>
-</body></html>
+
+</body>
+</html>
