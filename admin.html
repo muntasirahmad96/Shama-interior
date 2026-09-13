@@ -35,14 +35,11 @@ button:disabled{opacity:.5;cursor:not-allowed}
 .card{background:#fff;border:1px solid #e7e1d6;border-radius:14px;padding:20px;margin-bottom:18px}
 .card h2{font-size:18px;margin-bottom:14px;color:#171717}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
 .table{overflow:auto;background:#fff;border:1px solid #e7e1d6;border-radius:14px}
 table{width:100%;border-collapse:collapse;font-size:13px}
 th,td{padding:11px 12px;border-bottom:1px solid #f0ede6;text-align:left}
 th{background:#faf8f4;font-weight:700;color:#555;font-size:12px;text-transform:uppercase;letter-spacing:.5px}
 tr:hover{background:#fdfbf6}
-.badge{display:inline-block;padding:3px 9px;border-radius:99px;font-size:11px;font-weight:700;background:#eee;color:#555;margin:2px}
-.badge.gold{background:#fff3d2;color:#8a6a13}
 .folder{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid #e7e1d6;border-radius:10px;padding:10px 14px;margin:4px;font-size:13px}
 .loader{text-align:center;padding:30px;color:#999;font-size:14px}
 .msg{padding:11px;border-radius:8px;margin-bottom:12px;font-size:13px}
@@ -57,12 +54,11 @@ tr:hover{background:#fdfbf6}
 .check-item input{margin:0;width:auto}
 .check-item input:checked+span{color:#c89a32;font-weight:700}
 .footer-note{text-align:center;color:#999;font-size:12px;padding:20px 0}
-@media(max-width:700px){.row,.row3{grid-template-columns:1fr}header b{font-size:13px}}
+@media(max-width:700px){.row{grid-template-columns:1fr}header b{font-size:13px}}
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
 <div id="loginScreen" class="login">
   <h1>🔐 <span class="gold">SHAMA</span> ADMIN</h1>
   <p>Sirf authorized user ke liye</p>
@@ -75,7 +71,6 @@ tr:hover{background:#fdfbf6}
   <button id="loginBtn" style="width:100%" onclick="doLogin()">Login</button>
 </div>
 
-<!-- ADMIN -->
 <div id="adminPanel" class="hide">
   <header>
     <b>SHAMA <span class="gold">INTERIOR</span> ADMIN</b>
@@ -96,7 +91,6 @@ tr:hover{background:#fdfbf6}
       <button onclick="tab('settings',this)">⚙️ Settings</button>
     </div>
 
-    <!-- DASHBOARD -->
     <div id="tab-dashboard">
       <div class="grid">
         <div class="box">Materials<div id="dMat" class="num">0</div></div>
@@ -109,7 +103,6 @@ tr:hover{background:#fdfbf6}
       <div class="card"><h2>🔥 Recent Activity</h2><div id="dRecent" class="loader">Loading...</div></div>
     </div>
 
-    <!-- MATERIALS -->
     <div id="tab-materials" class="hide">
       <div class="card">
         <h2>📁 Create Folder (Category)</h2>
@@ -161,7 +154,6 @@ tr:hover{background:#fdfbf6}
       <div class="card"><h2>📦 All Products</h2><div id="productList" class="loader">Loading...</div></div>
     </div>
 
-    <!-- DESIGNS -->
     <div id="tab-designs" class="hide">
       <div class="card">
         <h2>🎨 Design Folders</h2>
@@ -192,16 +184,12 @@ tr:hover{background:#fdfbf6}
       <div class="card"><h2>🖼️ All Designs</h2><div id="designList" class="loader">Loading...</div></div>
     </div>
 
-    <!-- ENQUIRIES -->
     <div id="tab-enquiries" class="hide"><div class="card"><h2>📞 Customer Enquiries</h2><div id="enqList" class="loader">Loading...</div></div></div>
 
-    <!-- AI -->
     <div id="tab-ai" class="hide"><div class="card"><h2>🤖 AI Requests</h2><div id="aiList" class="loader">Loading...</div></div></div>
 
-    <!-- VISITORS -->
     <div id="tab-visitors" class="hide"><div class="card"><h2>👥 Visitors</h2><div id="visList" class="loader">Loading...</div></div></div>
 
-    <!-- SETTINGS -->
     <div id="tab-settings" class="hide">
       <div class="card">
         <h2>⚙️ Site Settings</h2>
@@ -231,7 +219,6 @@ import { db, auth, SITE, collection, addDoc, getDocs, doc, updateDoc, deleteDoc,
 const IMGBB_KEY = "8368322b9757bc066ff3a9c0efdc9d54";
 let cache = { products:[], designs:[], folders:[], designFolders:[], enquiries:[], aiRequests:[], visitors:[] };
 
-// ============ AUTH ============
 onAuthStateChanged(auth, (user) => {
   if (user) {
     document.getElementById('loginScreen').classList.add('hide');
@@ -273,7 +260,6 @@ window.tab = function(name, btn) {
   document.getElementById('tab-'+name).classList.remove('hide');
 };
 
-// ============ IMAGE UPLOAD (ImgBB) ============
 window.uploadImage = async function(input, type) {
   const file = input.files[0];
   if (!file) return;
@@ -296,7 +282,6 @@ window.uploadImage = async function(input, type) {
   }
 };
 
-// ============ LOAD ============
 async function loadAll() {
   await Promise.all([loadFolders(), loadProducts(), loadDesignFolders(), loadDesigns(), loadEnquiries(), loadAi(), loadVisitors()]);
   updateDash();
@@ -317,10 +302,8 @@ function updateDash() {
   ).join('') : '<div style="color:#999">No activity</div>';
 }
 
-// ============ FOLDERS ============
 window.toggleWall = function(el) {
   if (el.checked) {
-    // Wall ticked => sab check karo
     document.querySelectorAll('#usageGroup input').forEach(i => { if(i.value!=='Wall') i.checked = true; });
   }
 };
@@ -354,7 +337,6 @@ window.delFolder = async function(id) {
   await loadFolders();
 };
 
-// ============ PRODUCTS ============
 async function loadProducts() {
   const snap = await getDocs(collection(db, 'products'));
   cache.products = snap.docs.map(d => ({id:d.id, ...d.data()}));
@@ -409,7 +391,6 @@ window.editProduct = function(id) {
   updateDoc(doc(db, 'products', id), { name:newName, code:newCode, size:newSize, color:newColor, rate:newRate }).then(() => { loadProducts(); alert('✅ Updated!'); });
 };
 
-// ============ DESIGN FOLDERS ============
 async function loadDesignFolders() {
   const snap = await getDocs(collection(db, 'designFolders'));
   cache.designFolders = snap.docs.map(d => ({id:d.id, ...d.data()}));
@@ -434,7 +415,6 @@ window.delDesignFolder = async function(id) {
   await loadDesignFolders();
 };
 
-// ============ DESIGNS ============
 async function loadDesigns() {
   const snap = await getDocs(collection(db, 'designs'));
   cache.designs = snap.docs.map(d => ({id:d.id, ...d.data()}));
@@ -467,7 +447,6 @@ window.delDesign = async function(id) {
   await loadDesigns(); updateDash();
 };
 
-// ============ ENQ / AI / VISITORS ============
 async function loadEnquiries() {
   const snap = await getDocs(collection(db, 'enquiries'));
   cache.enquiries = snap.docs.map(d => ({id:d.id, ...d.data()}));
@@ -489,4 +468,31 @@ async function loadVisitors() {
   cache.visitors = snap.docs.map(d => ({id:d.id, ...d.data()}));
   cache.visitors.sort((a,b)=>(b.at?.seconds||0)-(a.at?.seconds||0));
   const el = document.getElementById('visList');
-  el.innerHTML = cache.visitors.length ? '<div class="table"><table><thead><tr><th>Page</th><th>Time</th></tr></thead><
+  el.innerHTML = cache.visitors.length ? '<div class="table"><table><thead><tr><th>Page</th><th>Time</th></tr></thead><tbody>'+cache.visitors.slice(0,100).map(v=>'<tr><td>'+(v.page||'home')+'</td><td>'+(v.at?new Date(v.at.seconds*1000).toLocaleString():'')+'</td></tr>').join('')+'</tbody></table></div>' : '<div style="color:#999">No visitors</div>';
+}
+
+async function loadSettings() {
+  const snap = await getDocs(collection(db, 'settings'));
+  if (snap.docs.length) {
+    const s = snap.docs[0].data();
+    document.getElementById('sWhatsapp').value = s.whatsapp || SITE.whatsapp;
+    document.getElementById('sFacebook').value = s.facebook || SITE.facebook;
+    document.getElementById('sInstagram').value = s.instagram || SITE.instagram;
+    document.getElementById('sYoutube').value = s.youtube || SITE.youtube;
+  } else {
+    document.getElementById('sWhatsapp').value = SITE.whatsapp;
+    document.getElementById('sFacebook').value = SITE.facebook;
+    document.getElementById('sInstagram').value = SITE.instagram;
+    document.getElementById('sYoutube').value = SITE.youtube;
+  }
+}
+
+window.saveSettings = async function() {
+  const data = {
+    whatsapp: document.getElementById('sWhatsapp').value.trim(),
+    facebook: document.getElementById('sFacebook').value.trim(),
+    instagram: document.getElementById('sInstagram').value.trim(),
+    youtube: document.getElementById('sYoutube').value.trim(),
+    at: serverTimestamp()
+  };
+  const snap = await getDocs(collection(db
