@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SHAMA INTERIOR | Interior Materials & Design Studio</title>
+<title>SHAMA INTERIOR | Premium Interior Materials</title>
 <meta name="description" content="SHAMA INTERIOR — Fluted, PVC, WPC, UV Sheet and custom interior solutions.">
 <style>
 :root{--gold:#c89a32;--gold-dark:#a77c1d;--dark:#171717;--gray:#666;--light:#e7e1d6;--bg:#f8f7f4;--white:#fff}
@@ -15,10 +15,7 @@ img{max-width:100%;display:block}
 .hide{display:none!important}
 .gold{color:var(--gold)}
 
-/* TOP BAR */
 .top{background:var(--dark);color:#fff;text-align:center;padding:8px;font-size:12px;letter-spacing:1px}
-
-/* NAV */
 .nav{position:sticky;top:0;z-index:99;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-bottom:1px solid var(--light);display:flex;align-items:center;justify-content:space-between;padding:12px 5%;gap:15px}
 .logo{height:50px;max-width:180px;object-fit:contain}
 .links{display:flex;gap:22px;font-size:14px;font-weight:600}
@@ -34,48 +31,44 @@ img{max-width:100%;display:block}
 .btn.green{background:#25D366}
 .btn.green:hover{background:#128C7E}
 
-/* HERO */
 .hero{padding:60px 5%;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;background:linear-gradient(135deg,#fff,#f5efe2);min-height:520px}
 .hero h1{font-size:clamp(38px,5.5vw,68px);line-height:1.05;font-weight:800;letter-spacing:-1px;margin:12px 0}
 .hero p{color:var(--gray);font-size:17px;margin-bottom:24px}
 .eyebrow{font-size:11px;letter-spacing:3px;color:var(--gold);font-weight:800}
-.hero-img{height:420px;border-radius:24px;background:linear-gradient(135deg,#eee7d8,#fff);display:flex;align-items:center;justify-content:center;color:var(--gold-dark);font-size:18px;font-weight:700;border:1px solid var(--light);box-shadow:0 20px 60px rgba(200,154,50,.15)}
+.hero-img{height:420px;border-radius:24px;background:linear-gradient(135deg,#eee7d8,#fff);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--gold-dark);font-size:22px;font-weight:800;border:1px solid var(--light);box-shadow:0 20px 60px rgba(200,154,50,.15);text-align:center;padding:20px}
+.hero-img span{font-size:13px;font-weight:400;color:#999;margin-top:8px}
 .badges{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0 26px}
 .badge{background:#fff;border:1px solid var(--light);padding:8px 14px;border-radius:99px;font-size:12px;font-weight:600;color:#555}
 
-/* SECTION */
 .section{padding:70px 5%}
 .section-title{text-align:center;margin-bottom:45px}
 .section-title h2{font-size:clamp(26px,3.5vw,38px);margin:8px 0;font-weight:800}
 .section-title p{color:var(--gray);max-width:600px;margin:auto}
 
-/* FOLDERS */
 .folders{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
 .folder-card{background:#fff;border:1px solid var(--light);border-radius:18px;padding:28px 20px;text-align:center;cursor:pointer;transition:.25s;position:relative;overflow:hidden}
 .folder-card:hover{border-color:var(--gold);transform:translateY(-4px);box-shadow:0 15px 40px rgba(200,154,50,.15)}
-.folder-card .icon{font-size:40px;margin-bottom:14px}
+.folder-card .icon{font-size:42px;margin-bottom:14px}
 .folder-card h3{font-size:17px;font-weight:800;color:var(--dark)}
 .folder-card .count{font-size:12px;color:var(--gray);margin-top:6px}
 .folder-card .gold-bar{position:absolute;bottom:0;left:0;height:4px;width:100%;background:var(--gold);transform:scaleX(0);transition:.3s}
 .folder-card:hover .gold-bar{transform:scaleX(1)}
 
-/* CATALOG VIEW */
 .catalog-header{display:flex;align-items:center;gap:16px;margin-bottom:30px;flex-wrap:wrap}
 .back-btn{background:#fff;border:1px solid var(--light);padding:9px 16px;border-radius:9px;cursor:pointer;font-weight:700;font-size:13px;color:#333;transition:.2s}
 .back-btn:hover{border-color:var(--gold);color:var(--gold)}
 .catalog-header h2{font-size:clamp(22px,3vw,32px);font-weight:800}
-.catalog-header .usage-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.usage-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
 .usage-tag{background:#fdf6e3;color:var(--gold-dark);font-size:11px;padding:4px 10px;border-radius:99px;font-weight:700;border:1px solid #f0e0b0}
 
-/* CATALOG GRID */
-.catalog{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
+.catalog{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
 .product{background:#fff;border:1px solid var(--light);border-radius:16px;overflow:hidden;transition:.25s}
 .product:hover{box-shadow:0 15px 40px rgba(0,0,0,.08);transform:translateY(-3px)}
 .product-img{width:100%;height:240px;object-fit:cover;background:#eeeae2}
 .product-body{padding:18px}
 .product-code{font-size:11px;font-weight:800;color:var(--gold-dark);letter-spacing:1px;text-transform:uppercase}
 .product-name{font-size:16px;font-weight:800;margin:8px 0;color:var(--dark)}
-.product-meta{font-size:13px;color:var(--gray);line-height:1.6}
+.product-meta{font-size:13px;color:var(--gray);line-height:1.7}
 .product-actions{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap}
 .product-actions .btn{flex:1;min-width:100px;padding:9px 12px;font-size:12px}
 
@@ -83,14 +76,12 @@ img{max-width:100%;display:block}
 .empty .icon{font-size:60px;margin-bottom:14px;opacity:.4}
 .loader{text-align:center;padding:50px;color:var(--gold);font-weight:700}
 
-/* AI STUDIO SECTION (home) */
-.ai-box{background:var(--dark);color:#fff;border-radius:24px;padding:50px 40px;text-align:center;position:relative;overflow:hidden}
+.ai-box{background:var(--dark);color:#fff;border-radius:24px;padding:50px 40px;text-align:center}
 .ai-box h2{font-size:clamp(24px,3.5vw,36px);margin-bottom:14px;font-weight:800}
 .ai-box h2 .gold{color:var(--gold)}
 .ai-box p{color:#aaa;max-width:600px;margin:0 auto 26px;font-size:15px}
 .ai-box .badge{background:rgba(200,154,50,.15);border-color:rgba(200,154,50,.3);color:var(--gold)}
 
-/* FOOTER */
 .footer{background:var(--dark);color:#fff;padding:55px 5% 30px;margin-top:60px}
 .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;max-width:1200px;margin:auto}
 .footer h3{font-size:20px;margin-bottom:14px;font-weight:800}
@@ -103,11 +94,9 @@ img{max-width:100%;display:block}
 .social a:hover{background:var(--gold);padding:0;color:#fff}
 .footer-bottom{text-align:center;color:#666;font-size:12px;padding-top:30px;margin-top:30px;border-top:1px solid #2a2a2a}
 
-/* WHATSAPP FLOAT */
 .wa-float{position:fixed;bottom:24px;right:24px;width:60px;height:60px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 8px 25px rgba(37,211,102,.5);z-index:100;transition:.3s}
 .wa-float:hover{transform:scale(1.1)}
 
-/* MOBILE */
 @media(max-width:900px){
   .hero{grid-template-columns:1fr;padding:40px 5%}
   .hero-img{height:280px}
@@ -137,7 +126,7 @@ img{max-width:100%;display:block}
     <a href="ai-studio.html">AI Studio</a>
     <a href="#contact">Contact</a>
   </div>
-  <a class="btn green" href="https://wa.me/918658712172?text=Hello%20SHAMA%20INTERIOR%2C%20I%20want%20an%20interior%20enquiry." target="_blank">💬 WhatsApp</a>
+  <a class="btn green" href="https://wa.me/918658712172?text=Hello%20SHAMA%20INTERIOR" target="_blank">💬 WhatsApp</a>
 </nav>
 
 <section id="home" class="hero">
@@ -153,14 +142,14 @@ img{max-width:100%;display:block}
     <a class="btn" href="#materials">📁 Explore Materials</a>
     <a class="btn outline" href="ai-studio.html" style="margin-left:8px">🎨 AI Studio</a>
   </div>
-  <div class="hero-img">SHAMA INTERIOR<br><span style="font-size:13px;font-weight:400;color:#999">Design Studio</span></div>
+  <div class="hero-img">SHAMA INTERIOR<span>Design Studio</span></div>
 </section>
 
 <section id="materials" class="section">
   <div class="section-title">
     <div class="eyebrow">DIGITAL CATALOGUE</div>
     <h2>Choose Material</h2>
-    <p>Browse our complete collection by category. Click any folder to see all available designs.</p>
+    <p>Browse our complete collection. Click any folder to see all available designs.</p>
   </div>
   <div id="foldersContainer" class="folders">
     <div class="loader">Loading folders...</div>
@@ -170,7 +159,7 @@ img{max-width:100%;display:block}
 
 <section class="section" style="padding-top:0">
   <div class="ai-box">
-    <div class="eyebrow" style="color:var(--gold)">AI INTERIOR STUDIO</div>
+    <div class="eyebrow">AI INTERIOR STUDIO</div>
     <h2>See it on <span class="gold">your wall</span></h2>
     <p>Upload your wall photo, select any material from our catalogue, and preview how it will look — powered by AI.</p>
     <span class="badge" style="margin-bottom:20px;display:inline-block">🤖 COMING SOON</span>
@@ -184,9 +173,9 @@ img{max-width:100%;display:block}
       <h3>SHAMA <span class="gold">INTERIOR</span></h3>
       <p>Premium interior materials — Fluted Panel, PVC Panel, WPC Panel, UV Sheet, and custom interior solutions. Modern • Classic • Luxury.</p>
       <div class="social">
-        <a href="https://www.facebook.com/share/18Gb26vMMT/" target="_blank" title="Facebook">📘</a>
-        <a href="https://www.instagram.com/shamainterior" target="_blank" title="Instagram">📷</a>
-        <a href="https://youtube.com/@muntasirahmad5668" target="_blank" title="YouTube">▶️</a>
+        <a href="https://www.facebook.com/share/18Gb26vMMT/" target="_blank">📘</a>
+        <a href="https://www.instagram.com/shamainterior" target="_blank">📷</a>
+        <a href="https://youtube.com/@muntasirahmad5668" target="_blank">▶️</a>
       </div>
     </div>
     <div>
@@ -200,148 +189,118 @@ img{max-width:100%;display:block}
       <h4>Contact</h4>
       <a href="https://wa.me/918658712172" target="_blank">💬 WhatsApp</a>
       <a href="#">📍 India</a>
-      <a href="#">✉️ shamainterior</a>
+      <a href="#">✉️ SHAMA INTERIOR</a>
     </div>
   </div>
   <div class="footer-bottom">© 2026 SHAMA INTERIOR. All Rights Reserved.</div>
 </footer>
 
-<a class="wa-float" href="https://wa.me/918658712172?text=Hello%20SHAMA%20INTERIOR" target="_blank" title="Chat on WhatsApp">💬</a>
+<a class="wa-float" href="https://wa.me/918658712172?text=Hello%20SHAMA%20INTERIOR" target="_blank">💬</a>
 
 <script type="module">
-import { db, SITE, collection, getDocs, addDoc, serverTimestamp } from './firebase-config.js';
+import { db, collection, getDocs, addDoc, serverTimestamp } from './firebase-config.js';
 
-// ============ SECURITY: HTML ESCAPE ============
+const WA_NUMBER = "918658712172";
+let cache = { folders: [], products: [], currentFolder: null };
+
 function esc(str) {
   if (str === null || str === undefined) return '';
   return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 }
 
-// ============ PLACEHOLDER IMAGE ============
-function placeholder(text) {
-  return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(
-    '<svg xmlns="http://www.w3.org/2000/svg" width="600" height="500"><rect width="100%" height="100%" fill="#eeeae2"/><text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-family="Arial" font-size="22" fill="#a77c1d">' + text + '</text></svg>'
+function placeholder(cat) {
+  return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400"><rect width="100%" height="100%" fill="#eeeae2"/><text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-family="Arial" font-size="22" fill="#a18b5d">' + (cat||'SHAMA INTERIOR') + '</text></svg>'
   );
 }
 
-// ============ FOLDER ICONS ============
-function folderIcon(name) {
-  const n = (name || '').toLowerCase();
-  if (n.includes('fluted')) return '▥';
-  if (n.includes('pvc')) return '▤';
-  if (n.includes('wpc')) return '▦';
-  if (n.includes('uv')) return '◇';
-  if (n.includes('design')) return '🎨';
-  return '📁';
-}
-
-// ============ TRACK VISITOR ============
-async function trackVisitor(page) {
-  try {
-    await addDoc(collection(db, 'visitors'), {
-      page: page || 'home',
-      device: /Mobi|Android/i.test(navigator.userAgent) ? 'mobile' : 'desktop',
-      at: serverTimestamp()
-    });
-  } catch(e) { /* silent fail */ }
-}
-
-// ============ STATE ============
-let allFolders = [];
-let allProducts = [];
-let currentFolder = null;
-
-// ============ LOAD DATA ============
-async function loadHome() {
-  const foldersEl = document.getElementById('foldersContainer');
+async function loadData() {
   try {
     const [foldersSnap, productsSnap] = await Promise.all([
       getDocs(collection(db, 'folders')),
       getDocs(collection(db, 'products'))
     ]);
-    allFolders = foldersSnap.docs.map(d => ({id: d.id, ...d.data()}));
-    allProducts = productsSnap.docs.map(d => ({id: d.id, ...d.data()}));
-    allFolders.sort((a, b) => (a.at?.seconds || 0) - (b.at?.seconds || 0));
-
-    if (!allFolders.length) {
-      foldersEl.innerHTML = '<div class="empty"><div class="icon">📁</div><p>Abhi koi material add nahi hua. Admin se add karo.</p></div>';
-      return;
-    }
-
-    foldersEl.innerHTML = allFolders.map(f => {
-      const count = allProducts.filter(p => p.folderId === f.id).length;
-      return '<div class="folder-card" onclick="openFolder(\'' + f.id + '\')">' +
-        '<div class="icon">' + folderIcon(f.name) + '</div>' +
-        '<h3>' + esc(f.name) + '</h3>' +
-        '<div class="count">' + count + ' item' + (count !== 1 ? 's' : '') + '</div>' +
-        '<div class="gold-bar"></div>' +
-      '</div>';
-    }).join('');
+    cache.folders = foldersSnap.docs.map(d => ({id:d.id, ...d.data()}));
+    cache.products = productsSnap.docs.map(d => ({id:d.id, ...d.data()}));
+    cache.folders.sort((a,b)=>(a.at?.seconds||0)-(b.at?.seconds||0));
+    renderFolders();
   } catch(e) {
     console.error('Load error:', e);
-    foldersEl.innerHTML = '<div class="empty"><div class="icon">⚠️</div><p>Data load nahi hua. Internet check karo.</p></div>';
+    document.getElementById('foldersContainer').innerHTML = '<div class="empty"><div class="icon">⚠️</div><p>Data load nahi ho paya. Internet check karo.</p></div>';
   }
 }
 
-// ============ OPEN FOLDER (PDF style catalog) ============
-window.openFolder = function(folderId) {
-  const folder = allFolders.find(f => f.id === folderId);
-  if (!folder) return;
-  currentFolder = folder;
-  const products = allProducts.filter(p => p.folderId === folderId);
-
-  const folderView = document.getElementById('foldersContainer');
-  const catalogView = document.getElementById('catalogView');
-
-  folderView.classList.add('hide');
-  catalogView.classList.remove('hide');
-
-  const usageTags = (folder.usage || []).map(u => '<span class="usage-tag">' + esc(u) + '</span>').join('');
-
-  let html = '<div class="catalog-header">' +
-    '<button class="back-btn" onclick="closeFolder()">← Back</button>' +
-    '<div>' +
-      '<h2>' + folderIcon(folder.name) + ' ' + esc(folder.name) + '</h2>' +
-      (usageTags ? '<div class="usage-tags">' + usageTags + '</div>' : '') +
-    '</div>' +
-  '</div>';
-
-  if (!products.length) {
-    html += '<div class="empty"><div class="icon">📦</div><p>Is folder mein abhi koi product nahi.</p></div>';
-  } else {
-    html += '<div class="catalog">' + products.map(p => {
-      const img = p.img || placeholder(p.code || 'Product');
-      const meta = [];
-      if (p.size) meta.push('📐 ' + esc(p.size));
-      if (p.color) meta.push('🎨 ' + esc(p.color));
-      return '<div class="product">' +
-        '<img class="product-img" src="' + esc(img) + '" alt="' + esc(p.name) + '" onerror="this.src=\'' + placeholder(p.code || 'Product') + '\'">' +
-        '<div class="product-body">' +
-          '<div class="product-code">' + esc(p.code || '') + '</div>' +
-          '<div class="product-name">' + esc(p.name || '') + '</div>' +
-          '<div class="product-meta">' + meta.join('<br>') + '</div>' +
-          '<div class="product-actions">' +
-            '<a class="btn small green" href="https://wa.me/918658712172?text=' + encodeURIComponent('Hello SHAMA INTERIOR,\nI am interested in ' + (p.name||'') + ' (' + (p.code||'') + ').\nSize: ' + (p.size||'') + '\nColour: ' + (p.color||'')) + '" target="_blank">💬 Enquire</a>' +
-            '<a class="btn small outline" href="ai-studio.html?product=' + p.id + '">🎨 Try on Wall</a>' +
-          '</div>' +
-        '</div>' +
-      '</div>';
-    }).join('') + '</div>';
+function renderFolders() {
+  const el = document.getElementById('foldersContainer');
+  if (!cache.folders.length) {
+    el.innerHTML = '<div class="empty"><div class="icon">📁</div><p>Abhi koi material category add nahi hui.</p></div>';
+    return;
   }
+  el.innerHTML = cache.folders.map(f => {
+    const count = cache.products.filter(p => p.folderId === f.id).length;
+    return '<div class="folder-card" onclick="openFolder(\'' + f.id + '\')">' +
+      '<div class="icon">📁</div>' +
+      '<h3>' + esc(f.name) + '</h3>' +
+      '<div class="count">' + count + ' product' + (count===1?'':'s') + '</div>' +
+      '<div class="gold-bar"></div>' +
+      '</div>';
+  }).join('');
+}
 
-  catalogView.innerHTML = html;
-  catalogView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+window.openFolder = function(folderId) {
+  const folder = cache.folders.find(f => f.id === folderId);
+  if (!folder) return;
+  cache.currentFolder = folder;
+  const products = cache.products.filter(p => p.folderId === folderId);
+  const usageTags = (folder.usage||[]).map(u => '<span class="usage-tag">'+esc(u)+'</span>').join('');
+  const catalogHtml = '<div class="catalog-header">' +
+    '<button class="back-btn" onclick="closeFolder()">← Back</button>' +
+    '<div><h2>📁 ' + esc(folder.name) + '</h2><div class="usage-tags">' + usageTags + '</div></div>' +
+    '</div>' +
+    (products.length 
+      ? '<div class="catalog">' + products.map(p => 
+          '<div class="product">' +
+            '<img class="product-img" src="' + esc(p.img||'') + '" onerror="this.src=\'' + placeholder(folder.name).replace(/'/g, "\\'") + '\'" alt="' + esc(p.name) + '">' +
+            '<div class="product-body">' +
+              '<div class="product-code">' + esc(p.code) + '</div>' +
+              '<div class="product-name">' + esc(p.name) + '</div>' +
+              '<div class="product-meta">' +
+                (p.size ? '📏 ' + esc(p.size) + '<br>' : '') +
+                (p.color ? '🎨 ' + esc(p.color) : '') +
+              '</div>' +
+              '<div class="product-actions">' +
+                '<button class="btn small" onclick="selectForAI(\''+esc(p.code)+'\',\''+esc(p.name)+'\')">🎨 Use in AI</button>' +
+                '<button class="btn small green" onclick="waProduct(\''+esc(p.code)+'\',\''+esc(p.name)+'\')">💬 WhatsApp</button>' +
+              '</div>' +
+            '</div>' +
+          '</div>'
+        ).join('') + '</div>'
+      : '<div class="empty"><div class="icon">📦</div><p>Is folder mein abhi koi product add nahi hua.</p></div>');
+  document.getElementById('foldersContainer').classList.add('hide');
+  const cv = document.getElementById('catalogView');
+  cv.classList.remove('hide');
+  cv.innerHTML = catalogHtml;
+  cv.scrollIntoView({ behavior: 'smooth', block: 'start' });
 };
 
 window.closeFolder = function() {
   document.getElementById('catalogView').classList.add('hide');
   document.getElementById('foldersContainer').classList.remove('hide');
-  document.getElementById('materials').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  cache.currentFolder = null;
+  document.getElementById('materials').scrollIntoView({ behavior: 'smooth' });
 };
-// ============ INIT ============
-trackVisitor('home');
-loadHome();
-</script>
 
+window.waProduct = function(code, name) {
+  const msg = 'Hello SHAMA INTERIOR,\n\nI am interested in:\n📦 ' + name + '\n🔖 Code: ' + code + '\n\nPlease share details.';
+  window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
+};
+
+window.selectForAI = function(code, name) {
+  localStorage.setItem('shama_selected_product', JSON.stringify({ code, name }));
+  window.location.href = 'ai-studio.html';
+};
+
+loadData();
+</script>
 </body>
 </html>
