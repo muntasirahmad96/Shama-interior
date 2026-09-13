@@ -26,10 +26,11 @@ button:disabled{opacity:.5;cursor:not-allowed}
 .red{background:#c0392b}.red:hover{background:#a93226}
 .green{background:#27ae60}.green:hover{background:#229954}
 .blue{background:#1877f2}.blue:hover{background:#0d65d9}
+.gray{background:#666}.gray:hover{background:#444}
 .tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:22px;border-bottom:2px solid #e7e1d6}
 .tabs button{background:transparent;color:#666;border-radius:8px 8px 0 0;padding:11px 16px;font-size:13px}
 .tabs button.active{background:#171717;color:#fff}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:22px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:22px}
 .box{background:#fff;border:1px solid #e7e1d6;border-radius:14px;padding:18px}
 .num{font-size:30px;font-weight:800;color:#c89a32;margin-top:6px}
 .card{background:#fff;border:1px solid #e7e1d6;border-radius:14px;padding:20px;margin-bottom:18px}
@@ -45,6 +46,7 @@ tr:hover{background:#fdfbf6}
 .msg{padding:11px;border-radius:8px;margin-bottom:12px;font-size:13px}
 .msg.ok{background:#d5f5e3;color:#186a3b}
 .msg.err{background:#fadbd8;color:#922b21}
+.msg.info{background:#d6eaf8;color:#1b4f72}
 .upload-box{border:2px dashed #c89a32;border-radius:10px;padding:20px;text-align:center;cursor:pointer;background:#fffdf8;margin:6px 0 12px}
 .upload-box:hover{background:#fff9ec}
 .upload-box input{display:none}
@@ -53,7 +55,15 @@ tr:hover{background:#fdfbf6}
 .check-item{display:flex;align-items:center;gap:6px;background:#faf8f4;border:1px solid #e7e1d6;padding:8px 12px;border-radius:8px;font-size:13px;cursor:pointer}
 .check-item input{margin:0;width:auto}
 .check-item input:checked+span{color:#c89a32;font-weight:700}
+.badge{display:inline-block;padding:3px 9px;border-radius:99px;font-size:11px;font-weight:700}
+.badge.new{background:#d5f5e3;color:#186a3b}
+.badge.contacted{background:#fdebd0;color:#935116}
+.badge.done{background:#d6eaf8;color:#1b4f72}
 .footer-note{text-align:center;color:#999;font-size:12px;padding:20px 0}
+.star{color:#c89a32}
+.modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;z-index:100}
+.modal-content{background:#fff;padding:25px;border-radius:14px;max-width:500px;width:90%;max-height:85vh;overflow:auto}
+.modal-content h3{margin-bottom:15px;color:#171717}
 @media(max-width:700px){.row{grid-template-columns:1fr}header b{font-size:13px}}
 </style>
 </head>
@@ -79,6 +89,7 @@ tr:hover{background:#fdfbf6}
       <button class="red" onclick="doLogout()" style="padding:8px 14px;font-size:12px">Logout</button>
     </div>
   </header>
+
   <div class="wrap">
     <div class="tabs">
       <button class="active" onclick="tab('dashboard',this)">📊 Dashboard</button>
@@ -89,17 +100,20 @@ tr:hover{background:#fdfbf6}
       <button onclick="tab('visitors',this)">👥 Visitors</button>
       <button onclick="tab('settings',this)">⚙️ Settings</button>
     </div>
+
     <div id="tab-dashboard">
       <div class="grid">
-        <div class="box">Materials<div id="dMat" class="num">0</div></div>
+        <div class="box">Material Categories<div id="dCat" class="num">0</div></div>
+        <div class="box">Products<div id="dMat" class="num">0</div></div>
         <div class="box">Designs<div id="dDes" class="num">0</div></div>
         <div class="box">Enquiries<div id="dEnq" class="num">0</div></div>
+        <div class="box">New Enquiries<div id="dNew" class="num">0</div></div>
         <div class="box">AI Requests<div id="dAi" class="num">0</div></div>
         <div class="box">Visitors<div id="dVis" class="num">0</div></div>
-        <div class="box">Folders<div id="dFold" class="num">0</div></div>
       </div>
       <div class="card"><h2>🔥 Recent Activity</h2><div id="dRecent" class="loader">Loading...</div></div>
     </div>
+
     <div id="tab-materials" class="hide">
       <div class="card">
         <h2>📁 Create Folder (Category)</h2>
@@ -118,6 +132,7 @@ tr:hover{background:#fdfbf6}
         <button onclick="addFolder()">+ Create Folder</button>
       </div>
       <div class="card"><h2>📁 Existing Folders</h2><div id="folderList"></div></div>
+
       <div class="card">
         <h2>➕ Add Product / Material</h2>
         <div class="row">
@@ -144,6 +159,7 @@ tr:hover{background:#fdfbf6}
       </div>
       <div class="card"><h2>📦 All Products</h2><div id="productList" class="loader">Loading...</div></div>
     </div>
+
     <div id="tab-designs" class="hide">
       <div class="card">
         <h2>🎨 Design Folders</h2>
@@ -171,9 +187,26 @@ tr:hover{background:#fdfbf6}
       </div>
       <div class="card"><h2>🖼️ All Designs</h2><div id="designList" class="loader">Loading...</div></div>
     </div>
-    <div id="tab-enquiries" class="hide"><div class="card"><h2>📞 Customer Enquiries</h2><div id="enqList" class="loader">Loading...</div></div></div>
+
+    <div id="tab-enquiries" class="hide">
+      <div class="card">
+        <h2>📞 Customer Enquiries</h2>
+        <div style="margin-bottom:14px">
+          <select id="enqFilter" onchange="renderEnquiries()" style="max-width:200px">
+            <option value="all">All Enquiries</option>
+            <option value="new">New Only</option>
+            <option value="contacted">Contacted</option>
+            <option value="done">Completed</option>
+          </select>
+        </div>
+        <div id="enqList" class="loader">Loading...</div>
+      </div>
+    </div>
+
     <div id="tab-ai" class="hide"><div class="card"><h2>🤖 AI Requests</h2><div id="aiList" class="loader">Loading...</div></div></div>
-    <div id="tab-visitors" class="hide"><div class="card"><h2>👥 Visitors</h2><div id="visList" class="loader">Loading...</div></div></div>
+
+    <div id="tab-visitors" class="hide"><div class="card"><h2>👥 Visitors (Last 100)</h2><div id="visList" class="loader">Loading...</div></div></div>
+
     <div id="tab-settings" class="hide">
       <div class="card">
         <h2>⚙️ Site Settings</h2>
@@ -185,25 +218,46 @@ tr:hover{background:#fdfbf6}
         <input id="sInstagram">
         <label style="font-size:12px;color:#666">YouTube URL</label>
         <input id="sYoutube">
-        <button onclick="saveSettings()" style="margin-top:8px">💾 Save</button>
+        <button onclick="saveSettings()" style="margin-top:8px">💾 Save Settings</button>
       </div>
       <div class="card">
-        <h2>📤 Export</h2>
+        <h2>📤 Export / Backup</h2>
+        <p style="color:#666;font-size:13px;margin-bottom:12px">Apna pura data JSON file mein download karo.</p>
         <button class="dark" onclick="exportData()">📥 Export All Data (JSON)</button>
       </div>
     </div>
+
     <div class="footer-note">SHAMA INTERIOR Admin • Powered by Firebase</div>
   </div>
 </div>
+
+<div id="modalRoot"></div>
 
 <script type="module">
 import { db, auth, SITE, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, serverTimestamp, signInWithEmailAndPassword, signOut, onAuthStateChanged } from './firebase-config.js';
 
 const IMGBB_KEY = "8368322b9757bc066ff3a9c0efdc9d54";
+const ADMIN_EMAIL = "muntasirahmad96@gmail.com";
 let cache = { products:[], designs:[], folders:[], designFolders:[], enquiries:[], aiRequests:[], visitors:[] };
 
+// ============ SECURITY: HTML ESCAPE ============
+function esc(str) {
+  if (str === null || str === undefined) return '';
+  return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+
+// ============ AUTH + ADMIN CHECK ============
 onAuthStateChanged(auth, (user) => {
   if (user) {
+    if (user.email !== ADMIN_EMAIL) {
+      // Sirf admin hi login kar sakta hai
+      signOut(auth).then(() => {
+        document.getElementById('loginMsg').innerHTML = '<div class="msg err">❌ Ye account admin nahi hai.</div>';
+        document.getElementById('loginScreen').classList.remove('hide');
+        document.getElementById('adminPanel').classList.add('hide');
+      });
+      return;
+    }
     document.getElementById('loginScreen').classList.add('hide');
     document.getElementById('adminPanel').classList.remove('hide');
     loadAll();
@@ -224,17 +278,18 @@ window.doLogin = async function() {
   const btn = document.getElementById('loginBtn');
   const msg = document.getElementById('loginMsg');
   if (!email || !pass) { msg.innerHTML = '<div class="msg err">Email aur password daalo</div>'; return; }
+  if (email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) { msg.innerHTML = '<div class="msg err">❌ Ye admin account nahi hai</div>'; return; }
   btn.disabled = true; btn.textContent = 'Logging in...';
   try {
     await signInWithEmailAndPassword(auth, email, pass);
     msg.innerHTML = '';
   } catch(e) {
-    msg.innerHTML = '<div class="msg err">❌ ' + (e.code === 'auth/invalid-credential' ? 'Galat email ya password' : e.message) + '</div>';
+    msg.innerHTML = '<div class="msg err">❌ ' + (e.code === 'auth/invalid-credential' ? 'Galat password' : e.message) + '</div>';
   }
   btn.disabled = false; btn.textContent = 'Login';
 };
 
-window.doLogout = async function() { if (confirm('Logout?')) await signOut(auth); };
+window.doLogout = async function() { if (confirm('Logout karna hai?')) await signOut(auth); };
 
 window.tab = function(name, btn) {
   document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
@@ -243,9 +298,13 @@ window.tab = function(name, btn) {
   document.getElementById('tab-'+name).classList.remove('hide');
 };
 
+// ============ IMAGE UPLOAD (with validation) ============
 window.uploadImage = async function(input, type) {
   const file = input.files[0];
   if (!file) return;
+  // Validation
+  if (file.size > 5 * 1024 * 1024) { alert('❌ Image 5 MB se chhoti honi chahiye'); input.value=''; return; }
+  if (!file.type.startsWith('image/')) { alert('❌ Sirf image file upload karo (JPG, PNG, WEBP)'); input.value=''; return; }
   const previewId = type === 'p' ? 'pPreview' : 'dPreview';
   const imgId = type === 'p' ? 'pImg' : 'dImg';
   document.getElementById(previewId).innerHTML = '<div class="loader">⏳ Uploading...</div>';
@@ -261,45 +320,57 @@ window.uploadImage = async function(input, type) {
       document.getElementById(previewId).innerHTML = '<div class="msg err">❌ Upload fail. URL manually paste karo.</div>';
     }
   } catch(e) {
-    document.getElementById(previewId).innerHTML = '<div class="msg err">❌ Error: '+e.message+'</div>';
+    document.getElementById(previewId).innerHTML = '<div class="msg err">❌ Error: '+esc(e.message)+'</div>';
   }
 };
 
+// ============ LOAD ALL ============
 async function loadAll() {
-  await Promise.all([loadFolders(), loadProducts(), loadDesignFolders(), loadDesigns(), loadEnquiries(), loadAi(), loadVisitors()]);
-  updateDash();
-  loadSettings();
+  try {
+    await Promise.all([loadFolders(), loadProducts(), loadDesignFolders(), loadDesigns(), loadEnquiries(), loadAi(), loadVisitors()]);
+    updateDash();
+    loadSettings();
+  } catch(e) {
+    console.error('Load error:', e);
+    alert('⚠️ Data load karne mein problem. Internet ya Firebase check karo.');
+  }
 }
 
 function updateDash() {
+  document.getElementById('dCat').textContent = cache.folders.length;
   document.getElementById('dMat').textContent = cache.products.length;
   document.getElementById('dDes').textContent = cache.designs.length;
   document.getElementById('dEnq').textContent = cache.enquiries.length;
+  document.getElementById('dNew').textContent = cache.enquiries.filter(e => (e.status||'new') === 'new').length;
   document.getElementById('dAi').textContent = cache.aiRequests.length;
   document.getElementById('dVis').textContent = cache.visitors.length;
-  document.getElementById('dFold').textContent = cache.folders.length + cache.designFolders.length;
   const recent = [...cache.enquiries.map(e=>({...e,_t:'enq'})), ...cache.aiRequests.map(a=>({...a,_t:'ai'}))]
     .sort((a,b)=>(b.at?.seconds||0)-(a.at?.seconds||0)).slice(0,10);
   document.getElementById('dRecent').innerHTML = recent.length ? recent.map(r =>
-    '<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0ede6;font-size:13px"><span>'+(r._t==='enq'?'📞':'🤖')+' '+(r.name||r.product||'Activity')+'</span><span style="color:#999">'+(r.at?new Date(r.at.seconds*1000).toLocaleString():'')+'</span></div>'
-  ).join('') : '<div style="color:#999">No activity</div>';
+    '<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0ede6;font-size:13px"><span>'+(r._t==='enq'?'📞':'🤖')+' '+esc(r.name||r.product||'Activity')+'</span><span style="color:#999">'+(r.at?new Date(r.at.seconds*1000).toLocaleString():'')+'</span></div>'
+  ).join('') : '<div style="color:#999">Abhi koi activity nahi</div>';
 }
 
+// ============ TOGGLE WALL ============
 window.toggleWall = function(el) {
+  const all = document.querySelectorAll('#usageGroup input');
   if (el.checked) {
-    document.querySelectorAll('#usageGroup input').forEach(i => { if(i.value!=='Wall') i.checked = true; });
+    all.forEach(i => { if (i.value !== 'Wall') i.checked = true; });
+  } else {
+    all.forEach(i => { if (i.value !== 'Wall') i.checked = false; });
   }
 };
 
+// ============ FOLDERS ============
 async function loadFolders() {
   const snap = await getDocs(collection(db, 'folders'));
   cache.folders = snap.docs.map(d => ({id:d.id, ...d.data()}));
   cache.folders.sort((a,b)=>(a.at?.seconds||0)-(b.at?.seconds||0));
   const el = document.getElementById('folderList');
   el.innerHTML = cache.folders.length ? cache.folders.map(f =>
-    '<div class="folder"><div><b>📁 '+f.name+'</b><br><span style="font-size:11px;color:#888">Usage: '+((f.usage||[]).join(', ')||'—')+'</span></div> <button class="red" style="padding:4px 10px;font-size:11px;margin-left:8px" onclick="delFolder(\''+f.id+'\')">Delete</button></div>'
-  ).join('') : '<div style="color:#999;font-size:13px">No folders</div>';
-  document.getElementById('pFolder').innerHTML = cache.folders.map(f => '<option value="'+f.id+'">'+f.name+'</option>').join('') || '<option value="">Pehle folder banao</option>';
+    '<div class="folder"><div><b>📁 '+esc(f.name)+'</b><br><span style="font-size:11px;color:#888">Usage: '+esc((f.usage||[]).join(', ')||'—')+'</span></div> <button class="red" style="padding:4px 10px;font-size:11px;margin-left:8px" onclick="delFolder(\''+f.id+'\')">Delete</button></div>'
+  ).join('') : '<div style="color:#999;font-size:13px">Abhi koi folder nahi</div>';
+  document.getElementById('pFolder').innerHTML = cache.folders.map(f => '<option value="'+f.id+'">'+esc(f.name)+'</option>').join('') || '<option value="">Pehle folder banao</option>';
 }
 
 window.addFolder = async function() {
@@ -307,33 +378,52 @@ window.addFolder = async function() {
   if (!name) return alert('Folder name daalo');
   const usage = Array.from(document.querySelectorAll('#usageGroup input:checked')).map(i => i.value);
   if (!usage.length) return alert('Kam se kam ek usage select karo');
-  await addDoc(collection(db, 'folders'), { name, usage, at: serverTimestamp() });
-  document.getElementById('newFolderName').value = '';
-  document.querySelectorAll('#usageGroup input').forEach(i => i.checked = false);
-  await loadFolders();
-  alert('✅ Folder ban gaya!');
+  try {
+    await addDoc(collection(db, 'folders'), { name, usage, at: serverTimestamp() });
+    document.getElementById('newFolderName').value = '';
+    document.querySelectorAll('#usageGroup input').forEach(i => i.checked = false);
+    await loadFolders();
+    alert('✅ Folder ban gaya!');
+  } catch(e) { alert('❌ Error: '+e.message); }
 };
 
 window.delFolder = async function(id) {
-  if (!confirm('Folder delete?')) return;
-  await deleteDoc(doc(db, 'folders', id));
-  await loadFolders();
+  const folder = cache.folders.find(f => f.id === id);
+  if (!folder) return;
+  const productCount = cache.products.filter(p => p.folderId === id).length;
+  let msg = 'Folder delete karna hai?';
+  if (productCount > 0) msg += '\n\n⚠️ Is folder mein '+productCount+' products hain. Wo bhi delete ho jayenge.';
+  if (!confirm(msg)) return;
+  try {
+    // Products bhi delete karo
+    for (const p of cache.products.filter(p => p.folderId === id)) {
+      await deleteDoc(doc(db, 'products', p.id));
+    }
+    await deleteDoc(doc(db, 'folders', id));
+    await loadFolders(); await loadProducts(); updateDash();
+    alert('✅ Folder aur uske products delete ho gaye!');
+  } catch(e) { alert('❌ Error: '+e.message); }
 };
 
+// ============ PRODUCTS ============
 async function loadProducts() {
   const snap = await getDocs(collection(db, 'products'));
   cache.products = snap.docs.map(d => ({id:d.id, ...d.data()}));
   cache.products.sort((a,b)=>(b.at?.seconds||0)-(a.at?.seconds||0));
+  renderProducts();
+}
+
+function renderProducts() {
   const el = document.getElementById('productList');
-  if (!cache.products.length) { el.innerHTML = '<div style="color:#999;font-size:13px">No products</div>'; return; }
+  if (!cache.products.length) { el.innerHTML = '<div style="color:#999;font-size:13px">Abhi koi product nahi</div>'; return; }
   el.innerHTML = '<div class="table"><table><thead><tr><th>Image</th><th>Code</th><th>Name</th><th>Folder</th><th>Size</th><th>Rate</th><th>Actions</th></tr></thead><tbody>' +
     cache.products.map(p => '<tr>' +
-      '<td>'+(p.img?'<img src="'+p.img+'" style="width:50px;height:40px;object-fit:cover;border-radius:6px">':'-')+'</td>' +
-      '<td><b>'+(p.code||'')+'</b></td>' +
-      '<td>'+(p.name||'')+'</td>' +
-      '<td>'+(cache.folders.find(f=>f.id===p.folderId)?.name||'-')+'</td>' +
-      '<td>'+(p.size||'')+'</td>' +
-      '<td>₹'+(p.rate||'')+'</td>' +
+      '<td>'+(p.img?'<img src="'+esc(p.img)+'" style="width:50px;height:40px;object-fit:cover;border-radius:6px">':'-')+'</td>' +
+      '<td><b>'+esc(p.code)+'</b></td>' +
+      '<td>'+esc(p.name)+'</td>' +
+      '<td>'+esc(cache.folders.find(f=>f.id===p.folderId)?.name||'-')+'</td>' +
+      '<td>'+esc(p.size||'')+'</td>' +
+      '<td>₹'+esc(p.rate||'')+'</td>' +
       '<td><button class="blue" style="padding:5px 10px;font-size:11px" onclick="editProduct(\''+p.id+'\')">✏️ Edit</button> <button class="red" style="padding:5px 10px;font-size:11px" onclick="delProduct(\''+p.id+'\')">Delete</button></td>' +
     '</tr>').join('') + '</tbody></table></div>';
 }
@@ -343,71 +433,119 @@ window.addProduct = async function() {
   const code = document.getElementById('pCode').value.trim();
   const name = document.getElementById('pName').value.trim();
   if (!folderId || !code || !name) return alert('Folder, Code, Name zaroori');
-  await addDoc(collection(db, 'products'), {
-    folderId, code, name,
-    size: document.getElementById('pSize').value.trim(),
-    color: document.getElementById('pColor').value.trim(),
-    rate: document.getElementById('pRate').value.trim(),
-    img: document.getElementById('pImg').value.trim(),
-    at: serverTimestamp()
-  });
-  ['pCode','pName','pSize','pColor','pRate','pImg'].forEach(id => document.getElementById(id).value='');
-  document.getElementById('pPreview').innerHTML = '';
-  await loadProducts(); updateDash();
-  alert('✅ Product added!');
+  try {
+    await addDoc(collection(db, 'products'), {
+      folderId, code, name,
+      size: document.getElementById('pSize').value.trim(),
+      color: document.getElementById('pColor').value.trim(),
+      rate: document.getElementById('pRate').value.trim(),
+      img: document.getElementById('pImg').value.trim(),
+      at: serverTimestamp()
+    });
+    ['pCode','pName','pSize','pColor','pRate','pImg'].forEach(id => document.getElementById(id).value='');
+    document.getElementById('pPreview').innerHTML = '';
+    await loadProducts(); updateDash();
+    alert('✅ Product add ho gaya!');
+  } catch(e) { alert('❌ Error: '+e.message); }
 };
 
 window.delProduct = async function(id) {
-  if (!confirm('Delete?')) return;
-  await deleteDoc(doc(db, 'products', id));
-  await loadProducts(); updateDash();
+  if (!confirm('Product delete karna hai?')) return;
+  try {
+    await deleteDoc(doc(db, 'products', id));
+    await loadProducts(); updateDash();
+  } catch(e) { alert('❌ Error: '+e.message); }
 };
 
 window.editProduct = function(id) {
   const p = cache.products.find(x => x.id === id);
   if (!p) return;
-  const newName = prompt('Product Name:', p.name); if (newName === null) return;
-  const newCode = prompt('Product Code:', p.code); if (newCode === null) return;
-  const newSize = prompt('Size:', p.size || ''); if (newSize === null) return;
-  const newColor = prompt('Colour:', p.color || ''); if (newColor === null) return;
-  const newRate = prompt('Rate:', p.rate || ''); if (newRate === null) return;
-  updateDoc(doc(db, 'products', id), { name:newName, code:newCode, size:newSize, color:newColor, rate:newRate }).then(() => { loadProducts(); alert('✅ Updated!'); });
+  const folderOptions = cache.folders.map(f => '<option value="'+f.id+'"'+(f.id===p.folderId?' selected':'')+'>'+esc(f.name)+'</option>').join('');
+  const html = '<div class="modal" onclick="if(event.target===this)closeModal()"><div class="modal-content">' +
+    '<h3>✏️ Edit Product</h3>' +
+    '<label style="font-size:12px;color:#666">Folder</label><select id="editFolder">'+folderOptions+'</select>' +
+    '<label style="font-size:12px;color:#666">Code</label><input id="editCode" value="'+esc(p.code)+'">' +
+    '<label style="font-size:12px;color:#666">Name</label><input id="editName" value="'+esc(p.name)+'">' +
+    '<label style="font-size:12px;color:#666">Size</label><input id="editSize" value="'+esc(p.size||'')+'">' +
+    '<label style="font-size:12px;color:#666">Colour</label><input id="editColor" value="'+esc(p.color||'')+'">' +
+    '<label style="font-size:12px;color:#666">Rate</label><input id="editRate" value="'+esc(p.rate||'')+'">' +
+    '<label style="font-size:12px;color:#666">Image URL</label><input id="editImg" value="'+esc(p.img||'')+'">' +
+    '<div style="display:flex;gap:8px;margin-top:14px">' +
+    '<button onclick="saveEditProduct(\''+id+'\')">💾 Save</button>' +
+    '<button class="gray" onclick="closeModal()">Cancel</button>' +
+    '</div></div></div>';
+  document.getElementById('modalRoot').innerHTML = html;
 };
 
+window.saveEditProduct = async function(id) {
+  const updates = {
+    folderId: document.getElementById('editFolder').value,
+    code: document.getElementById('editCode').value.trim(),
+    name: document.getElementById('editName').value.trim(),
+    size: document.getElementById('editSize').value.trim(),
+    color: document.getElementById('editColor').value.trim(),
+    rate: document.getElementById('editRate').value.trim(),
+    img: document.getElementById('editImg').value.trim()
+  };
+  if (!updates.code || !updates.name) return alert('Code aur Name zaroori');
+  try {
+    await updateDoc(doc(db, 'products', id), updates);
+    closeModal();
+    await loadProducts();
+    alert('✅ Product update ho gaya!');
+  } catch(e) { alert('❌ Error: '+e.message); }
+};
+
+window.closeModal = function() { document.getElementById('modalRoot').innerHTML = ''; };
+
+// ============ DESIGN FOLDERS ============
 async function loadDesignFolders() {
   const snap = await getDocs(collection(db, 'designFolders'));
   cache.designFolders = snap.docs.map(d => ({id:d.id, ...d.data()}));
   const el = document.getElementById('designFolderList');
   el.innerHTML = cache.designFolders.length ? cache.designFolders.map(f =>
-    '<div class="folder"><b>🎨 '+f.name+'</b> <button class="red" style="padding:4px 10px;font-size:11px;margin-left:8px" onclick="delDesignFolder(\''+f.id+'\')">Delete</button></div>'
-  ).join('') : '<div style="color:#999;font-size:13px">No design folders</div>';
-  document.getElementById('dFolder').innerHTML = cache.designFolders.map(f => '<option value="'+f.id+'">'+f.name+'</option>').join('') || '<option value="">Pehle banao</option>';
+    '<div class="folder"><b>🎨 '+esc(f.name)+'</b> <button class="red" style="padding:4px 10px;font-size:11px;margin-left:8px" onclick="delDesignFolder(\''+f.id+'\')">Delete</button></div>'
+  ).join('') : '<div style="color:#999;font-size:13px">Abhi koi design folder nahi</div>';
+  document.getElementById('dFolder').innerHTML = cache.designFolders.map(f => '<option value="'+f.id+'">'+esc(f.name)+'</option>').join('') || '<option value="">Pehle banao</option>';
 }
 
 window.addDesignFolder = async function() {
   const name = document.getElementById('newDesignFolder').value.trim();
   if (!name) return alert('Name daalo');
-  await addDoc(collection(db, 'designFolders'), { name, at: serverTimestamp() });
-  document.getElementById('newDesignFolder').value = '';
-  await loadDesignFolders();
+  try {
+    await addDoc(collection(db, 'designFolders'), { name, at: serverTimestamp() });
+    document.getElementById('newDesignFolder').value = '';
+    await loadDesignFolders();
+  } catch(e) { alert('❌ Error: '+e.message); }
 };
 
 window.delDesignFolder = async function(id) {
-  if (!confirm('Delete?')) return;
-  await deleteDoc(doc(db, 'designFolders', id));
-  await loadDesignFolders();
+  const folder = cache.designFolders.find(f => f.id === id);
+  const designCount = cache.designs.filter(d => d.folderId === id).length;
+  let msg = 'Design folder delete karna hai?';
+  if (designCount > 0) msg += '\n\n⚠️ Is folder mein '+designCount+' designs hain. Wo bhi delete ho jayenge.';
+  if (!confirm(msg)) return;
+  try {
+    for (const d of cache.designs.filter(d => d.folderId === id)) {
+      await deleteDoc(doc(db, 'designs', d.id));
+    }
+    await deleteDoc(doc(db, 'designFolders', id));
+    await loadDesignFolders(); await loadDesigns(); updateDash();
+    alert('✅ Folder aur designs delete ho gaye!');
+  } catch(e) { alert('❌ Error: '+e.message); }
 };
 
+// ============ DESIGNS ============
 async function loadDesigns() {
   const snap = await getDocs(collection(db, 'designs'));
   cache.designs = snap.docs.map(d => ({id:d.id, ...d.data()}));
   const el = document.getElementById('designList');
-  if (!cache.designs.length) { el.innerHTML = '<div style="color:#999;font-size:13px">No designs</div>'; return; }
+  if (!cache.designs.length) { el.innerHTML = '<div style="color:#999;font-size:13px">Abhi koi design nahi</div>'; return; }
   el.innerHTML = '<div class="table"><table><thead><tr><th>Image</th><th>Name</th><th>Folder</th><th>Actions</th></tr></thead><tbody>' +
     cache.designs.map(d => '<tr>' +
-      '<td>'+(d.img?'<img src="'+d.img+'" style="width:60px;height:45px;object-fit:cover;border-radius:6px">':'-')+'</td>' +
-      '<td>'+(d.name||'')+'</td>' +
-      '<td>'+(cache.designFolders.find(f=>f.id===d.folderId)?.name||'-')+'</td>' +
+      '<td>'+(d.img?'<img src="'+esc(d.img)+'" style="width:60px;height:45px;object-fit:cover;border-radius:6px">':'-')+'</td>' +
+      '<td>'+esc(d.name)+'</td>' +
+      '<td>'+esc(cache.designFolders.find(f=>f.id===d.folderId)?.name||'-')+'</td>' +
       '<td><button class="red" style="padding:5px 10px;font-size:11px" onclick="delDesign(\''+d.id+'\')">Delete</button></td>' +
     '</tr>').join('') + '</tbody></table></div>';
 }
@@ -417,57 +555,105 @@ window.addDesign = async function() {
   const name = document.getElementById('dName').value.trim();
   const img = document.getElementById('dImg').value.trim();
   if (!folderId || !name || !img) return alert('Folder, Name, Image zaroori');
-  await addDoc(collection(db, 'designs'), { folderId, name, img, desc: document.getElementById('dDesc').value.trim(), at: serverTimestamp() });
-  ['dName','dImg','dDesc'].forEach(id => document.getElementById(id).value='');
-  document.getElementById('dPreview').innerHTML = '';
-  await loadDesigns(); updateDash();
-  alert('✅ Design added!');
+  try {
+    await addDoc(collection(db, 'designs'), { folderId, name, img, desc: document.getElementById('dDesc').value.trim(), at: serverTimestamp() });
+    ['dName','dImg','dDesc'].forEach(id => document.getElementById(id).value='');
+    document.getElementById('dPreview').innerHTML = '';
+    await loadDesigns(); updateDash();
+    alert('✅ Design add ho gaya!');
+  } catch(e) { alert('❌ Error: '+e.message); }
 };
 
 window.delDesign = async function(id) {
-  if (!confirm('Delete?')) return;
-  await deleteDoc(doc(db, 'designs', id));
-  await loadDesigns(); updateDash();
+  if (!confirm('Design delete karna hai?')) return;
+  try {
+    await deleteDoc(doc(db, 'designs', id));
+    await loadDesigns(); updateDash();
+  } catch(e) { alert('❌ Error: '+e.message); }
 };
 
+// ============ ENQUIRIES ============
 async function loadEnquiries() {
   const snap = await getDocs(collection(db, 'enquiries'));
   cache.enquiries = snap.docs.map(d => ({id:d.id, ...d.data()}));
   cache.enquiries.sort((a,b)=>(b.at?.seconds||0)-(a.at?.seconds||0));
-  const el = document.getElementById('enqList');
-  el.innerHTML = cache.enquiries.length ? '<div class="table"><table><thead><tr><th>Name</th><th>Phone</th><th>City</th><th>Req</th><th>Time</th></tr></thead><tbody>'+cache.enquiries.map(e=>'<tr><td><b>'+(e.name||'')+'</b></td><td>'+(e.phone||'')+'</td><td>'+(e.city||'')+'</td><td>'+(e.requirement||'')+'</td><td>'+(e.at?new Date(e.at.seconds*1000).toLocaleString():'')+'</td></tr>').join('')+'</tbody></table></div>' : '<div style="color:#999">No enquiries</div>';
+  renderEnquiries();
 }
 
+window.renderEnquiries = function() {
+  const filter = document.getElementById('enqFilter').value;
+  let list = cache.enquiries;
+  if (filter !== 'all') list = list.filter(e => (e.status||'new') === filter);
+  const el = document.getElementById('enqList');
+  if (!list.length) { el.innerHTML = '<div style="color:#999">Koi enquiry nahi</div>'; return; }
+  el.innerHTML = '<div class="table"><table><thead><tr><th>Name</th><th>Phone</th><th>City</th><th>Req</th><th>Status</th><th>Time</th><th>Actions</th></tr></thead><tbody>' +
+    list.map(e => {
+      const status = e.status || 'new';
+      const badgeClass = status === 'new' ? 'new' : (status === 'contacted' ? 'contacted' : 'done');
+      return '<tr><td><b>'+esc(e.name)+'</b></td><td>'+esc(e.phone)+'</td><td>'+esc(e.city||'')+'</td><td>'+esc(e.requirement||'')+'</td>' +
+      '<td><span class="badge '+badgeClass+'">'+status+'</span></td>' +
+      '<td>'+(e.at?new Date(e.at.seconds*1000).toLocaleString():'')+'</td>' +
+      '<td>' +
+      '<button class="green" style="padding:4px 8px;font-size:11px" onclick="setEnqStatus(\''+e.id+'\',\'contacted\')">Contacted</button> ' +
+      '<button class="blue" style="padding:4px 8px;font-size:11px" onclick="setEnqStatus(\''+e.id+'\',\'done\')">Done</button> ' +
+      '<a href="https://wa.me/'+esc(e.phone)+'" target="_blank"><button class="green" style="padding:4px 8px;font-size:11px">📱</button></a> ' +
+      '<button class="red" style="padding:4px 8px;font-size:11px" onclick="delEnquiry(\''+e.id+'\')">×</button>' +
+      '</td></tr>';
+    }).join('') + '</tbody></table></div>';
+};
+
+window.setEnqStatus = async function(id, status) {
+  try {
+    await updateDoc(doc(db, 'enquiries', id), { status });
+    await loadEnquiries(); updateDash();
+  } catch(e) { alert('❌ Error: '+e.message); }
+};
+
+window.delEnquiry = async function(id) {
+  if (!confirm('Enquiry delete karni hai?')) return;
+  try {
+    await deleteDoc(doc(db, 'enquiries', id));
+    await loadEnquiries(); updateDash();
+  } catch(e) { alert('❌ Error: '+e.message); }
+};
+
+// ============ AI REQUESTS ============
 async function loadAi() {
   const snap = await getDocs(collection(db, 'aiRequests'));
   cache.aiRequests = snap.docs.map(d => ({id:d.id, ...d.data()}));
   cache.aiRequests.sort((a,b)=>(b.at?.seconds||0)-(a.at?.seconds||0));
   const el = document.getElementById('aiList');
-  el.innerHTML = cache.aiRequests.length ? '<div class="table"><table><thead><tr><th>Product</th><th>Style</th><th>Phone</th><th>Time</th></tr></thead><tbody>'+cache.aiRequests.map(a=>'<tr><td>'+(a.product||'')+'</td><td>'+(a.style||'')+'</td><td>'+(a.phone||'-')+'</td><td>'+(a.at?new Date(a.at.seconds*1000).toLocaleString():'')+'</td></tr>').join('')+'</tbody></table></div>' : '<div style="color:#999">No AI requests</div>';
+  el.innerHTML = cache.aiRequests.length ? '<div class="table"><table><thead><tr><th>Product</th><th>Style</th><th>Phone</th><th>Time</th></tr></thead><tbody>'+cache.aiRequests.map(a=>'<tr><td>'+esc(a.product)+'</td><td>'+esc(a.style)+'</td><td>'+esc(a.phone||'-')+'</td><td>'+(a.at?new Date(a.at.seconds*1000).toLocaleString():'')+'</td></tr>').join('')+'</tbody></table></div>' : '<div style="color:#999">Abhi koi AI request nahi</div>';
 }
 
+// ============ VISITORS (last 100 only) ============
 async function loadVisitors() {
   const snap = await getDocs(collection(db, 'visitors'));
-  cache.visitors = snap.docs.map(d => ({id:d.id, ...d.data()}));
-  cache.visitors.sort((a,b)=>(b.at?.seconds||0)-(a.at?.seconds||0));
+  let all = snap.docs.map(d => ({id:d.id, ...d.data()}));
+  all.sort((a,b)=>(b.at?.seconds||0)-(a.at?.seconds||0));
+  cache.visitors = all.slice(0, 100);
   const el = document.getElementById('visList');
-  el.innerHTML = cache.visitors.length ? '<div class="table"><table><thead><tr><th>Page</th><th>Time</th></tr></thead><tbody>'+cache.visitors.slice(0,100).map(v=>'<tr><td>'+(v.page||'home')+'</td><td>'+(v.at?new Date(v.at.seconds*1000).toLocaleString():'')+'</td></tr>').join('')+'</tbody></table></div>' : '<div style="color:#999">No visitors</div>';
+  el.innerHTML = cache.visitors.length ? '<div class="table"><table><thead><tr><th>Page</th><th>Time</th></tr></thead><tbody>'+cache.visitors.map(v=>'<tr><td>'+esc(v.page||'home')+'</td><td>'+(v.at?new Date(v.at.seconds*1000).toLocaleString():'')+'</td></tr>').join('')+'</tbody></table></div>' : '<div style="color:#999">Abhi koi visitor nahi</div>';
 }
 
+// ============ SETTINGS (fixed document: settings/site) ============
 async function loadSettings() {
-  const snap = await getDocs(collection(db, 'settings'));
-  if (snap.docs.length) {
-    const s = snap.docs[0].data();
-    document.getElementById('sWhatsapp').value = s.whatsapp || SITE.whatsapp;
-    document.getElementById('sFacebook').value = s.facebook || SITE.facebook;
-    document.getElementById('sInstagram').value = s.instagram || SITE.instagram;
-    document.getElementById('sYoutube').value = s.youtube || SITE.youtube;
-  } else {
-    document.getElementById('sWhatsapp').value = SITE.whatsapp;
-    document.getElementById('sFacebook').value = SITE.facebook;
-    document.getElementById('sInstagram').value = SITE.instagram;
-    document.getElementById('sYoutube').value = SITE.youtube;
-  }
+  try {
+    const snap = await getDocs(collection(db, 'settings'));
+    const siteDoc = snap.docs.find(d => d.id === 'site') || snap.docs[0];
+    if (siteDoc) {
+      const s = siteDoc.data();
+      document.getElementById('sWhatsapp').value = s.whatsapp || SITE.whatsapp;
+      document.getElementById('sFacebook').value = s.facebook || SITE.facebook;
+      document.getElementById('sInstagram').value = s.instagram || SITE.instagram;
+      document.getElementById('sYoutube').value = s.youtube || SITE.youtube;
+    } else {
+      document.getElementById('sWhatsapp').value = SITE.whatsapp;
+      document.getElementById('sFacebook').value = SITE.facebook;
+      document.getElementById('sInstagram').value = SITE.instagram;
+      document.getElementById('sYoutube').value = SITE.youtube;
+    }
+  } catch(e) { console.log('Settings load error:', e); }
 }
 
 window.saveSettings = async function() {
@@ -478,12 +664,22 @@ window.saveSettings = async function() {
     youtube: document.getElementById('sYoutube').value.trim(),
     at: serverTimestamp()
   };
-  const snap = await getDocs(collection(db, 'settings'));
-  if (snap.docs.length) await updateDoc(doc(db, 'settings', snap.docs[0].id), data);
-  else await addDoc(collection(db, 'settings'), data);
-  alert('✅ Settings saved!');
+  try {
+    // Fixed document settings/site use karo
+    const siteRef = doc(db, 'settings', 'site');
+    const snap = await getDocs(collection(db, 'settings'));
+    const exists = snap.docs.some(d => d.id === 'site');
+    if (exists) await updateDoc(siteRef, data);
+    else await addDoc(collection(db, 'settings'), { ...data, id: 'site' }).catch(async () => {
+      // Fallback: agar addDoc fail ho, to setDoc use karo
+      const { setDoc } = await import("https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js");
+      await setDoc(siteRef, data);
+    });
+    alert('✅ Settings save ho gayi!');
+  } catch(e) { alert('❌ Error: '+e.message); }
 };
 
+// ============ EXPORT ============
 window.exportData = function() {
   const blob = new Blob([JSON.stringify(cache, null, 2)], {type:'application/json'});
   const a = document.createElement('a');
