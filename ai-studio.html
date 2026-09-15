@@ -22,7 +22,6 @@ img{max-width:100%;display:block}
 .btn{border:0;border-radius:9px;padding:12px 20px;background:var(--gold);color:#fff;font-weight:700;cursor:pointer;display:inline-block;font-size:14px;transition:.2s;text-align:center}
 .btn:hover{background:var(--gold-dark);transform:translateY(-1px)}
 .btn.dark{background:var(--dark)}
-.btn.dark:hover{background:#333}
 .btn.green{background:#25D366}
 .btn.green:hover{background:#128C7E}
 .btn:disabled{opacity:.5;cursor:not-allowed}
@@ -58,7 +57,7 @@ img{max-width:100%;display:block}
 .products-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-top:14px}
 .product-card{border:2px solid var(--light);border-radius:12px;overflow:hidden;cursor:pointer;transition:.2s;background:#fff}
 .product-card:hover{border-color:var(--gold);transform:translateY(-2px)}
-.product-card.active{border-color:var(--gold);background:#fff3d2}
+.product-card.active{border-color:var(--gold);background:#fff3d2;box-shadow:0 0 0 3px rgba(200,154,50,.2)}
 .product-card img{width:100%;height:120px;object-fit:cover}
 .product-card .info{padding:10px}
 .product-card .code{font-size:10px;font-weight:800;color:var(--gold-dark);letter-spacing:1px}
@@ -72,9 +71,9 @@ img{max-width:100%;display:block}
 .upload-area .hint{font-size:12px;color:#999}
 .upload-area input{display:none}
 
-.preview-box{margin-top:16px;position:relative}
-.preview-box img{max-width:100%;max-height:400px;border-radius:12px;border:1px solid var(--light);object-fit:contain;margin:auto}
-.remove-btn{position:absolute;top:10px;right:10px;background:rgba(200,57,43,.9);color:#fff;border:0;border-radius:50%;width:34px;height:34px;font-size:16px;cursor:pointer;font-weight:700}
+.preview-box{margin-top:16px;position:relative;text-align:center}
+.preview-box img{max-width:100%;max-height:400px;border-radius:12px;border:1px solid var(--light);object-fit:contain;margin:auto;display:block}
+.remove-btn{position:absolute;top:10px;right:calc(50% - 200px);background:rgba(200,57,43,.9);color:#fff;border:0;border-radius:50%;width:34px;height:34px;font-size:16px;cursor:pointer;font-weight:700}
 
 .selected-summary{background:#fdf6e3;border:1px solid #f0e0b0;border-radius:12px;padding:16px;margin:16px 0;font-size:13px}
 .selected-summary b{color:var(--gold-dark)}
@@ -85,9 +84,19 @@ img{max-width:100%;display:block}
 .action-bar{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
 .action-bar .btn{flex:1;min-width:180px;padding:16px}
 
+.generating-box{text-align:center;padding:40px 20px;background:#faf8f4;border-radius:14px;margin-top:20px}
+.spinner{width:50px;height:50px;border:5px solid var(--light);border-top-color:var(--gold);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 20px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.generating-box h3{color:var(--gold-dark);margin-bottom:8px}
+.generating-box p{color:var(--gray);font-size:14px}
+
 .result-box{background:#fff;border:2px solid var(--gold);border-radius:16px;padding:24px;margin-top:20px;text-align:center}
-.result-box h3{color:var(--gold-dark);margin-bottom:12px;font-size:20px}
-.result-box .prompt-text{background:#faf8f4;border:1px solid var(--light);border-radius:10px;padding:16px;font-size:13px;color:#555;text-align:left;margin:14px 0;line-height:1.7;max-height:200px;overflow:auto}
+.result-box h3{color:var(--gold-dark);margin-bottom:16px;font-size:20px}
+.result-box img{max-width:100%;border-radius:12px;margin:14px auto;box-shadow:0 10px 30px rgba(0,0,0,.1)}
+.result-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+.result-actions .btn{min-width:160px}
+
+.error-box{background:#fadbd8;border:1px solid #f5b7b1;border-radius:12px;padding:16px;color:#922b21;text-align:center;margin-top:16px}
 
 .footer{background:var(--dark);color:#fff;padding:40px 5%;text-align:center;margin-top:60px}
 .footer p{color:#999;font-size:13px;line-height:1.7}
@@ -103,12 +112,13 @@ img{max-width:100%;display:block}
   .folders-row{grid-template-columns:repeat(2,1fr)}
   .products-row{grid-template-columns:repeat(2,1fr)}
   .action-bar .btn{min-width:100%}
+  .remove-btn{right:10px}
 }
 </style>
 </head>
 <body>
 
-<div class="top">SHAMA INTERIOR • AI INTERIOR STUDIO • BETA</div>
+<div class="top">SHAMA INTERIOR • AI INTERIOR STUDIO</div>
 
 <nav class="nav">
   <a href="index.html"><img src="logo.png" class="logo" alt="SHAMA INTERIOR"></a>
@@ -124,14 +134,12 @@ img{max-width:100%;display:block}
 <div class="page-header">
   <div class="eyebrow">AI INTERIOR STUDIO</div>
   <h1>See it on <span class="gold">your wall</span></h1>
-  <p>Upload your wall photo, select any material, and get a personalized AI preview. 5 free designs per day.</p>
+  <p>Upload your wall photo, select any material, and our AI will show you exactly how it will look. 10 free designs per day.</p>
 </div>
 
 <div class="steps-container">
 
-  <div id="limitBox" class="limit-box">
-    ⏳ Loading daily limit...
-  </div>
+  <div id="limitBox" class="limit-box">⏳ Loading daily limit...</div>
 
   <div class="step-card">
     <div class="step-header">
@@ -151,7 +159,7 @@ img{max-width:100%;display:block}
   <div class="step-card">
     <div class="step-header">
       <div class="step-num">2</div>
-      <div><h3>Select Material Folder</h3><p>Kaunsa material use karna hai?</p></div>
+      <div><h3>Select Material</h3><p>Kaunsa material use karna hai?</p></div>
     </div>
     <div id="foldersRow" class="folders-row">
       <div style="color:#999;font-size:13px;padding:20px;text-align:center;grid-column:1/-1">Pehle surface select karo</div>
@@ -162,7 +170,7 @@ img{max-width:100%;display:block}
   <div class="step-card">
     <div class="step-header">
       <div class="step-num">3</div>
-      <div><h3>Upload Your Wall Photo</h3><p>Apni wall / ceiling / room ki photo daalo</p></div>
+      <div><h3>Upload Your Room Photo</h3><p>Apni wall / ceiling / room ki clear photo daalo</p></div>
     </div>
     <div class="upload-area" id="uploadArea" onclick="document.getElementById('photoInput').click()">
       <div class="icon">📸</div>
@@ -176,43 +184,35 @@ img{max-width:100%;display:block}
   <div class="step-card">
     <div class="step-header">
       <div class="step-num">4</div>
-      <div><h3>Generate AI Design</h3><p>Sab kuch ready? Generate dabao</p></div>
+      <div><h3>Generate AI Design</h3><p>30-60 seconds mein ready hoga</p></div>
     </div>
     <div id="selectedSummary" class="selected-summary">
       Surface: <b>—</b> • Material: <b>—</b> • Product: <b>—</b>
     </div>
     <div class="action-bar">
-      <button class="btn" id="generateBtn" onclick="prepareAI()">🎨 Prepare AI Design</button>
-      <button class="btn green" id="whatsappBtn" onclick="sendWhatsApp()" disabled>💬 Send on WhatsApp</button>
+      <button class="btn" id="generateBtn" onclick="generateAI()">🎨 Generate AI Design</button>
     </div>
-    <div id="resultBox" class="hide"></div>
+    <div id="resultRoot"></div>
   </div>
 
 </div>
 
 <footer class="footer">
-  <p><b class="gold">SHAMA INTERIOR</b> • AI Studio (Beta)</p>
+  <p><b class="gold">SHAMA INTERIOR</b> • AI Studio</p>
   <p style="margin-top:8px">Questions? <a href="https://wa.me/918658712172" target="_blank">WhatsApp us</a></p>
 </footer>
 
 <a class="wa-float" href="https://wa.me/918658712172?text=Hello%20SHAMA%20INTERIOR" target="_blank">💬</a>
 
 <script type="module">
-import { db, collection, getDocs, addDoc, serverTimestamp } from './firebase-config.js';
+import { db, collection, getDocs, addDoc, doc, getDoc, serverTimestamp } from './firebase-config.js';
 
 const WA_NUMBER = "918658712172";
 const DAILY_LIMIT = 10;
-const WA_LINK = "https://wa.me/" + WA_NUMBER;
+const GEMINI_MODEL = "gemini-2.5-flash-image";
+const GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/" + GEMINI_MODEL + ":generateContent";
 
-let state = {
-  surface: '',
-  folder: null,
-  product: null,
-  photo: null,
-  photoName: '',
-  prompt: ''
-};
-
+let state = { surface:'', folder:null, product:null, photoBase64:null, photoMime:'image/jpeg', prompt:'', apiKey:'' };
 let cache = { folders: [], products: [] };
 
 // ============ ESCAPE ============
@@ -221,7 +221,24 @@ function esc(s) {
   return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 }
 
-// ============ LOAD DATA FROM FIREBASE ============
+// ============ LOAD API KEY FROM FIRESTORE ============
+async function loadApiKey() {
+  try {
+    const snap = await getDoc(doc(db, 'config', 'apiKeys'));
+    if (snap.exists() && snap.data().gemini) {
+      state.apiKey = snap.data().gemini;
+      console.log('✅ API key loaded');
+      return true;
+    }
+    console.warn('⚠️ API key not found in Firestore');
+    return false;
+  } catch(e) {
+    console.error('API key load error:', e);
+    return false;
+  }
+}
+
+// ============ LOAD DATA ============
 async function loadData() {
   try {
     const [fSnap, pSnap] = await Promise.all([
@@ -236,35 +253,28 @@ async function loadData() {
   }
 }
 
-// ============ DAILY LIMIT (localStorage based) ============
+// ============ DAILY LIMIT ============
 function getTodayKey() {
   const d = new Date();
   return 'shama_ai_' + d.getFullYear() + '_' + (d.getMonth()+1) + '_' + d.getDate();
 }
-
-function getTodayCount() {
-  return parseInt(localStorage.getItem(getTodayKey()) || '0');
-}
-
+function getTodayCount() { return parseInt(localStorage.getItem(getTodayKey()) || '0'); }
 function incrementCount() {
-  const c = getTodayCount() + 1;
-  localStorage.setItem(getTodayKey(), c);
+  localStorage.setItem(getTodayKey(), getTodayCount() + 1);
   updateLimitBox();
 }
-
 function updateLimitBox() {
-  const used = getTodayCount();
-  const remaining = Math.max(0, DAILY_LIMIT - used);
+  const remaining = Math.max(0, DAILY_LIMIT - getTodayCount());
   const box = document.getElementById('limitBox');
   if (remaining > 0) {
     box.innerHTML = '🎨 <b>' + remaining + '</b> free designs remaining today';
   } else {
-    box.innerHTML = '⚠️ <b>Aaj ka limit khatam ho gaya.</b> Kal 5 aur free designs milengi. Zyada chahiye? <a href="' + WA_LINK + '?text=Hello%2C%20I%20want%20more%20AI%20designs" target="_blank" style="color:#7e5109;font-weight:700">WhatsApp karo</a>';
+    box.innerHTML = '⚠️ Aaj ka limit khatam. Kal 10 aur free designs milengi. <a href="https://wa.me/' + WA_NUMBER + '" target="_blank" style="color:#7e5109;font-weight:700">Zyada chahiye? WhatsApp karo</a>';
     document.getElementById('generateBtn').disabled = true;
   }
 }
 
-// ============ SURFACE SELECT ============
+// ============ SURFACE ============
 window.selectUsage = function(el, surface) {
   document.querySelectorAll('.usage-option').forEach(x => x.classList.remove('active'));
   el.classList.add('active');
@@ -276,17 +286,16 @@ window.selectUsage = function(el, surface) {
   updateSummary();
 };
 
-// ============ RENDER FOLDERS (filtered by surface) ============
+// ============ FOLDERS ============
 function renderFolders() {
   const el = document.getElementById('foldersRow');
   if (!state.surface) {
     el.innerHTML = '<div style="color:#999;font-size:13px;padding:20px;text-align:center;grid-column:1/-1">Pehle surface select karo</div>';
     return;
   }
-  // Filter: folder.usage includes surface OR folder.usage includes 'Wall' (universal)
   const filtered = cache.folders.filter(f => {
-    const usage = f.usage || [];
-    return usage.includes(state.surface) || usage.includes('Wall');
+    const u = f.usage || [];
+    return u.includes(state.surface) || u.includes('Wall');
   });
   if (!filtered.length) {
     el.innerHTML = '<div style="color:#999;font-size:13px;padding:20px;text-align:center;grid-column:1/-1">Is surface ke liye koi material nahi hai</div>';
@@ -296,25 +305,25 @@ function renderFolders() {
     const count = cache.products.filter(p => p.folderId === f.id).length;
     const active = state.folder && state.folder.id === f.id ? ' active' : '';
     return '<div class="folder-btn' + active + '" onclick="selectFolder(\'' + f.id + '\')">' +
-      '<div class="icon">📁</div>' +
-      '<div class="name">' + esc(f.name) + '</div>' +
-      '<div class="count">' + count + ' items</div>' +
-      '</div>';
+      '<div class="icon">📁</div><div class="name">' + esc(f.name) + '</div>' +
+      '<div class="count">' + count + ' items</div></div>';
   }).join('');
 }
 
-// ============ SELECT FOLDER ============
 window.selectFolder = function(folderId) {
-  const folder = cache.folders.find(f => f.id === folderId);
-  if (!folder) return;
-  state.folder = folder;
-  state.product = null;
-  renderFolders();
-  renderProducts();
-  updateSummary();
+  const f = cache.folders.find(x => x.id === folderId);
+  if (!f) return;
+  state.folder = f; state.product = null;
+  renderFolders(); renderProducts(); updateSummary();
 };
 
-// ============ RENDER PRODUCTS ============
+// ============ PRODUCTS ============
+function placeholderImg(name) {
+  return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200"><rect width="100%" height="100%" fill="#eeeae2"/><text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-family="Arial" font-size="14" fill="#a18b5d">' + (name||'SHAMA') + '</text></svg>'
+  );
+}
+
 function renderProducts() {
   const el = document.getElementById('productsRow');
   if (!state.folder) { el.innerHTML = ''; return; }
@@ -327,33 +336,21 @@ function renderProducts() {
     const active = state.product && state.product.id === p.id ? ' active' : '';
     const imgSrc = p.img || placeholderImg(state.folder.name);
     return '<div class="product-card' + active + '" onclick="selectProduct(\'' + p.id + '\')">' +
-      '<img src="' + esc(imgSrc) + '" onerror="this.src=\'' + placeholderImg(state.folder.name).replace(/'/g, "\\'") + '\'" alt="' + esc(p.name) + '">' +
-      '<div class="info">' +
-      '<div class="code">' + esc(p.code) + '</div>' +
-      '<div class="name">' + esc(p.name) + '</div>' +
-      '</div></div>';
+      '<img src="' + esc(imgSrc) + '" onerror="this.src=\'' + placeholderImg(state.folder.name).replace(/'/g, "\\'") + '\'">' +
+      '<div class="info"><div class="code">' + esc(p.code) + '</div><div class="name">' + esc(p.name) + '</div></div></div>';
   }).join('');
 }
 
-function placeholderImg(name) {
-  return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(
-    '<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200"><rect width="100%" height="100%" fill="#eeeae2"/><text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-family="Arial" font-size="14" fill="#a18b5d">' + (name||'SHAMA') + '</text></svg>'
-  );
-}
-
-// ============ SELECT PRODUCT ============
-window.selectProduct = function(productId) {
-  const product = cache.products.find(p => p.id === productId);
-  if (!product) return;
-  state.product = product;
-  renderProducts();
-  updateSummary();
+window.selectProduct = function(id) {
+  const p = cache.products.find(x => x.id === id);
+  if (!p) return;
+  state.product = p;
+  renderProducts(); updateSummary();
 };
 
-// ============ UPDATE SUMMARY ============
 function updateSummary() {
-  const el = document.getElementById('selectedSummary');
-  el.innerHTML = 'Surface: <b>' + esc(state.surface || '—') + '</b> • ' +
+  document.getElementById('selectedSummary').innerHTML =
+    'Surface: <b>' + esc(state.surface || '—') + '</b> • ' +
     'Material: <b>' + esc(state.folder ? state.folder.name : '—') + '</b> • ' +
     'Product: <b>' + esc(state.product ? (state.product.code + ' — ' + state.product.name) : '—') + '</b>';
 }
@@ -364,161 +361,204 @@ window.handlePhoto = function(input) {
   if (!file) return;
   if (file.size > 5 * 1024 * 1024) { alert('❌ Photo 5 MB se chhoti honi chahiye'); input.value=''; return; }
   if (!file.type.startsWith('image/')) { alert('❌ Sirf image file upload karo'); input.value=''; return; }
+  state.photoMime = file.type;
   const reader = new FileReader();
   reader.onload = (e) => {
-    state.photo = e.target.result;
-    state.photoName = file.name;
+    state.photoBase64 = e.target.result.split(',')[1]; // base64 only
     const prev = document.getElementById('photoPreview');
     prev.classList.remove('hide');
-    prev.innerHTML = '<button class="remove-btn" onclick="removePhoto()">×</button><img src="' + e.target.result + '" alt="preview">';
+    prev.innerHTML = '<button class="remove-btn" onclick="removePhoto()">×</button><img src="' + e.target.result + '">';
   };
   reader.readAsDataURL(file);
 };
 
 window.removePhoto = function() {
-  state.photo = null;
-  state.photoName = '';
+  state.photoBase64 = null;
   document.getElementById('photoPreview').classList.add('hide');
   document.getElementById('photoInput').value = '';
 };
 
 // ============ DRAG & DROP ============
 const uploadArea = document.getElementById('uploadArea');
-['dragenter','dragover'].forEach(evt => {
-  uploadArea.addEventListener(evt, e => { e.preventDefault(); uploadArea.classList.add('dragover'); });
-});
-['dragleave','drop'].forEach(evt => {
-  uploadArea.addEventListener(evt, e => { e.preventDefault(); uploadArea.classList.remove('dragover'); });
-});
+['dragenter','dragover'].forEach(evt => uploadArea.addEventListener(evt, e => { e.preventDefault(); uploadArea.classList.add('dragover'); }));
+['dragleave','drop'].forEach(evt => uploadArea.addEventListener(evt, e => { e.preventDefault(); uploadArea.classList.remove('dragover'); }));
 uploadArea.addEventListener('drop', e => {
   const file = e.dataTransfer.files[0];
   if (file) {
-    const dt = new DataTransfer();
-    dt.items.add(file);
+    const dt = new DataTransfer(); dt.items.add(file);
     document.getElementById('photoInput').files = dt.files;
     handlePhoto(document.getElementById('photoInput'));
   }
 });
+</script>
 
-// ============ PREPARE AI DESIGN ============
-window.prepareAI = async function() {
-  // Validation
+<script>
+// ============ GENERATE AI DESIGN ============
+window.generateAI = async function() {
   if (!state.surface) return alert('⚠️ Surface select karo (Step 1)');
   if (!state.folder) return alert('⚠️ Material folder select karo (Step 2)');
   if (!state.product) return alert('⚠️ Product select karo (Step 2)');
-  if (!state.photo) return alert('⚠️ Photo upload karo (Step 3)');
-  
-  // Limit check
-  if (getTodayCount() >= DAILY_LIMIT) {
-    alert('⚠️ Aaj ka limit khatam. Kal 5 aur free designs milengi.');
+  if (!state.photoBase64) return alert('⚠️ Photo upload karo (Step 3)');
+  if (!state.apiKey) return alert('⚠️ AI service not ready. Page refresh karo.');
+
+  const used = getTodayCount();
+  if (used >= DAILY_LIMIT) {
+    alert('⚠️ Aaj ka limit khatam. Kal 10 aur free designs milengi.');
     return;
   }
-  
+
   const btn = document.getElementById('generateBtn');
+  const resultRoot = document.getElementById('resultRoot');
   btn.disabled = true;
-  btn.textContent = '⏳ Preparing...';
-  
+  btn.textContent = '⏳ Generating...';
+
+  // Show loading
+  resultRoot.innerHTML = '<div class="generating-box">' +
+    '<div class="spinner"></div>' +
+    '<h3>🎨 AI Design Generate Ho Rahi Hai...</h3>' +
+    '<p>Thoda intezaar karein — 30-60 seconds lagenge</p>' +
+    '<p style="font-size:12px;color:#999;margin-top:10px">Aapki photo + selected material AI ko bheji ja rahi hai</p>' +
+    '</div>';
+
   // Prompt banao
   const surfaceMap = {
-    'Wall': 'wall',
-    'Ceiling': 'ceiling',
-    'Floor': 'floor',
-    'TV Unit': 'TV unit',
-    'Kitchen': 'kitchen wall',
-    'Counter Table': 'counter table surface'
+    'Wall': 'wall', 'Ceiling': 'ceiling', 'Floor': 'floor',
+    'TV Unit': 'TV unit', 'Kitchen': 'kitchen', 'Counter Table': 'counter table'
   };
   const surfaceWord = surfaceMap[state.surface] || state.surface.toLowerCase();
-  
-  state.prompt = 'Photorealistic interior design visualization.\n\n' +
-    'APPLY: SHAMA INTERIOR premium material — "' + state.product.name + '" (Code: ' + state.product.code + ')' +
-    (state.folder ? ' from category "' + state.folder.name + '"' : '') +
-    (state.product.color ? ', Colour: ' + state.product.color : '') +
-    (state.product.size ? ', Panel Size: ' + state.product.size : '') +
-    '\n\nSURFACE: Apply this material to the ' + surfaceWord + ' of the uploaded room photo.' +
-    '\n\nREQUIREMENTS:\n' +
-    '• Keep the original room architecture, furniture, doors, windows and camera perspective intact\n' +
-    '• Apply the material with accurate scale, texture and realistic seams\n' +
-    '• Add realistic lighting, shadows and reflections\n' +
-    '• Match the colour and finish of the selected panel\n' +
-    '• Premium, professional interior photography quality\n' +
-    '• No distortion, no artificial look';
-  
-  // Save to Firebase
+
+  const promptText = 'You are a professional interior designer AI. ' +
+    'Take the uploaded room photo and REPLACE the ' + surfaceWord + ' surface with the following premium material:\n\n' +
+    'MATERIAL: "' + state.product.name + '" (Code: ' + state.product.code + ')' +
+    (state.folder ? '\nCATEGORY: ' + state.folder.name : '') +
+    (state.product.color ? '\nCOLOUR: ' + state.product.color : '') +
+    (state.product.size ? '\nPANEL SIZE: ' + state.product.size : '') +
+    '\n\nCRITICAL RULES:\n' +
+    '1. Keep the original room architecture, furniture, doors, windows, ceiling lines and camera angle EXACTLY the same\n' +
+    '2. Only change the ' + surfaceWord + ' surface texture/material\n' +
+    '3. Apply the material with realistic scale, panel seams, depth and texture\n' +
+    '4. Match lighting, shadows and reflections to the existing room\n' +
+    '5. Result must look like a real photograph of the actual room with the new material installed\n' +
+    '6. Photorealistic quality, no artificial look, no distortion\n' +
+    '7. Output a single high-quality image';
+
   try {
-    await addDoc(collection(db, 'aiRequests'), {
-      product: state.product.code + ' — ' + state.product.name,
-      productCode: state.product.code,
-      folder: state.folder.name,
-      surface: state.surface,
-      style: 'Realistic Interior',
-      phone: '',
-      status: 'pending',
-      prompt: state.prompt,
-      photoName: state.photoName,
-      hasPhoto: true,
-      at: serverTimestamp()
+    const response = await fetch(GEMINI_ENDPOINT + '?key=' + state.apiKey, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{
+          parts: [
+            { text: promptText },
+            { inline_data: { mime_type: state.photoMime, data: state.photoBase64 } }
+          ]
+        }],
+        generationConfig: { responseModalities: ['IMAGE', 'TEXT'] }
+      })
     });
+
+    if (!response.ok) {
+      const errData = await response.json().catch(() => ({}));
+      console.error('Gemini error:', errData);
+      throw new Error(errData.error?.message || 'AI service error. Kal dobara try karo.');
+    }
+
+    const data = await response.json();
+    const candidate = data.candidates?.[0];
+    const parts = candidate?.content?.parts || [];
+    let imageData = null;
+    let textReply = '';
+
+    for (const part of parts) {
+      if (part.inlineData || part.inline_data) {
+        const inline = part.inlineData || part.inline_data;
+        imageData = { mime: inline.mimeType || inline.mime_type, data: inline.data };
+      }
+      if (part.text) textReply += part.text;
+    }
+
+    if (!imageData) {
+      throw new Error('AI ne image generate nahi ki. Photo clear ho ya material description theek ho.');
+    }
+
+    // Save to Firestore
+    try {
+      await addDoc(collection(db, 'aiRequests'), {
+        product: state.product.code + ' — ' + state.product.name,
+        productCode: state.product.code,
+        folder: state.folder.name,
+        surface: state.surface,
+        style: 'Realistic Interior',
+        status: 'completed',
+        hasResult: true,
+        at: serverTimestamp()
+      });
+    } catch(e) { console.log('Firestore save skip:', e); }
+
+    incrementCount();
+
+    // Show result
+    const imgSrc = 'data:' + imageData.mime + ';base64,' + imageData.data;
+    const downloadName = 'SHAMA-AI-' + state.product.code + '-' + Date.now() + '.png';
+
+    resultRoot.innerHTML = '<div class="result-box">' +
+      '<h3>✅ Aapki AI Design Ready Hai!</h3>' +
+      '<img src="' + imgSrc + '" alt="AI Design">' +
+      '<div class="result-actions">' +
+        '<a class="btn" download="' + downloadName + '" href="' + imgSrc + '">📥 Download</a>' +
+        '<button class="btn green" onclick="sendResultWhatsApp(\'' + imgSrc.slice(0,30) + '\')">💬 Send on WhatsApp</button>' +
+        '<button class="btn dark" onclick="resetAll()">🔄 Naya Design</button>' +
+      '</div>' +
+      '<p style="color:#999;font-size:12px;margin-top:14px">Design pasand aayi? WhatsApp pe bhejo — hum quote bhejenge.</p>' +
+      '</div>';
+
+    // Store for WhatsApp
+    window.__lastResult = { imgSrc, downloadName };
+
+    resultRoot.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
   } catch(e) {
-    console.log('Firebase save skip:', e);
+    console.error('Generate error:', e);
+    resultRoot.innerHTML = '<div class="error-box">' +
+      '<b>❌ Error:</b> ' + esc(e.message) + '<br><br>' +
+      '<button class="btn dark" onclick="resetAll()">🔄 Dobara Try Karo</button>' +
+      '</div>';
   }
-  
-  // Increment daily count
-  incrementCount();
-  
-  // Result box dikhao
-  const resultBox = document.getElementById('resultBox');
-  resultBox.classList.remove('hide');
-  resultBox.innerHTML = '<h3>✅ AI Request Ready!</h3>' +
-    '<p style="color:#666;font-size:13px;margin-bottom:14px">Neeche button dabao — request WhatsApp pe jayegi, hum aapko AI design bana ke bhejenge.</p>' +
-    '<div class="prompt-text"><b>AI Prompt:</b><br>' + esc(state.prompt).replace(/\n/g, '<br>') + '</div>';
-  resultBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  
-  // WhatsApp button enable karo
-  document.getElementById('whatsappBtn').disabled = false;
-  document.getElementById('whatsappBtn').classList.add('pulse');
-  
+
   btn.disabled = false;
-  btn.textContent = '🎨 Prepare AI Design';
+  btn.textContent = '🎨 Generate AI Design';
 };
 
-// ============ SEND WHATSAPP ============
-window.sendWhatsApp = function() {
-  if (!state.prompt) return alert('Pehle "Prepare AI Design" dabao');
-  if (!state.photo) return alert('Photo upload karo');
-  
+// ============ SEND RESULT ON WHATSAPP ============
+window.sendResultWhatsApp = function() {
   const msg = 'Hello SHAMA INTERIOR,\n\n' +
-    '🎨 *AI Design Request*\n\n' +
-    '📍 *Surface:* ' + state.surface + '\n' +
-    '📁 *Material:* ' + (state.folder ? state.folder.name : '—') + '\n' +
-    '🔖 *Product:* ' + (state.product ? state.product.code + ' — ' + state.product.name : '—') + '\n' +
-    (state.product && state.product.size ? '📏 *Size:* ' + state.product.size + '\n' : '') +
-    (state.product && state.product.color ? '🎨 *Colour:* ' + state.product.color + '\n' : '') +
-    '\n📸 *Photo:* Attached in this chat (please send the wall photo)\n\n' +
-    '✨ *AI Prompt:*\n' + state.prompt + '\n\n' +
-    'Please send me the AI design preview.';
-  
-  window.open(WA_LINK + '?text=' + encodeURIComponent(msg), '_blank');
-  
-  // Update status
-  document.getElementById('resultBox').innerHTML = '<h3>✅ Sent to WhatsApp!</h3>' +
-    '<p style="color:#666;font-size:14px">Hum aapko WhatsApp pe AI design bhejenge. Photo bhi attach karo chat mein.</p>' +
-    '<p style="color:#999;font-size:12px;margin-top:14px">Note: Aap photo WhatsApp chat mein manually attach karo — browser se automatically nahi ja sakti.</p>';
+    '🎨 *AI Design Generated*\n\n' +
+    '📍 Surface: ' + state.surface + '\n' +
+    '📁 Material: ' + (state.folder ? state.folder.name : '—') + '\n' +
+    '🔖 Product: ' + (state.product ? state.product.code + ' — ' + state.product.name : '—') + '\n' +
+    (state.product && state.product.size ? '📏 Size: ' + state.product.size + '\n' : '') +
+    (state.product && state.product.color ? '🎨 Colour: ' + state.product.color + '\n' : '') +
+    '\n📸 *Meri AI design image attached hai is chat mein.*\n\n' +
+    'Please send me quotation.';
+  window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
+  alert('✅ WhatsApp khul gaya. Image download karke chat mein attach karo.');
+};
+
+// ============ RESET ============
+window.resetAll = function() {
+  document.getElementById('resultRoot').innerHTML = '';
+  document.getElementById('generateBtn').disabled = false;
+  document.getElementById('generateBtn').textContent = '🎨 Generate AI Design';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
 // ============ INIT ============
-loadData().then(() => {
+(async function init() {
+  await loadApiKey();
+  await loadData();
   updateLimitBox();
   updateSummary();
-});
-
-// Check selected product from homepage
-const stored = localStorage.getItem('shama_selected_product');
-if (stored) {
-  try {
-    const sel = JSON.parse(stored);
-    console.log('Pre-selected product:', sel);
-  } catch(e) {}
-}
+})();
 </script>
 </body>
 </html>
